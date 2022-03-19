@@ -31,11 +31,27 @@ void (timer_int_handler)() {
   printf("%s is not yet implemented!\n", __func__);
 }
 
-int (timer_get_conf)(uint8_t timer, uint8_t *st) {
-  /* To be implemented by the students */
-  printf("%s is not yet implemented!\n", __func__);
-
-  return 1;
+/* To be implemented by the students */
+int (timer_get_conf)(uint8_t timer, uint8_t *st) {  
+  if (timer != 0 && timer != 1 && timer != 2)
+    return 1;
+  
+  uint8_t read_back_cmd = TIMER_RB_CMD | TIMER_RB_COUNT_| TIMER_RB_SEL(timer);
+  sys_outb(0x43, (uint32_t) read_back_cmd);
+  
+  switch (timer) {
+  case 0:
+    if (util_sys_inb(TIMER_0, st) != 0)
+      return 1;
+    break;
+  case 1:
+    if (util_sys_inb(TIMER_1, st) != 0)
+      return 1;
+    break;
+  case 2:
+    if (util_sys_inb(TIMER_2, st) != 0)
+      return 1;
+  }
 }
 
 int (timer_display_conf)(uint8_t timer, uint8_t st,
