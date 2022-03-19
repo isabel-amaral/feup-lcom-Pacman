@@ -52,6 +52,7 @@ int (timer_get_conf)(uint8_t timer, uint8_t *st) {
     if (util_sys_inb(TIMER_2, st) != 0)
       return 1;
   }
+  return 0;
 }
 
 int (timer_display_conf)(uint8_t timer, uint8_t st,
