@@ -2,18 +2,23 @@
 
 #include <stdint.h>
 
+/* To be implemented by the students */
 int(util_get_LSB)(uint16_t val, uint8_t *lsb) {
-  /* To be implemented by the students */
-  printf("%s is not yet implemented!\n", __func__);
+  uint16_t mask = 0x00ff;
+  val &= mask;
+  *lsb = (uint8_t) val;
 
-  return 1;
+  return 0;
 }
 
+/* To be implemented by the students */
 int(util_get_MSB)(uint16_t val, uint8_t *msb) {
-  /* To be implemented by the students */
-  printf("%s is not yet implemented!\n", __func__);
+  uint16_t mask = 0xff00;
+  val &= mask;
+  val >> 8;
+  *msb = (uint8_t) val;
 
-  return 1;
+  return 0;
 }
 
 /* To be implemented by the students */
