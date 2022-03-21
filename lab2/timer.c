@@ -5,9 +5,14 @@
 
 #include "i8254.h"
 
-/* To be implemented by the students */
+
 int (timer_set_frequency)(uint8_t timer, uint32_t freq) {
-  //TODO: verificar freq valida
+
+  /* The maximum value that can be represented using 16 bits is 0xffff. In other words, 0xffff 
+  (=65 535) is the maximum value that can be loaded to the timer address. Therefore any frequency (@freq) lower than 19 is invalid since it would cause an overflow. */
+  if (freq < 19 || freq > TIMER_FREQ) 
+    return 1;
+
   uint8_t* st = (uint8_t*) malloc(sizeof(uint8_t));
 
   if (timer_get_conf(timer, st) != 0) 
