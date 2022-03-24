@@ -38,10 +38,21 @@ int (timer_set_frequency)(uint8_t timer, uint32_t freq) {
   }
 
   uint16_t counter_value = (uint16_t) TIMER_FREQ/freq;
+  uint8_t* lsb = (uint8_t*) malloc(sizeof(uint8_t));
+  uint8_t* msb = (uint8_t*) malloc(sizeof(uint8_t));
+
+  if (util_get_LSB(counter_value, lsb) != 0)
+    return 1;
+  if (util_get_MSB(counter_value, msb) != 0)
+    return 1;
+
   if (sys_outb(TIMER_CTRL, *st) != 0) 
     return 1;
-  if (sys_outb(timer_address, counter_value) != 0) 
+  if (sys_outb(timer_address, *lsb) != 0) 
     return 1;
+  if (sys_outb(timer_address, *msb) != 0) 
+    return 1;
+
   return 0;
 }
 
