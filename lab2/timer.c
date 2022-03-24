@@ -111,7 +111,7 @@ int (timer_display_conf)(uint8_t timer, uint8_t st, enum timer_status_field fiel
   else if (field == tsf_initial) {
     uint8_t mask = 0x30; // 0011 0000
     st &= mask;
-    st >> 4;
+    st = st >> 4;
 
     switch (st) {
     case 1: u.in_mode = LSB_only;
@@ -127,7 +127,7 @@ int (timer_display_conf)(uint8_t timer, uint8_t st, enum timer_status_field fiel
   else if (field == tsf_mode) {
     uint8_t mask = 0x0e; // 0000 1110
     st &= mask;
-    st >> 1;
+    st = st >> 1;
 
     if (st != 6 && st != 7)
       u.count_mode = st;
