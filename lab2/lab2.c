@@ -3,7 +3,7 @@
 
 #include <stdbool.h>
 #include <stdint.h>
-
+extern unsigned int int_counter;
 
 int main(int argc, char *argv[]) {
   // sets the language of LCF messages (can be either EN-US or PT-PT)
@@ -57,8 +57,53 @@ int(timer_test_time_base)(uint8_t timer, uint32_t freq) {
 }
 
 int(timer_test_int)(uint8_t time) {
-  /* To be implemented by the students */
-  printf("%s is not yet implemented!\n", __func__);
+  uint8_t* bit_no = (uint8_t*) malloc(sizeof(uint8_t));
+  if (timer_subscribe_int(bit_no) != 0) {
+    printf("Failed timer_subscribe_int\n");
+    return 1;
+  }
 
+  // The number os interrupts per second
+  uint32_t timer0_int_freq = 60;
+  /*To make sure the time is being counted in the right way*/
+  if (timer_set_frequency(0, timer0_int_freq) != 0) {
+    timer_unsubscribe_int();
+    printf("Failed timer_set_frequency\n");
+    return 1;
+  }
+
+  uint32_t irq_set = BIT(*bit_no);
+  int ipc_status, r;
+  message msg;
+  int counter = 0;
+  
+  while(counter != time) {
+    if((r = driver_receive(ANY, &msg, &ipc_status)) != 0 ) {
+      printf("driver_receive failed with: %d", r);
+      continue;
+    }
+
+    if (is_ipc_notify(ipc_status)) {
+      switch (_ENDPOINT_P(msg.m_source)) {
+        case HARDWARE:
+        if (msg.m_notify.interrupts & irq_set)
+          timer_int_handler();
+        break;
+        default:
+          break;
+      }
+
+      if (int_counter%60 == 0) {
+        counter++;
+        timer_print_elapsed_time();
+      }
+    }
+  }
+    
+  if (timer_unsubscribe_int() != 0) {
+    printf("Failed timer_unsubscribe_int\n");
+    return 1;
+  }
+  printf("Success\n");
   return 1;
 }
