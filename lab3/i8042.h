@@ -3,4 +3,6 @@
 
 #include <lcom/lcf.h>
 
+#define KEYBOARD_IRQ 1
+
 #endif
