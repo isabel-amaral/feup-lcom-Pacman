@@ -9,6 +9,7 @@ int ih_success;
 bool make_code;
 int num_bytes;
 int scan_bytes[2];
+bool full_scancode;
 
 int (keyboard_subscribe_int)(uint8_t *bit_no) {
   kb_hook_id = (int*) malloc(sizeof(int));
@@ -27,6 +28,7 @@ int (keyboard_unsubscribe_int)() {
 
 void (kbc_ih)() {
   ih_success = 0;
+  full_scancode = true;
 
   // Tries to read the OUT_BUF 3 times
   for (int i = 0; i < 3; i++) {
@@ -53,6 +55,7 @@ void (kbc_ih)() {
     }
 
     if (*scancode == SCAN_MSB) {
+      full_scancode = false;
       num_bytes = 2;
       scan_bytes[1] = SCAN_MSB;
     }
