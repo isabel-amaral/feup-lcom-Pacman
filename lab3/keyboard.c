@@ -64,4 +64,7 @@ void (kbc_ih)() {
         make_code = true;
     }
   }
+
+  ih_success = 1;
+  return;
 }
