@@ -1,9 +1,19 @@
 #include <lcom/lcf.h>
-
 #include <lcom/lab3.h>
 
 #include <stdbool.h>
 #include <stdint.h>
+
+#include "keyboard.h"
+#include "i8042.h"
+
+extern uint32_t cnt;
+extern int* kb_hook_id;
+extern int ih_success;
+extern bool make_code;
+extern int num_bytes;
+extern int scan_bytes[2];
+extern bool full_scancode;
 
 int main(int argc, char *argv[]) {
   // sets the language of LCF messages (can be either EN-US or PT-PT)
@@ -30,10 +40,51 @@ int main(int argc, char *argv[]) {
 }
 
 int(kbd_test_scan)() {
-  /* To be completed by the students */
-  printf("%s is not yet implemented!\n", __func__);
+  uint8_t* bit_no = (uint8_t*) malloc(sizeof(uint8_t));
+  if (keyboard_subscribe_int(bit_no) != 0) {
+    printf("Failed keyboard_subscribe_int\n");
+    return 1;
+  }
 
-  return 1;
+  uint32_t irq_set = BIT(*bit_no);
+  int ipc_status, r;
+  message msg;
+
+  while(scan_bytes[0] != ESC_CODE) {
+    if((r = driver_receive(ANY, &msg, &ipc_status)) != 0) {
+      printf("driver_receive failed with: %d", r);
+      continue;
+    }
+
+    if (is_ipc_notify(ipc_status)) {
+      switch (_ENDPOINT_P(msg.m_source)) {
+        case HARDWARE:
+        if (msg.m_notify.interrupts & irq_set) {
+          num_bytes = 1;
+          kbc_ih();
+
+          if (ih_success != 0)
+            continue;
+          if (full_scancode)
+            kbd_print_scancode(make_code, num_bytes, scan_bytes);
+        }
+        break;
+        default:
+          break;
+      }
+    }
+  }
+
+  if (kbd_print_no_sysinb(cnt) != 0) {
+    printf("Failed kbd_print_no_sysinb\n");
+    return 1;
+  }
+  if (keyboard_unsubscribe_int() != 0) {
+    printf("Failed keyboard_unsubscribe_int\n");
+    return 1;
+  }
+
+  return 0;
 }
 
 int(kbd_test_poll)() {
