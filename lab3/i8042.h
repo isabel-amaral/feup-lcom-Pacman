@@ -17,4 +17,6 @@
 // value of the most significant byte if the scanecode has 2 bytes
 #define SCAN_MSB 0xE0
 
+#define ESC_CODE 0x81
+
 #endif
