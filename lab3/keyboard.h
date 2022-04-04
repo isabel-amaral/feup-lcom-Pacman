@@ -5,6 +5,6 @@ int (keyboard_subscribe_int)();
 
 int (keyboard_unsubscribe_int)();
 
-void (kbc_ih)();
+int (kbc_ih)();
 
 #endif
