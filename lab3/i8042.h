@@ -9,6 +9,9 @@
 
 #define OUT_BUF_REG 0x60
 #define ST_REG 0x64
+#define KBC_CMD_REG 0x64
+#define READ_CMD 0x20
+#define WRITE_CMD 0x60
 
 #define OBF BIT(0)
 #define PAR_ERR BIT(7)
@@ -18,5 +21,8 @@
 #define SCAN_MSB 0xE0
 
 #define ESC_CODE 0x81
+
+// mask that will put bit 4 of command byte to 0 in order to enable kbd interrupts
+#define EN_INT 0xef
 
 #endif

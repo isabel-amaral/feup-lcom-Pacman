@@ -8,7 +8,7 @@ int* kb_hook_id;
 int ih_success;
 bool make_code;
 int num_bytes;
-int scan_bytes[2];
+uint8_t scan_bytes[2];
 bool full_scancode;
 
 int (keyboard_subscribe_int)(uint8_t *bit_no) {
@@ -70,4 +70,20 @@ void (kbc_ih)() {
 
   ih_success = 1;
   return;
+}
+
+int (kbc_enable_int)() {
+  uint8_t* status = (uint8_t*) malloc(sizeof(uint8_t));
+  if (sys_outb(KBC_CMD_REG, READ_CMD) != 0)
+    return 1;
+  if (util_sys_inb(OUT_BUF_REG, status) != 0)
+    return 1;
+
+  *status &= EN_INT;
+
+  if (sys_outb(KBC_CMD_REG, WRITE_CMD) != 0)
+    return 1;
+  if (sys_outb(OUT_BUF_REG, *status) != 0)
+    return 1;
+  return 0;
 }

@@ -7,4 +7,6 @@ int (keyboard_unsubscribe_int)();
 
 void (kbc_ih)();
 
+int (kbc_enable_int)();
+
 #endif

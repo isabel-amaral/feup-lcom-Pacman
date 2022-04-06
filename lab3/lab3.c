@@ -12,7 +12,7 @@ extern int* kb_hook_id;
 extern int ih_success;
 extern bool make_code;
 extern int num_bytes;
-extern int scan_bytes[2];
+extern uint8_t scan_bytes[2];
 extern bool full_scancode;
 
 int main(int argc, char *argv[]) {
@@ -46,6 +46,7 @@ int(kbd_test_scan)() {
     return 1;
   }
 
+  cnt = 0;
   uint32_t irq_set = BIT(*bit_no);
   int ipc_status, r;
   message msg;
@@ -88,10 +89,28 @@ int(kbd_test_scan)() {
 }
 
 int(kbd_test_poll)() {
-  /* To be completed by the students */
-  printf("%s is not yet implemented!\n", __func__);
+  cnt = 0;
 
-  return 1;
+  while(scan_bytes[0] != ESC_CODE) {
+    num_bytes = 1;
+    kbc_ih();
+
+    if (ih_success != 0)
+      continue;
+    if (full_scancode)
+      kbd_print_scancode(make_code, num_bytes, scan_bytes);
+  }
+
+  if (kbd_print_no_sysinb(cnt) != 0) {
+    printf("Failed kbd_print_no_sysinb\n");
+    return 1;
+  }
+
+  if (kbc_enable_int() != 0) {
+    printf("Failed kbc_enable_int\n");    
+    return 1;
+  }
+  return 0;
 }
 
 int(kbd_test_timed_scan)(uint8_t n) {
