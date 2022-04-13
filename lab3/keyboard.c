@@ -82,7 +82,8 @@ int (kbc_enable_int)() {
   if (util_sys_inb(OUT_BUF_REG, status) != 0)
     return 1;
 
-  *status &= EN_INT;
+  //*status &= EN_INT;
+  *status |= BIT(0);
 
   if (sys_outb(KBC_CMD_REG, WRITE_CMD) != 0)
     return 1;
