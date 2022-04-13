@@ -60,12 +60,15 @@ void (kbc_ih)() {
       scan_bytes[1] = SCAN_MSB;
     }
     else {
+      num_bytes = 1;
       scan_bytes[0] = *scancode;
       if (*scancode & BIT(7))
         make_code = false;
       else
         make_code = true;
+      return;
     }
+    tickdelay(micros_to_ticks(DELAY_US));
   }
 
   ih_success = 1;
