@@ -4,6 +4,7 @@
 #include <lcom/lcf.h>
 
 #define DELAY_US 20000
+#define INT_PER_SEC 60
 
 #define KEYBOARD_IRQ 1
 
