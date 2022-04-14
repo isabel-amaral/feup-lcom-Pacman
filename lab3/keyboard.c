@@ -38,10 +38,8 @@ void (kbc_ih)() {
       return;
     }
 
-    if (!(*status & OBF)) {
-      num_bytes = 0;
+    if (!(*status & OBF))
       return;
-    }
 
     uint8_t* scancode = (uint8_t*) malloc(sizeof(uint8_t));
     if (util_sys_inb(OUT_BUF_REG, scancode) != 0) {
@@ -49,19 +47,21 @@ void (kbc_ih)() {
       return;
     }
 
-    if (*status & (PAR_ERR | TO_ERR)) {
-      num_bytes = 0;
+    if (*status & (PAR_ERR | TO_ERR))
       return;
-    }
 
     if (*scancode == SCAN_MSB) {
       full_scancode = false;
-      num_bytes = 2;
-      scan_bytes[1] = SCAN_MSB;
+      num_bytes++;
+      scan_bytes[0] = SCAN_MSB;
+      return;
     }
     else {
-      num_bytes = 1;
-      scan_bytes[0] = *scancode;
+      num_bytes++;
+      if (num_bytes == 2)
+        scan_bytes[1] = *scancode;
+      else
+        scan_bytes[0] = *scancode;
       if (*scancode & BIT(7))
         make_code = false;
       else

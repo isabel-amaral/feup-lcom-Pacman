@@ -47,6 +47,7 @@ int(kbd_test_scan)() {
   }
 
   cnt = 0;
+  num_bytes = 0;
   uint32_t irq_set = BIT(*bit_no);
   int ipc_status, r;
   message msg;
@@ -61,13 +62,14 @@ int(kbd_test_scan)() {
       switch (_ENDPOINT_P(msg.m_source)) {
         case HARDWARE:
         if (msg.m_notify.interrupts & irq_set) {
-          num_bytes = 1;
           kbc_ih();
 
           if (ih_success != 0)
             continue;
-          if (full_scancode)
+          if (full_scancode) {
             kbd_print_scancode(make_code, num_bytes, scan_bytes);
+            num_bytes = 0;
+          }
         }
         break;
         default:
@@ -90,15 +92,17 @@ int(kbd_test_scan)() {
 
 int(kbd_test_poll)() {
   cnt = 0;
+  num_bytes = 0;
 
   while(scan_bytes[0] != ESC_CODE) {
-    num_bytes = 1;
     kbc_ih();
 
     if (ih_success != 0)
       continue;
-    if (full_scancode)
+    if (full_scancode) {
       kbd_print_scancode(make_code, num_bytes, scan_bytes);
+      num_bytes = 0;
+    }
   }
 
   if (kbd_print_no_sysinb(cnt) != 0) {

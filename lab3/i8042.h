@@ -22,7 +22,4 @@
 
 #define ESC_CODE 0x81
 
-// mask that will put bit 4 of command byte to 0 in order to enable kbd interrupts
-#define EN_INT 0xef
-
 #endif
