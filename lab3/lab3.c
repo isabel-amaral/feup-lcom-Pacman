@@ -4,11 +4,14 @@
 #include <stdbool.h>
 #include <stdint.h>
 
+#include "timer.c"
 #include "keyboard.h"
 #include "i8042.h"
 
 extern uint32_t cnt;
+extern unsigned int int_counter;
 extern int* kb_hook_id;
+extern int* timer_hook_id;
 extern int ih_success;
 extern bool make_code;
 extern int num_bytes;
@@ -86,7 +89,7 @@ int(kbd_test_scan)() {
     printf("Failed keyboard_unsubscribe_int\n");
     return 1;
   }
-
+  printf("Success\n");
   return 0;
 }
 
@@ -114,12 +117,68 @@ int(kbd_test_poll)() {
     printf("Failed kbc_enable_int\n");    
     return 1;
   }
+  printf("Success\n");
   return 0;
 }
 
 int(kbd_test_timed_scan)(uint8_t n) {
-  /* To be completed by the students */
-  printf("%s is not yet implemented!\n", __func__);
+  uint8_t* kb_bit_no = (uint8_t*) malloc(sizeof(uint8_t));
+  uint8_t* timer_bit_no = (uint8_t*) malloc(sizeof(uint8_t));
+  if (keyboard_subscribe_int(kb_bit_no) != 0) {
+    printf("Failed keyboard_subscribe_int\n");
+    return 1;
+  }
+  if (timer_subscribe_int(timer_bit_no) != 0) {
+    printf("Failed keyboard_subscribe_int\n");
+    return 1;
+  }
 
-  return 1;
+  int_counter = 0;
+  num_bytes = 0;
+  uint32_t timer0_int_bit = BIT(*timer_bit_no);
+  uint32_t kbd_int_bit = BIT(*kb_bit_no);
+  int ipc_status, r;
+  message msg;
+
+  while(scan_bytes[0] != ESC_CODE && int_counter != n*INT_PER_SEC) {
+    if((r = driver_receive(ANY, &msg, &ipc_status)) != 0) {
+      printf("driver_receive failed with: %d", r);
+      continue;
+    }
+
+    if (is_ipc_notify(ipc_status)) {
+      switch (_ENDPOINT_P(msg.m_source)) {
+        case HARDWARE:
+        if (msg.m_notify.interrupts & timer0_int_bit) {
+          timer_int_handler();
+        }
+        if (msg.m_notify.interrupts & kbd_int_bit) {
+          int_counter = 0;
+          
+          kbc_ih();
+          if (ih_success != 0)
+            continue;
+          if (full_scancode) {
+            kbd_print_scancode(make_code, num_bytes, scan_bytes);
+            num_bytes = 0;
+          }
+        }
+        break;
+        default:
+        break;
+      }
+    }
+  }
+
+  if (keyboard_unsubscribe_int() != 0) {
+    printf("Failed keyboard_unsubscribe_int\n");
+    return 1;
+  }
+  if (timer_unsubscribe_int() != 0) {
+    printf("Failed timer_unsubscribe_int\n");
+    return 1;
+  }
+
+  printf("Success\n");
+  return 0;
 }
