@@ -39,7 +39,7 @@ int (timer_set_frequency)(uint8_t timer, uint32_t freq) {
       break;
   }
 
-  uint16_t counter_value = (uint16_t) TIMER_FREQ/freq;
+  uint16_t counter_value = (uint16_t) (TIMER_FREQ/freq);
   uint8_t* lsb = (uint8_t*) malloc(sizeof(uint8_t));
   uint8_t* msb = (uint8_t*) malloc(sizeof(uint8_t));
 
