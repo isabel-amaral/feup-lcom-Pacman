@@ -28,11 +28,10 @@ int (keyboard_unsubscribe_int)() {
 
 void (kbc_ih)() {
   ih_success = 0;
-  full_scancode = true;
 
   // Tries to read the OUT_BUF 3 times
   for (int i = 0; i < 3; i++) {
-      uint8_t* status = (uint8_t*) malloc(sizeof(uint8_t));
+    uint8_t* status = (uint8_t*) malloc(sizeof(uint8_t));
     if (util_sys_inb(ST_REG, status) != 0) {
       ih_success = 1;
       return;
@@ -46,18 +45,22 @@ void (kbc_ih)() {
       ih_success = 1;
       return;
     }
+    if (util_sys_inb(ST_REG, status) != 0) {
+      ih_success = 1;
+      return;
+    }
 
     if (*status & (PAR_ERR | TO_ERR))
       return;
 
+    num_bytes++;
     if (*scancode == SCAN_MSB) {
       full_scancode = false;
-      num_bytes++;
       scan_bytes[0] = SCAN_MSB;
       return;
     }
     else {
-      num_bytes++;
+      full_scancode = true;
       if (num_bytes == 2)
         scan_bytes[1] = *scancode;
       else
