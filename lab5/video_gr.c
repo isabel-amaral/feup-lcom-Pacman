@@ -56,3 +56,27 @@ void* (vg_init)(uint16_t mode) {
   vg_init_success = 0;
   return video_mem;
 }
+
+int verify_screen_limits(uint16_t mode, uint16_t x, uint16_t y, uint16_t width, uint16_t height) {
+  vbe_mode_info_t* vmi_p = (vbe_mode_info_t*) malloc(sizeof(vbe_mode_info_t));
+  if (vbe_get_mode_info(mode, vmi_p) != 0)
+    return 1;
+
+  if (x >= vmi_p->XResolution) {
+    printf("X is out of range\n");
+    return 1;
+  }
+  if (y >= vmi_p->YResolution) {
+    printf("Y is out of range\n");
+    return 1;
+  }
+  if (x + width  >= vmi_p->XResolution) {
+    printf("Width is out of range\n");
+    return 1;
+  }
+  if (y + height  >= vmi_p->YResolution) {
+    printf("Height is out of range\n");
+    return 1;
+  }
+  return 0;
+}
