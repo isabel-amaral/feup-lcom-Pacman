@@ -1,6 +1,7 @@
 #include <lcom/lcf.h>
 #include <lcom/lab5.h>
 
+#include "math.h"
 #include "video_gr.h"
 
 #define AH 0x4f
@@ -18,7 +19,7 @@ int map_vram(uint16_t mode) {
   int r;
   struct minix_mem_range mr; /* physical memory range */
   unsigned int vram_base = vmi_p->PhysBasePtr; /* VRAM’s physical addresss */
-  unsigned int vram_size = vmi_p->XResolution * vmi_p->YResolution * vmi_p->BitsPerPixel; /* VRAM’s size, but you can use the frame-buffer size, instead */
+  unsigned int vram_size = vmi_p->XResolution * vmi_p->YResolution * ceil(vmi_p->BitsPerPixel / (double) 8); /* VRAM’s size, but you can use the frame-buffer size, instead */
 
   /* Allow memory mapping */
   mr.mr_base = (phys_bytes) vram_base;
