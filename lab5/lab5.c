@@ -1,10 +1,14 @@
 // IMPORTANT: you must include the following line in all your C files
 #include <lcom/lcf.h>
-
 #include <lcom/lab5.h>
 
+#include "i8254.h"
+#include "video_gr.h"
 #include <stdint.h>
 #include <stdio.h>
+
+extern int vg_init_success;
+extern unsigned int int_counter;
 
 // Any header files included below this line should have been created by you
 
@@ -30,13 +34,46 @@ int main(int argc, char *argv[]) {
   lcf_cleanup();
 
   return 0;
-}nnnnnnnn
+}
 
 int(video_test_init)(uint16_t mode, uint8_t delay) {
-  /* To be completed */
-  printf("%s(0x%03x, %u): under construction\n", __func__, mode, delay);
+  vg_init(mode);
+  if (vg_init_success)
+    return 1;
 
-  return 1;
+  uint8_t* bit_no = (uint8_t*) malloc(sizeof(uint8_t));
+  if (timer_subscribe_int(bit_no) != 0)
+    return 1;
+
+  message msg;
+  int ipc_status, r;
+  uint32_t irq_set = BIT(*bit_no);
+
+  int_counter = 0;
+
+  while (int_counter != delay*60) {
+    if ((r = driver_receive(ANY, &msg, &ipc_status)) != 0 ) {
+      printf("driver_receive failed with: %d", r);
+      continue;
+    }
+
+    if (is_ipc_notify(ipc_status)) {
+      switch (_ENDPOINT_P(msg.m_source)) {
+        case HARDWARE:
+        if (msg.m_notify.interrupts & irq_set)
+          timer_int_handler();
+        break;
+        default:
+          break;
+      }
+    }
+  }
+
+  if (timer_unsubscribe_int() != 0)
+    return 1;
+  if (vg_exit() != 0)
+    return 1;
+  return 0;
 }
 
 int(video_test_rectangle)(uint16_t mode, uint16_t x, uint16_t y,
