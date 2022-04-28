@@ -3,12 +3,19 @@
 #include <lcom/lab5.h>
 
 #include "i8254.h"
+#include "i8042.h"
+#include "keyboard.h"
 #include "video_gr.h"
 #include <stdint.h>
 #include <stdio.h>
 
 extern int vg_init_success;
 extern unsigned int int_counter;
+extern int ih_success;
+extern bool make_code;
+extern int num_bytes;
+extern uint8_t scan_bytes[2];
+extern bool full_scancode;
 
 // Any header files included below this line should have been created by you
 
@@ -79,7 +86,47 @@ int(video_test_init)(uint16_t mode, uint8_t delay) {
 int(video_test_rectangle)(uint16_t mode, uint16_t x, uint16_t y, uint16_t width, uint16_t height, uint32_t color) {
   if (verify_screen_limits(mode, x, y, width, height) != 0)
     return 1;
-  if (vg_init(mode) != 0)
+  if (vg_init_success)
+    return 1;
+  if (vg_draw_rectangle(x, y, width, height, color) != 0)
+    return 1;
+
+  uint8_t* bit_no = (uint8_t*) malloc(sizeof(uint8_t));
+  if (keyboard_subscribe_int(bit_no) != 0)
+    return 1;
+
+  message msg;
+  int ipc_status, r;
+  uint32_t irq_set = BIT(*bit_no);
+
+  while (scan_bytes[0] != ESC_CODE) {
+    if ((r = driver_receive(ANY, &msg, &ipc_status)) != 0 ) {
+      printf("driver_receive failed with: %d", r);
+      continue;
+    }
+
+    if (is_ipc_notify(ipc_status)) {
+      switch (_ENDPOINT_P(msg.m_source)) {
+        case HARDWARE:
+        if (msg.m_notify.interrupts & irq_set) {
+          kbc_ih();
+
+          if (ih_success != 0)
+            continue;
+          if (full_scancode)
+            num_bytes = 0;
+        }
+        break;
+        default:
+          break;
+      }
+    }
+  }
+
+  if (timer_unsubscribe_int() != 0)
+    return 1;
+
+  if (vg_exit() != 0)
     return 1;
   return 0;
 }

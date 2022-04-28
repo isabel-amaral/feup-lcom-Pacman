@@ -8,14 +8,11 @@
 #define VBE_FUNCTION 0x02
 #define INT_NO 0x10
 
-void *video_mem;
+vbe_mode_info_t* vmi_p;
+void* video_mem;
 int vg_init_success;
 
 int map_vram(uint16_t mode) {
-  vbe_mode_info_t* vmi_p = (vbe_mode_info_t*) malloc(sizeof(vbe_mode_info_t));
-  if (vbe_get_mode_info(mode, vmi_p) != 0)
-    return 1;
-
   int r;
   struct minix_mem_range mr; /* physical memory range */
   unsigned int vram_base = vmi_p->PhysBasePtr; /* VRAM’s physical addresss */
@@ -79,5 +76,35 @@ int verify_screen_limits(uint16_t mode, uint16_t x, uint16_t y, uint16_t width, 
     printf("Height is out of range\n");
     return 1;
   }
+  return 0;
+}
+
+int (vg_draw_pixel)(uint16_t x, uint16_t y, uint32_t color) {
+  uint8_t num_bytes = ceil(vmi_p->BitsPerPixel / (double) 8);
+  //____________________________________________________________________
+  uint32_t* video_mem_ptr = video_mem;
+  uint32_t* address = video_mem_ptr + (y*vmi_p->XResolution+x)*num_bytes;
+  //____________________________________________________________________
+  for (int i = 0; i < num_bytes; i++, address++) {
+    uint32_t mask = 0x000000ff;
+    uint8_t color_aux = (uint8_t) color & mask;
+    color >>= 8;
+    *address = color_aux;
+  }
+  return 0;
+}
+
+int (vg_draw_hline)(uint16_t x, uint16_t y, uint16_t width, uint32_t color) {
+  for (int i = x; i < x + width; i++) {
+    if (vg_draw_pixel(x, y, color) != 0)
+      return 1;
+  }
+  return 0;
+}
+
+int (vg_draw_rectangle)(uint16_t x, uint16_t y, uint16_t width, uint16_t height, uint32_t color) {
+  for (int i = y; i < y + height; i++)
+    if (vg_draw_hline(x, i, width, color) != 0)
+      return 1;
   return 0;
 }
