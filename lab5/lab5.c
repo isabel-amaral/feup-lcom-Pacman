@@ -84,8 +84,11 @@ int(video_test_init)(uint16_t mode, uint8_t delay) {
 }
 
 int(video_test_rectangle)(uint16_t mode, uint16_t x, uint16_t y, uint16_t width, uint16_t height, uint32_t color) {
-  if (verify_screen_limits(mode, x, y, width, height) != 0)
+  vg_init(mode);
+  if (verify_screen_limits(mode, x, y, width, height) != 0) {
+    vg_exit();
     return 1;
+  }
   if (vg_init_success)
     return 1;
   if (vg_draw_rectangle(x, y, width, height, color) != 0)

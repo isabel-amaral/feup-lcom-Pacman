@@ -15,6 +15,11 @@ int vg_init_success;
 int map_vram(uint16_t mode) {
   int r;
   struct minix_mem_range mr; /* physical memory range */
+  
+  vmi_p = (vbe_mode_info_t*) malloc(sizeof(vbe_mode_info_t));
+  if (vbe_get_mode_info(mode, vmi_p) != 0)
+    return 1;
+
   unsigned int vram_base = vmi_p->PhysBasePtr; /* VRAM’s physical addresss */
   unsigned int vram_size = vmi_p->XResolution * vmi_p->YResolution * ceil(vmi_p->BitsPerPixel / (double) 8); /* VRAM’s size, but you can use the frame-buffer size, instead */
 
@@ -56,10 +61,6 @@ void* (vg_init)(uint16_t mode) {
 }
 
 int verify_screen_limits(uint16_t mode, uint16_t x, uint16_t y, uint16_t width, uint16_t height) {
-  vbe_mode_info_t* vmi_p = (vbe_mode_info_t*) malloc(sizeof(vbe_mode_info_t));
-  if (vbe_get_mode_info(mode, vmi_p) != 0)
-    return 1;
-
   if (x >= vmi_p->XResolution) {
     printf("X is out of range\n");
     return 1;
@@ -82,8 +83,10 @@ int verify_screen_limits(uint16_t mode, uint16_t x, uint16_t y, uint16_t width, 
 int (vg_draw_pixel)(uint16_t x, uint16_t y, uint32_t color) {
   uint8_t num_bytes = ceil(vmi_p->BitsPerPixel / (double) 8);
   //____________________________________________________________________
-  uint32_t* video_mem_ptr = video_mem;
-  uint32_t* address = video_mem_ptr + (y*vmi_p->XResolution+x)*num_bytes;
+  uint32_t* video_mem_ptr = (uint32_t*) malloc(sizeof(uint32_t));
+  video_mem_ptr = (uint32_t*) video_mem;
+  uint32_t* address = (uint32_t*) malloc(sizeof(uint32_t));
+  address = video_mem_ptr + (y*vmi_p->XResolution+x)*num_bytes;
   //____________________________________________________________________
   for (int i = 0; i < num_bytes; i++, address++) {
     uint32_t mask = 0x000000ff;
