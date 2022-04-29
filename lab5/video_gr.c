@@ -80,7 +80,7 @@ int verify_screen_limits(uint16_t mode, uint16_t x, uint16_t y, uint16_t width, 
   return 0;
 }
 
-int (vg_draw_pixel)(uint16_t x, uint16_t y, uint32_t color) {
+int vg_draw_pixel(uint16_t x, uint16_t y, uint32_t color) {
   uint8_t num_bytes = ceil(vmi_p->BitsPerPixel / (double) 8);
   //____________________________________________________________________
   uint32_t* video_mem_ptr = (uint32_t*) malloc(sizeof(uint32_t));

@@ -98,7 +98,7 @@ int(video_test_rectangle)(uint16_t mode, uint16_t x, uint16_t y, uint16_t width,
     }
   }
 
-  if (timer_unsubscribe_int() != 0)
+  if (keyboard_unsubscribe_int() != 0)
     return 1;
 
   if (vg_exit() != 0)
