@@ -48,36 +48,8 @@ int(video_test_init)(uint16_t mode, uint8_t delay) {
   if (vg_init_success)
     return 1;
 
-  uint8_t* bit_no = (uint8_t*) malloc(sizeof(uint8_t));
-  if (timer_subscribe_int(bit_no) != 0)
-    return 1;
+  sleep(delay);
 
-  message msg;
-  int ipc_status, r;
-  uint32_t irq_set = BIT(*bit_no);
-
-  int_counter = 0;
-
-  while (int_counter != delay*60) {
-    if ((r = driver_receive(ANY, &msg, &ipc_status)) != 0 ) {
-      printf("driver_receive failed with: %d", r);
-      continue;
-    }
-
-    if (is_ipc_notify(ipc_status)) {
-      switch (_ENDPOINT_P(msg.m_source)) {
-        case HARDWARE:
-        if (msg.m_notify.interrupts & irq_set)
-          timer_int_handler();
-        break;
-        default:
-          break;
-      }
-    }
-  }
-
-  if (timer_unsubscribe_int() != 0)
-    return 1;
   if (vg_exit() != 0)
     return 1;
   return 0;
