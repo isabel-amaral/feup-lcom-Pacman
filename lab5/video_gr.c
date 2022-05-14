@@ -61,19 +61,23 @@ void* (vg_init)(uint16_t mode) {
 }
 
 int verify_screen_limits(uint16_t mode, uint16_t x, uint16_t y, uint16_t width, uint16_t height) {
-  if (x >= vmi_p->XResolution) {
+  if (x > vmi_p->XResolution) {
+    vg_exit();
     printf("X is out of range\n");
     return 1;
   }
-  if (y >= vmi_p->YResolution) {
+  if (y > vmi_p->YResolution) {
+    vg_exit();
     printf("Y is out of range\n");
     return 1;
   }
-  if (x + width  >= vmi_p->XResolution) {
+  if (x + width  > vmi_p->XResolution) {
+    vg_exit();
     printf("Width is out of range\n");
     return 1;
   }
-  if (y + height  >= vmi_p->YResolution) {
+  if (y + height  > vmi_p->YResolution) {
+    vg_exit();
     printf("Height is out of range\n");
     return 1;
   }
@@ -81,25 +85,17 @@ int verify_screen_limits(uint16_t mode, uint16_t x, uint16_t y, uint16_t width, 
 }
 
 int vg_draw_pixel(uint16_t x, uint16_t y, uint32_t color) {
-  uint8_t num_bytes = ceil(vmi_p->BitsPerPixel / (double) 8);
-  //____________________________________________________________________
-  uint32_t* video_mem_ptr = (uint32_t*) malloc(sizeof(uint32_t));
-  video_mem_ptr = (uint32_t*) video_mem;
-  uint32_t* address = (uint32_t*) malloc(sizeof(uint32_t));
-  address = video_mem_ptr + (y*vmi_p->XResolution+x)*num_bytes;
-  //____________________________________________________________________
-  for (int i = 0; i < num_bytes; i++, address++) {
-    uint32_t mask = 0x000000ff;
-    uint8_t color_aux = (uint8_t) color & mask;
-    color >>= 8;
-    *address = color_aux;
-  }
+  size_t num_bytes = ceil(vmi_p->BitsPerPixel / (double) 8);
+  char* address = (char*) video_mem;
+  address += (y*vmi_p->XResolution+x)*num_bytes;
+  memcpy(address, &color, num_bytes);
+
   return 0;
 }
 
 int (vg_draw_hline)(uint16_t x, uint16_t y, uint16_t width, uint32_t color) {
   for (int i = x; i < x + width; i++) {
-    if (vg_draw_pixel(x, y, color) != 0)
+    if (vg_draw_pixel(i, y, color) != 0)
       return 1;
   }
   return 0;
