@@ -157,3 +157,16 @@ int (vg_draw_pattern)(uint8_t no_rectangles, uint32_t first, uint8_t step) {
   }
   return 0;
 }
+
+int (vg_draw_xpm)(xpm_map_t xpm, uint16_t x, uint16_t y) {
+  xpm_image_t* img = (xpm_image_t*) malloc(sizeof(xpm_image_t));
+  uint8_t* pixmap = xpm_load(xpm, XPM_INDEXED, img);
+
+  for (int i = y; i < y + img->height; i++) {
+    for (int j = x; j < x + img->width; j++) {
+      vg_draw_pixel(j, i, *pixmap);
+      pixmap++;
+    }
+  }
+  return 0;
+}
