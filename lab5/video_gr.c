@@ -8,9 +8,14 @@
 #define VBE_FUNCTION 0x02
 #define INT_NO 0x10
 
+#define RED_115 0xFF0000
+#define GREEN_115 0x00FF00
+#define BLUE_115 0x0000FF
+
 vbe_mode_info_t* vmi_p;
 void* video_mem;
 int vg_init_success;
+int indexed_color_mode;
 
 int map_vram(uint16_t mode) {
   int r;
@@ -19,6 +24,18 @@ int map_vram(uint16_t mode) {
   vmi_p = (vbe_mode_info_t*) malloc(sizeof(vbe_mode_info_t));
   if (vbe_get_mode_info(mode, vmi_p) != 0)
     return 1;
+  switch (mode) {
+  case 0x105:
+    indexed_color_mode = 1;
+    break;
+  case 0x115:
+    indexed_color_mode = 0;
+    break;
+  default:
+    vg_exit();
+    printf("Mode is not supported\n");
+    return 1;
+  }
 
   unsigned int vram_base = vmi_p->PhysBasePtr; /* VRAM’s physical addresss */
   unsigned int vram_size = vmi_p->XResolution * vmi_p->YResolution * ceil(vmi_p->BitsPerPixel / (double) 8); /* VRAM’s size, but you can use the frame-buffer size, instead */
@@ -105,5 +122,38 @@ int (vg_draw_rectangle)(uint16_t x, uint16_t y, uint16_t width, uint16_t height,
   for (int i = y; i < y + height; i++)
     if (vg_draw_hline(x, i, width, color) != 0)
       return 1;
+  return 0;
+}
+
+int (vg_draw_pattern)(uint8_t no_rectangles, uint32_t first, uint8_t step) {
+  uint32_t width, height, x = 0, y = 0;
+  width = floor(vmi_p->XResolution / no_rectangles);
+  height = floor(vmi_p->YResolution / no_rectangles);
+
+  for (int i = 0; i < no_rectangles; i++) {
+    x = 0;
+    y = i*height;
+    for (int j = 0; j < no_rectangles; j++) {
+      x = j*width;
+
+      uint32_t color = 0;
+      if (indexed_color_mode)
+        color = (first + (j * no_rectangles + i) * step) % (1 << vmi_p->BitsPerPixel);
+      else {
+        uint32_t R_first = (first & RED_115) >> vmi_p->RedFieldPosition;
+        uint32_t G_first = (first & GREEN_115) >> vmi_p->GreenFieldPosition;
+        uint32_t B_first = (first & BLUE_115) >> vmi_p->BlueFieldPosition;
+
+        color |= (R_first + i * step) % (1 << vmi_p->RedMaskSize);
+        color <<= 8;
+        color |= (G_first + j * step) % (1 << vmi_p->GreenMaskSize);
+        color <<= 8;
+        color |= (B_first + (i + j) * step) % (1 << vmi_p->BlueMaskSize);
+      }
+      
+      if (vg_draw_rectangle(x, y, width, height, color) != 0)
+        return 1;
+    }
+  }
   return 0;
 }

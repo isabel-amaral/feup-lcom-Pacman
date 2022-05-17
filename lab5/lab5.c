@@ -56,6 +56,7 @@ int(video_test_init)(uint16_t mode, uint8_t delay) {
 }
 
 int(video_test_rectangle)(uint16_t mode, uint16_t x, uint16_t y, uint16_t width, uint16_t height, uint32_t color) {
+  vg_init_success = 0;
   vg_init(mode);
   if (vg_init_success)
     return 1;
@@ -107,11 +108,60 @@ int(video_test_rectangle)(uint16_t mode, uint16_t x, uint16_t y, uint16_t width,
 }
 
 int(video_test_pattern)(uint16_t mode, uint8_t no_rectangles, uint32_t first, uint8_t step) {
-  /* To be completed */
-  printf("%s(0x%03x, %u, 0x%08x, %d): under construction\n", __func__,
-         mode, no_rectangles, first, step);
+  vg_init_success = 0;
+  vg_init(mode);
+  if (vg_init_success) {
+    vg_exit();
+    return 1;
+  }
 
-  return 1;
+  uint8_t* bit_no = (uint8_t*) malloc(sizeof(uint8_t));
+  if (keyboard_subscribe_int(bit_no) != 0) {
+    vg_exit();
+    return 1;
+  }
+
+  if (vg_draw_pattern(no_rectangles, first, step) != 0) {
+    vg_exit();
+    return 1;
+  }
+
+  message msg;
+  int ipc_status, r;
+  uint32_t irq_set = BIT(*bit_no);
+
+  while (scan_bytes[0] != ESC_CODE) {
+    if ((r = driver_receive(ANY, &msg, &ipc_status)) != 0 ) {
+      printf("driver_receive failed with: %d", r);
+      continue;
+    }
+
+    if (is_ipc_notify(ipc_status)) {
+      switch (_ENDPOINT_P(msg.m_source)) {
+        case HARDWARE:
+        if (msg.m_notify.interrupts & irq_set) {
+          kbc_ih();
+
+          if (ih_success != 0)
+            continue;
+          if (full_scancode)
+            num_bytes = 0;
+        }
+        break;
+        default:
+          break;
+      }
+    }
+  }
+
+  if (keyboard_unsubscribe_int() != 0) {
+    vg_exit();
+    return 1;
+  }
+
+  if (vg_exit() != 0)
+    return 1;
+  return 0;
 }
 
 int(video_test_xpm)(xpm_map_t xpm, uint16_t x, uint16_t y) {
