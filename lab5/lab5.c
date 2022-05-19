@@ -181,7 +181,8 @@ int(video_test_xpm)(xpm_map_t xpm, uint16_t x, uint16_t y) {
     return 1;
   }
 
-  if (vg_draw_xpm(xpm, x, y) != 0) {
+  vg_initialize_pixmap(xpm);
+  if (vg_draw_xpm(x, y) != 0) {
     vg_exit();
     return 1;    
   }
@@ -257,6 +258,7 @@ int(video_test_move)(xpm_map_t xpm, uint16_t xi, uint16_t yi, uint16_t xf, uint1
   uint32_t timer_irq_set = BIT(*timer_bit_no);
 
   uint16_t x = xi, y = yi;
+  vg_initialize_pixmap(xpm);
 
   while (scan_bytes[0] != ESC_CODE) {
     if ((r = driver_receive(ANY, &msg, &ipc_status)) != 0 ) {

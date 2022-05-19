@@ -18,6 +18,9 @@ void* video_mem;
 int vg_init_success;
 int indexed_color_mode;
 
+uint8_t* pixmap;
+xpm_image_t* img;
+
 int map_vram(uint16_t mode) {
   int r;
   struct minix_mem_range mr; /* physical memory range */
@@ -159,14 +162,17 @@ int (vg_draw_pattern)(uint8_t no_rectangles, uint32_t first, uint8_t step) {
   return 0;
 }
 
-int (vg_draw_xpm)(xpm_map_t xpm, uint16_t x, uint16_t y) {
-  xpm_image_t* img = (xpm_image_t*) malloc(sizeof(xpm_image_t));
-  uint8_t* pixmap = xpm_load(xpm, XPM_INDEXED, img);
+void (vg_initialize_pixmap)(xpm_map_t xpm) {
+  img = (xpm_image_t*) malloc(sizeof(xpm_image_t));
+  pixmap = xpm_load(xpm, XPM_INDEXED, img);
+}
 
+int (vg_draw_xpm)(uint16_t x, uint16_t y) {
+  uint8_t* aux = pixmap;
   for (int i = y; i < y + img->height; i++) {
     for (int j = x; j < x + img->width; j++) {
-      vg_draw_pixel(j, i, *pixmap);
-      pixmap++;
+      vg_draw_pixel(j, i, *aux);
+      aux++;
     }
   }
   return 0;
@@ -177,7 +183,7 @@ int (vg_move_xpm)(xpm_map_t xpm, uint16_t xi, uint16_t yi, uint16_t xf, uint16_t
       (yi < yf && *y < yf) || (yi > yf && *y > yf)) {
     if (vg_draw_rectangle(0, 0, vmi_p->XResolution, vmi_p->YResolution, BLACK_105) != 0)
       return 1;
-    if (vg_draw_xpm(xpm, *x, *y) != 0)
+    if (vg_draw_xpm(*x, *y) != 0)
       return 1;
   }
 
