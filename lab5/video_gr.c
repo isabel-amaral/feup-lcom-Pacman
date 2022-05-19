@@ -138,7 +138,7 @@ int (vg_draw_pattern)(uint8_t no_rectangles, uint32_t first, uint8_t step) {
 
       uint32_t color = 0;
       if (indexed_color_mode)
-        color = (first + (j * no_rectangles + i) * step) % (1 << vmi_p->BitsPerPixel);
+        color = (first + (i * no_rectangles + j) * step) % (1 << vmi_p->BitsPerPixel);
       else {
         uint32_t R_first = (first & RED_115) >> vmi_p->RedFieldPosition;
         uint32_t G_first = (first & GREEN_115) >> vmi_p->GreenFieldPosition;
