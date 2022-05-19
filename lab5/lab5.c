@@ -172,7 +172,7 @@ int(video_test_xpm)(xpm_map_t xpm, uint16_t x, uint16_t y) {
     return 1;
   }
 
-  if (verify_screen_limits(0x015, x, y, 0, 0) != 0)
+  if (verify_screen_limits(0x105, x, y, 0, 0) != 0)
     return 1;
 
   uint8_t* bit_no = (uint8_t*) malloc(sizeof(uint8_t));
@@ -224,18 +224,76 @@ int(video_test_xpm)(xpm_map_t xpm, uint16_t x, uint16_t y) {
   return 0;
 }
 
-int(video_test_move)(xpm_map_t xpm, uint16_t xi, uint16_t yi, uint16_t xf, uint16_t yf,
-                     int16_t speed, uint8_t fr_rate) {
-  /* To be completed */
-  printf("%s(%8p, %u, %u, %u, %u, %d, %u): under construction\n",
-         __func__, xpm, xi, yi, xf, yf, speed, fr_rate);
+int(video_test_move)(xpm_map_t xpm, uint16_t xi, uint16_t yi, uint16_t xf, uint16_t yf, int16_t speed, uint8_t fr_rate) {
+  vg_init_success = 0;
+  vg_init(0x105);
+  if (vg_init_success) {
+    vg_exit();
+    return 1;
+  }
 
-  return 1;
-}
+  if (verify_screen_limits(0x105, xi, yi, 0, 0) != 0)
+    return 1;
+  if (verify_screen_limits(0x105, xf, yf, 0, 0) != 0)
+    return 1;
 
-int(video_test_controller)() {
-  /* To be completed */
-  printf("%s(): under construction\n", __func__);
+  if (timer_set_frequency(0, fr_rate) != 0)
+    return 1;
 
-  return 1;
+  uint8_t* kbc_bit_no = (uint8_t*) malloc(sizeof(uint8_t));
+  uint8_t* timer_bit_no = (uint8_t*) malloc(sizeof(uint8_t));
+  if (keyboard_subscribe_int(kbc_bit_no) != 0) {
+    vg_exit();
+    return 1;
+  }
+  if (timer_subscribe_int(timer_bit_no) != 0) {
+    printf("Failed keyboard_subscribe_int\n");
+    return 1;
+  }
+
+  message msg;
+  int ipc_status, r;
+  uint32_t kbc_irq_set = BIT(*kbc_bit_no);
+  uint32_t timer_irq_set = BIT(*timer_bit_no);
+
+  uint16_t x = xi, y = yi;
+
+  while (scan_bytes[0] != ESC_CODE) {
+    if ((r = driver_receive(ANY, &msg, &ipc_status)) != 0 ) {
+      printf("driver_receive failed with: %d", r);
+      continue;
+    }
+
+    if (is_ipc_notify(ipc_status)) {
+      switch (_ENDPOINT_P(msg.m_source)) {
+        case HARDWARE:
+        if (msg.m_notify.interrupts & timer_irq_set) {
+          if (vg_move_xpm(xpm, xi, yi, xf, yf, &x, &y, speed) != 0) {
+            vg_exit();
+            return 1;
+          }
+        }
+        if (msg.m_notify.interrupts & kbc_irq_set) {
+          kbc_ih();
+
+          if (ih_success != 0)
+            continue;
+          if (full_scancode)
+            num_bytes = 0;
+        }
+        break;
+        default:
+          break;
+      }
+    }
+  }
+
+  if (keyboard_unsubscribe_int() != 0) {
+    vg_exit();
+    return 1;
+  }
+
+  if (vg_exit() != 0)
+    return 1;
+  return 0;
 }

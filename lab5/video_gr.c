@@ -11,6 +11,7 @@
 #define RED_115 0xFF0000
 #define GREEN_115 0x00FF00
 #define BLUE_115 0x0000FF
+#define BLACK_105 0x00
 
 vbe_mode_info_t* vmi_p;
 void* video_mem;
@@ -168,5 +169,25 @@ int (vg_draw_xpm)(xpm_map_t xpm, uint16_t x, uint16_t y) {
       pixmap++;
     }
   }
+  return 0;
+}
+
+int (vg_move_xpm)(xpm_map_t xpm, uint16_t xi, uint16_t yi, uint16_t xf, uint16_t yf, uint16_t* x, uint16_t* y, int16_t speed) {
+  if ((xi < xf && *x < xf) || (xi > xf && *x > xf) || 
+      (yi < yf && *y < yf) || (yi > yf && *y > yf)) {
+    if (vg_draw_rectangle(0, 0, vmi_p->XResolution, vmi_p->YResolution, BLACK_105) != 0)
+      return 1;
+    if (vg_draw_xpm(xpm, *x, *y) != 0)
+      return 1;
+  }
+
+  if (xi < xf && *x < xf)
+    *x += speed;
+  if (xi > xf && *x > xf)
+    *x -= speed;
+  if (yi < yf && *y < yf)
+    *y += speed;
+  if (yi > yf && *y > yf)
+    *y -= speed;
   return 0;
 }
