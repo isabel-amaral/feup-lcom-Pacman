@@ -14,8 +14,17 @@
 #define KBC_CMD_REG 0x64
 #define READ_CMD 0x20
 #define WRITE_CMD 0x60
+#define WRITE_MOUSE_BYTE 0xD4
+
+//mouse commands
+#define ENABLE_DATA 0xF4
+#define DISABLE_DATA 0xF5
+#define ACK 0xF4
+#define NACK 0xFE
+#define ERROR 0xFC
 
 #define OBF BIT(0)
+#define IBF BIT(1)
 #define PAR_ERR BIT(7)
 #define TO_ERR BIT(6)
 
