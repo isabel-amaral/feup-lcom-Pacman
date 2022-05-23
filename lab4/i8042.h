@@ -16,7 +16,7 @@
 #define WRITE_CMD 0x60
 #define WRITE_MOUSE_BYTE 0xD4
 
-//mouse commands
+// mouse commands
 #define ENABLE_DATA 0xF4
 #define DISABLE_DATA 0xF5
 #define ACK 0xF4
@@ -32,5 +32,14 @@
 #define SCAN_MSB 0xE0
 
 #define ESC_CODE 0x81
+
+// get value of packet's byte 1 bits
+#define LB BIT(0)
+#define RB BIT(1)
+#define MB BIT(2)
+#define MSB_X BIT(4)
+#define MSB_Y BIT(5)
+#define X_OVFL BIT(6)
+#define Y_OVFL BIT(7)
 
 #endif

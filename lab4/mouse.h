@@ -11,4 +11,6 @@ int (my_mouse_disable_data_reporting)();
 
 void (mouse_ih)();
 
+void (parse_mouse_packet)();
+
 #endif
