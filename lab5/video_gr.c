@@ -148,9 +148,9 @@ int (vg_draw_pattern)(uint8_t no_rectangles, uint32_t first, uint8_t step) {
         uint32_t G_first = (first & GREEN_115) >> vmi_p->GreenFieldPosition;
         uint32_t B_first = (first & BLUE_115) >> vmi_p->BlueFieldPosition;
 
-        color |= (R_first + i * step) % (1 << vmi_p->RedMaskSize);
+        color |= (R_first + j * step) % (1 << vmi_p->RedMaskSize);
         color <<= 8;
-        color |= (G_first + j * step) % (1 << vmi_p->GreenMaskSize);
+        color |= (G_first + i * step) % (1 << vmi_p->GreenMaskSize);
         color <<= 8;
         color |= (B_first + (i + j) * step) % (1 << vmi_p->BlueMaskSize);
       }
