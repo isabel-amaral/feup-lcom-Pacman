@@ -39,7 +39,6 @@ int main(int argc, char *argv[]) {
   return 0;
 }
 
-
 int (mouse_test_packet)(uint32_t cnt) {
     uint8_t* bit_no = (uint8_t*) malloc(sizeof(uint8_t));
     if (mouse_subscribe_int(bit_no) != 0)
@@ -85,12 +84,10 @@ int (mouse_test_packet)(uint32_t cnt) {
       }  
     }
 
-    if (my_mouse_disable_data_reporting() != 0) {
-      mouse_unsubscribe_int();
-      return 1;      
-    }
     if (mouse_unsubscribe_int() != 0) 
       return 1;
+    if (my_mouse_disable_data_reporting() != 0)
+      return 1;      
     return 0;
 }
 
@@ -148,16 +145,13 @@ int (mouse_test_async)(uint8_t idle_time) {
       }  
     }
 
-    if (my_mouse_disable_data_reporting() != 0) {
-      mouse_unsubscribe_int();
-      return 1;      
-    }
-    if (mouse_unsubscribe_int() != 0) 
-      return 1;
-
     if (timer_unsubscribe_int() != 0)
       return 1;
-
+    if (mouse_unsubscribe_int() != 0) 
+      return 1;
+    if (my_mouse_disable_data_reporting() != 0) {
+      return 1;      
+    }
     return 0;
 }
 
