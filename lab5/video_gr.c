@@ -17,6 +17,7 @@ vbe_mode_info_t* vmi_p;
 void* video_mem;
 int vg_init_success;
 int indexed_color_mode;
+int frame_counter;
 
 uint8_t* pixmap;
 xpm_image_t* img;
@@ -179,21 +180,45 @@ int (vg_draw_xpm)(uint16_t x, uint16_t y) {
 }
 
 int (vg_move_xpm)(xpm_map_t xpm, uint16_t xi, uint16_t yi, uint16_t xf, uint16_t yf, uint16_t* x, uint16_t* y, int16_t speed) {
-  if ((xi < xf && *x < xf) || (xi > xf && *x > xf) || 
-      (yi < yf && *y < yf) || (yi > yf && *y > yf)) {
-    if (vg_draw_rectangle(0, 0, vmi_p->XResolution, vmi_p->YResolution, BLACK_105) != 0)
-      return 1;
-    if (vg_draw_xpm(*x, *y) != 0)
-      return 1;
+
+  if(speed > 0){
+    if ((xi < xf && *x < xf) || (xi > xf && *x > xf) || (yi < yf && *y < yf) || (yi > yf && *y > yf)){
+      if (vg_draw_rectangle(0, 0, vmi_p->XResolution, vmi_p->YResolution, BLACK_105) != 0)
+        return 1;
+      if (vg_draw_xpm(*x, *y) != 0)
+        return 1;
+    }
+
+    if (xi < xf && *x < xf)
+      *x += speed;
+    if (xi > xf && *x > xf)
+      *x -= speed;
+    if (yi < yf && *y < yf)
+      *y += speed;
+    if (yi > yf && *y > yf)
+      *y -= speed;
   }
 
-  if (xi < xf && *x < xf)
-    *x += speed;
-  if (xi > xf && *x > xf)
-    *x -= speed;
-  if (yi < yf && *y < yf)
-    *y += speed;
-  if (yi > yf && *y > yf)
-    *y -= speed;
+  else{
+    if(frame_counter == abs(speed)){
+      frame_counter = 0;
+      if (vg_draw_rectangle(0, 0, vmi_p->XResolution, vmi_p->YResolution, BLACK_105) != 0)
+        return 1;
+      if (vg_draw_xpm(*x, *y) != 0)
+        return 1;
+
+      if (xi < xf && *x < xf)
+        *x += 1;
+      if (xi > xf && *x > xf)
+        *x -= 1;
+      if (yi < yf && *y < yf)
+        *y += 1;
+      if (yi > yf && *y > yf)
+        *y -= 1;
+    }
+
+    frame_counter++;
+  }
+  
   return 0;
 }
