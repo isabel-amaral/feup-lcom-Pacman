@@ -136,10 +136,10 @@ int (vg_draw_pattern)(uint8_t no_rectangles, uint32_t first, uint8_t step) {
   height = floor(vmi_p->YResolution / no_rectangles);
 
   for (int i = 0; i < no_rectangles; i++) {
-    x = 0;
-    y = i*height;
+    y = 0;
+    x = i*width;
     for (int j = 0; j < no_rectangles; j++) {
-      x = j*width;
+      y = j*height;
 
       uint32_t color = 0;
       if (indexed_color_mode)
@@ -150,9 +150,9 @@ int (vg_draw_pattern)(uint8_t no_rectangles, uint32_t first, uint8_t step) {
         uint32_t B_first = (first & BLUE_115) >> vmi_p->BlueFieldPosition;
 
         color |= (R_first + i * step) % (1 << vmi_p->RedMaskSize);
-        color <<= 8;
+        color <<= vmi_p->GreenMaskSize;
         color |= (G_first + j * step) % (1 << vmi_p->GreenMaskSize);
-        color <<= 8;
+        color <<= vmi_p->BlueMaskSize;
         color |= (B_first + (i + j) * step) % (1 << vmi_p->BlueMaskSize);
       }
       
