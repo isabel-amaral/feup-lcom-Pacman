@@ -16,6 +16,7 @@ extern bool make_code;
 extern int num_bytes;
 extern uint8_t scan_bytes[2];
 extern bool full_scancode;
+extern int frame_counter;
 
 // Any header files included below this line should have been created by you
 

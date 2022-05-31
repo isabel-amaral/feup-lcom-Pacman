@@ -17,6 +17,7 @@ vbe_mode_info_t* vmi_p;
 void* video_mem;
 int vg_init_success;
 int indexed_color_mode;
+int frame_counter;
 
 uint8_t* pixmap;
 xpm_image_t* img;
@@ -135,10 +136,10 @@ int (vg_draw_pattern)(uint8_t no_rectangles, uint32_t first, uint8_t step) {
   height = floor(vmi_p->YResolution / no_rectangles);
 
   for (int i = 0; i < no_rectangles; i++) {
-    x = 0;
-    y = i*height;
+    y = 0;
+    x = i*width;
     for (int j = 0; j < no_rectangles; j++) {
-      x = j*width;
+      y = j*height;
 
       uint32_t color = 0;
       if (indexed_color_mode)
@@ -148,10 +149,10 @@ int (vg_draw_pattern)(uint8_t no_rectangles, uint32_t first, uint8_t step) {
         uint32_t G_first = (first & GREEN_115) >> vmi_p->GreenFieldPosition;
         uint32_t B_first = (first & BLUE_115) >> vmi_p->BlueFieldPosition;
 
-        color |= (R_first + j * step) % (1 << vmi_p->RedMaskSize);
-        color <<= 8;
-        color |= (G_first + i * step) % (1 << vmi_p->GreenMaskSize);
-        color <<= 8;
+        color |= (R_first + i * step) % (1 << vmi_p->RedMaskSize);
+        color <<= vmi_p->GreenMaskSize;
+        color |= (G_first + j * step) % (1 << vmi_p->GreenMaskSize);
+        color <<= vmi_p->BlueMaskSize;
         color |= (B_first + (i + j) * step) % (1 << vmi_p->BlueMaskSize);
       }
       
@@ -179,21 +180,45 @@ int (vg_draw_xpm)(uint16_t x, uint16_t y) {
 }
 
 int (vg_move_xpm)(xpm_map_t xpm, uint16_t xi, uint16_t yi, uint16_t xf, uint16_t yf, uint16_t* x, uint16_t* y, int16_t speed) {
-  if ((xi < xf && *x < xf) || (xi > xf && *x > xf) || 
-      (yi < yf && *y < yf) || (yi > yf && *y > yf)) {
-    if (vg_draw_rectangle(0, 0, vmi_p->XResolution, vmi_p->YResolution, BLACK_105) != 0)
-      return 1;
-    if (vg_draw_xpm(*x, *y) != 0)
-      return 1;
+
+  if(speed > 0){
+    if ((xi < xf && *x < xf) || (xi > xf && *x > xf) || (yi < yf && *y < yf) || (yi > yf && *y > yf)){
+      if (vg_draw_rectangle(0, 0, vmi_p->XResolution, vmi_p->YResolution, BLACK_105) != 0)
+        return 1;
+      if (vg_draw_xpm(*x, *y) != 0)
+        return 1;
+    }
+
+    if (xi < xf && *x < xf)
+      *x += speed;
+    if (xi > xf && *x > xf)
+      *x -= speed;
+    if (yi < yf && *y < yf)
+      *y += speed;
+    if (yi > yf && *y > yf)
+      *y -= speed;
   }
 
-  if (xi < xf && *x < xf)
-    *x += speed;
-  if (xi > xf && *x > xf)
-    *x -= speed;
-  if (yi < yf && *y < yf)
-    *y += speed;
-  if (yi > yf && *y > yf)
-    *y -= speed;
+  else{
+    if(frame_counter == abs(speed)){
+      frame_counter = 0;
+      if (vg_draw_rectangle(0, 0, vmi_p->XResolution, vmi_p->YResolution, BLACK_105) != 0)
+        return 1;
+      if (vg_draw_xpm(*x, *y) != 0)
+        return 1;
+
+      if (xi < xf && *x < xf)
+        *x += 1;
+      if (xi > xf && *x > xf)
+        *x -= 1;
+      if (yi < yf && *y < yf)
+        *y += 1;
+      if (yi > yf && *y > yf)
+        *y -= 1;
+    }
+
+    frame_counter++;
+  }
+  
   return 0;
 }
