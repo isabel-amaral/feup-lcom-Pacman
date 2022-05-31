@@ -106,18 +106,20 @@ void (parse_mouse_packet)(struct packet* pp) {
   pp->bytes[0] = packet_bytes[0];
   pp->bytes[1] = packet_bytes[1];
   pp->bytes[2] = packet_bytes[2];
-
-  pp->rb = packet_bytes[0] & RB;
-  pp->mb = packet_bytes[0] & MB;
-  pp->lb = packet_bytes[0] & LB;
-
-  if (packet_bytes[0] & MSB_X)
-    pp->delta_x = 0xFF00 | packet_bytes[1];
-  pp->delta_x = packet_bytes[1];
-  if (packet_bytes[0] & MSB_Y)
-    pp->delta_y = 0xFF00 | packet_bytes[2];
-  pp->delta_y = packet_bytes[2];
-
-  pp->x_ov = packet_bytes[0] & X_OVFL;
-  pp->y_ov = packet_bytes[0] & Y_OVFL;  
+  pp->lb = packet_bytes[0] & BIT(0);
+  pp->rb = (packet_bytes[0] & BIT(1)) >> 1;
+  pp->mb = (packet_bytes[0] & BIT(2)) >> 2;
+  pp->x_ov = (packet_bytes[0] & BIT(6)) >> 6;
+  pp->y_ov = (packet_bytes[0] & BIT(7)) >> 7;
+  
+  if (packet_bytes[0] & BIT(4)) {
+    pp->delta_x = 0xff00 | packet_bytes[1];
+  } else {
+    pp->delta_x = packet_bytes[1];
+  }
+  if (packet_bytes[0] & BIT(5)) {
+    pp->delta_y = 0xff00 | packet_bytes[2];
+  } else {
+    pp->delta_y = packet_bytes[2];
+  } 
 }
