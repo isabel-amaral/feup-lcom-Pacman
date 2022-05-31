@@ -6,15 +6,13 @@
 #include <stdint.h>
 
 int* mouse_hook_id;
-int ih_success;
 int packet_index;
 uint8_t packet_bytes[3];
 
 
-int (mouse_subscribe_int)(uint8_t *bit_no) {
+int (mouse_subscribe_int)() {
   mouse_hook_id = (int*) malloc(sizeof(int));
   *mouse_hook_id = MOUSE_IRQ;
-  *bit_no = MOUSE_IRQ;
   if (sys_irqsetpolicy(MOUSE_IRQ, IRQ_REENABLE | IRQ_EXCLUSIVE, mouse_hook_id) != 0)
     return 1;
   return 0;
@@ -26,7 +24,8 @@ int (mouse_unsubscribe_int)() {
   return 0;
 }
 
-int (my_mouse_enable_data_reporting)() {
+// not working
+int (enable_data_reporting)() {
   for (int i = 0; i < 3; i++) {
     uint8_t* status = (uint8_t*) malloc(sizeof(uint8_t));
     if (util_sys_inb(ST_REG, status) != 0)
@@ -51,7 +50,8 @@ int (my_mouse_enable_data_reporting)() {
   return 1;
 }
 
-int (my_mouse_disable_data_reporting)() {
+// not working
+int (disable_data_reporting)() {
   for (int i = 0; i < 3; i++) {
     uint8_t* status = (uint8_t*) malloc(sizeof(uint8_t));
     if (util_sys_inb(ST_REG, status) != 0)
@@ -77,24 +77,15 @@ int (my_mouse_disable_data_reporting)() {
 }
 
 void (mouse_ih)() {
-  ih_success = 0;
+  uint8_t* current_byte = (uint8_t*) malloc(sizeof(uint8_t));
+  if (util_sys_inb(OUT_BUF_REG, current_byte) != 0)
+    return;
 
   uint8_t* status = (uint8_t*) malloc(sizeof(uint8_t));
-  
-  uint8_t* current_byte = (uint8_t*) malloc(sizeof(uint8_t));
-  if (util_sys_inb(OUT_BUF_REG, current_byte) != 0) {
-    ih_success = 1;
+  if (util_sys_inb(ST_REG, status) != 0)
     return;
-  }
-
-  if (util_sys_inb(ST_REG, status) != 0) {
-    ih_success = 1;
+  if (*status & (TO_ERR | PAR_ERR))
     return;
-  }
-  if (*status & (TO_ERR | PAR_ERR)) {
-    ih_success = 1;
-    return;
-  }
 
   if ((packet_index == 0 && *current_byte & BIT(3)) || packet_index != 0) {
     packet_bytes[packet_index] = *current_byte;
