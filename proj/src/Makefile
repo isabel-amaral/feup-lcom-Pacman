@@ -2,7 +2,7 @@
 PROG=proj
 
 # source code files to be compiled
-SRCS = proj.c utils/utils.c devices/timer/timer.c
+SRCS = proj.c utils/utils.c devices/timer/timer.c devices/keyboard/keyboard.c
 
 # additional compilation flags
 # "-Wall -Wextra -Werror -I . -std=c11 -Wno-unused-parameter" are already set
