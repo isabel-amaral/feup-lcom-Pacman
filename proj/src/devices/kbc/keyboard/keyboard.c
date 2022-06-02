@@ -1,8 +1,8 @@
 #include <lcom/lcf.h>
 
 #include "keyboard.h"
-#include "i8042.h"
-#include "../../utils/utils.h"
+#include "../i8042.h"
+#include "../../../utils/utils.h"
 
 #include <stdint.h>
 
