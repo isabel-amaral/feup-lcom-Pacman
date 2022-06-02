@@ -2,7 +2,7 @@
 
 #include "timer.h"
 #include "i8254.h"
-#include "../../utils/utils.c"
+#include "../../utils/utils.h"
 
 #include <stdint.h>
 
