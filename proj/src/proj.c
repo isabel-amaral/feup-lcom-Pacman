@@ -7,9 +7,15 @@
 #include "devices/graphics/graphics.h"
 #include "devices/kbc/i8042.h"
 
-#include "../assets/digit1.xpm"
-#include "../assets/digit2.xpm"
-#include "../assets/digit3.xpm"
+#include "../assets/digits/digit1.xpm"
+#include "../assets/digits/digit2.xpm"
+#include "../assets/digits/digit3.xpm"
+#include "../assets/digits/digit4.xpm"
+#include "../assets/digits/digit5.xpm"
+#include "../assets/digits/digit6.xpm"
+#include "../assets/digits/digit7.xpm"
+#include "../assets/digits/digit8.xpm"
+#include "../assets/digits/digit9.xpm"
 
 #include <stdio.h>
 
@@ -44,7 +50,7 @@ int (proj_main_loop)(int argc, char *argv[]) {
     return 1;
   }
   
-  uint16_t x1 = 100, x2 = 200, x3 = 300; 
+  uint16_t x1 = 100, x2 = 200, x3 = 300, x4 = 400, x5 = 500, x6 = 600, x7 = 700, x8 = 800, x9 = 900; 
   uint16_t y = 350;
 
   xpm_image_t img_info;
@@ -54,6 +60,18 @@ int (proj_main_loop)(int argc, char *argv[]) {
   draw_xpm(pixmap, img_info, x2, y);
   pixmap = xpm_load(digit3, XPM_INDEXED, &img_info);
   draw_xpm(pixmap, img_info, x3, y);
+  pixmap = xpm_load(digit4, XPM_INDEXED, &img_info);
+  draw_xpm(pixmap, img_info, x4, y);
+  pixmap = xpm_load(digit5, XPM_INDEXED, &img_info);
+  draw_xpm(pixmap, img_info, x5, y);
+  pixmap = xpm_load(digit6, XPM_INDEXED, &img_info);
+  draw_xpm(pixmap, img_info, x6, y);
+  pixmap = xpm_load(digit7, XPM_INDEXED, &img_info);
+  draw_xpm(pixmap, img_info, x7, y);
+  pixmap = xpm_load(digit8, XPM_INDEXED, &img_info);
+  draw_xpm(pixmap, img_info, x8, y);
+  pixmap = xpm_load(digit9, XPM_INDEXED, &img_info);
+  draw_xpm(pixmap, img_info, x9, y);
 
   sleep(5);
   if (vg_exit() != 0)
