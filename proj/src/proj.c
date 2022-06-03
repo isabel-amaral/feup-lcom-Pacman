@@ -7,9 +7,9 @@
 #include "devices/graphics/graphics.h"
 #include "devices/kbc/i8042.h"
 
-#include "../assets/digit1.xpm"
-#include "../assets/digit2.xpm"
-#include "../assets/digit3.xpm"
+#include "../assets/digits/digit1.xpm"
+#include "../assets/digits/digit2.xpm"
+#include "../assets/digits/digit3.xpm"
 
 #include <stdio.h>
 
