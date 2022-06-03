@@ -15,9 +15,9 @@ void (draw_line)(uint16_t x, uint16_t y, uint16_t len, uint32_t color);
 
 void (draw_rectangle)(uint16_t x, uint16_t y, uint16_t width, uint16_t height, uint32_t color);
 
-void (initialize_pixmap)(xpm_map_t xpm);
+uint8_t* (initialize_pixmap)(xpm_map_t xpm, xpm_image_t* img_info);
 
-void (draw_xpm)(uint16_t x, uint16_t y);
+void (draw_xpm)(uint8_t* pixmap, xpm_image_t img_info, uint16_t x, uint16_t y);
 
 void (move_xpm)(xpm_map_t xpm, uint16_t xi, uint16_t yi, uint16_t xf, uint16_t yf, uint16_t* x, uint16_t* y, int16_t speed);
 

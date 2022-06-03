@@ -10,9 +10,6 @@ char* video_mem;
 int indexed_color_mode;
 int frame_counter;
 
-uint8_t* pixmap;
-xpm_image_t* img;
-
 int (map_vram)(uint16_t mode) {
   int r;
   struct minix_mem_range mr;
@@ -101,17 +98,16 @@ void (draw_rectangle)(uint16_t x, uint16_t y, uint16_t width, uint16_t height, u
     draw_hline(x, i, width, color);
 }
 
-void (initialize_pixmap)(xpm_map_t xpm) {
-  img = (xpm_image_t*) malloc(sizeof(xpm_image_t));
-  pixmap = xpm_load(xpm, XPM_INDEXED, img);
+uint8_t* (initialize_pixmap)(xpm_map_t xpm, xpm_image_t* img_info) {
+  uint8_t* pixmap = xpm_load(xpm, XPM_INDEXED, img_info);
+  return pixmap;
 }
 
-void (draw_xpm)(uint16_t x, uint16_t y) {
-  uint8_t* aux = pixmap;
-  for (int i = y; i < y + img->height; i++) {
-    for (int j = x; j < x + img->width; j++) {
-      draw_pixel(j, i, *aux);
-      aux++;
+void (draw_xpm)(uint8_t* pixmap, xpm_image_t img_info, uint16_t x, uint16_t y) {
+  for (int i = y; i < y + img_info.height; i++) {
+    for (int j = x; j < x + img_info.width; j++) {
+      draw_pixel(j, i, *pixmap);
+      pixmap++;
     }
   }
 }
@@ -120,7 +116,7 @@ void (move_xpm)(xpm_map_t xpm, uint16_t xi, uint16_t yi, uint16_t xf, uint16_t y
   if (speed > 0) {
     if ((xi < xf && *x < xf) || (xi > xf && *x > xf) || (yi < yf && *y < yf) || (yi > yf && *y > yf)) {
       draw_rectangle(0, 0, vmi_p->XResolution, vmi_p->YResolution, BACKGROUND);
-      draw_xpm(*x, *y);
+      //draw_xpm(*x, *y);
     }
     if (xi < xf && *x < xf)
       *x += speed;
@@ -136,7 +132,7 @@ void (move_xpm)(xpm_map_t xpm, uint16_t xi, uint16_t yi, uint16_t xf, uint16_t y
     if (frame_counter == abs(speed)) {
       frame_counter = 0;
       draw_rectangle(0, 0, vmi_p->XResolution, vmi_p->YResolution, BACKGROUND);
-      draw_xpm(*x, *y);
+      //draw_xpm(*x, *y);
 
       if (xi < xf && *x < xf)
         *x += 1;
