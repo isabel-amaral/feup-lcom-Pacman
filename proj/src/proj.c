@@ -16,6 +16,7 @@
 #include "../assets/digits/digit7.xpm"
 #include "../assets/digits/digit8.xpm"
 #include "../assets/digits/digit9.xpm"
+#include "../assets/utils/time-divider.xpm"
 
 #include "../assets/ui-elements/maze_105.xpm"
 #include "../assets/ui-elements/pacman_105.xpm"
@@ -60,27 +61,37 @@ int (proj_main_loop)(int argc, char *argv[]) {
   }
 
   xpm_image_t img_info;
-  // uint8_t* pixmap = xpm_load(maze_105, XPM_INDEXED, &img_info);
-  // draw_xpm(pixmap, img_info, 148, 20);
-  uint8_t* pixmap = xpm_load(pacman, XPM_INDEXED, &img_info);
-  draw_xpm(pixmap, img_info, 500, 200);
-  pixmap = xpm_load(ghost_red, XPM_INDEXED, &img_info);
-  draw_xpm(pixmap, img_info, 500, 300);
-  pixmap = xpm_load(ghost_orange, XPM_INDEXED, &img_info);
-  draw_xpm(pixmap, img_info, 500, 400);
-  pixmap = xpm_load(ghost_pink, XPM_INDEXED, &img_info);
-  draw_xpm(pixmap, img_info, 500, 500);
-  pixmap = xpm_load(ghost_blue, XPM_INDEXED, &img_info);
-  draw_xpm(pixmap, img_info, 500, 600);
-  pixmap = xpm_load(small_coin, XPM_INDEXED, &img_info);
-  draw_xpm(pixmap, img_info, 480, 100);
-  draw_xpm(pixmap, img_info, 490, 100);
-  draw_xpm(pixmap, img_info, 500, 100);
-  draw_xpm(pixmap, img_info, 510, 100);
-  draw_xpm(pixmap, img_info, 520, 100);
-  pixmap = xpm_load(big_coin, XPM_INDEXED, &img_info);
-  draw_xpm(pixmap, img_info, 530, 100);
-  draw_xpm(pixmap, img_info, 540, 100);
+  uint8_t* pixmap = xpm_load(maze_105, XPM_INDEXED, &img_info);
+  draw_xpm(pixmap, img_info, 148, 20);
+  pixmap = xpm_load(digit2, XPM_INDEXED, &img_info);
+  draw_xpm(pixmap, img_info, 900, 20);
+  pixmap = xpm_load(digit2, XPM_INDEXED, &img_info);
+  draw_xpm(pixmap, img_info, 925, 20);
+  pixmap = xpm_load(time_divider, XPM_INDEXED, &img_info);
+  draw_xpm(pixmap, img_info, 950, 20);
+  pixmap = xpm_load(digit1, XPM_INDEXED, &img_info);
+  draw_xpm(pixmap, img_info, 975, 20);
+  pixmap = xpm_load(digit5, XPM_INDEXED, &img_info);
+  draw_xpm(pixmap, img_info, 1000, 20);
+  // uint8_t* pixmap = xpm_load(pacman, XPM_INDEXED, &img_info);
+  // draw_xpm(pixmap, img_info, 500, 200);
+  // pixmap = xpm_load(ghost_red, XPM_INDEXED, &img_info);
+  // draw_xpm(pixmap, img_info, 500, 300);
+  // pixmap = xpm_load(ghost_orange, XPM_INDEXED, &img_info);
+  // draw_xpm(pixmap, img_info, 500, 400);
+  // pixmap = xpm_load(ghost_pink, XPM_INDEXED, &img_info);
+  // draw_xpm(pixmap, img_info, 500, 500);
+  // pixmap = xpm_load(ghost_blue, XPM_INDEXED, &img_info);
+  // draw_xpm(pixmap, img_info, 500, 600);
+  // pixmap = xpm_load(small_coin, XPM_INDEXED, &img_info);
+  // draw_xpm(pixmap, img_info, 480, 100);
+  // draw_xpm(pixmap, img_info, 490, 100);
+  // draw_xpm(pixmap, img_info, 500, 100);
+  // draw_xpm(pixmap, img_info, 510, 100);
+  // draw_xpm(pixmap, img_info, 520, 100);
+  // pixmap = xpm_load(big_coin, XPM_INDEXED, &img_info);
+  // draw_xpm(pixmap, img_info, 530, 100);
+  // draw_xpm(pixmap, img_info, 540, 100);
 
   sleep(5);
   if (vg_exit() != 0)
