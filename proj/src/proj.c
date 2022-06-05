@@ -17,6 +17,8 @@
 #include "../assets/digits/digit8.xpm"
 #include "../assets/digits/digit9.xpm"
 
+#include "../assets/ui-elements/maze_105.xpm"
+
 #include <stdio.h>
 
 int main(int argc, char *argv[]) {
@@ -49,29 +51,10 @@ int (proj_main_loop)(int argc, char *argv[]) {
     vg_exit();
     return 1;
   }
-  
-  uint16_t x1 = 100, x2 = 200, x3 = 300, x4 = 400, x5 = 500, x6 = 600, x7 = 700, x8 = 800, x9 = 900; 
-  uint16_t y = 350;
 
   xpm_image_t img_info;
-  uint8_t* pixmap = xpm_load(digit1, XPM_INDEXED, &img_info);
-  draw_xpm(pixmap, img_info, x1, y);
-  pixmap = xpm_load(digit2, XPM_INDEXED, &img_info);
-  draw_xpm(pixmap, img_info, x2, y);
-  pixmap = xpm_load(digit3, XPM_INDEXED, &img_info);
-  draw_xpm(pixmap, img_info, x3, y);
-  pixmap = xpm_load(digit4, XPM_INDEXED, &img_info);
-  draw_xpm(pixmap, img_info, x4, y);
-  pixmap = xpm_load(digit5, XPM_INDEXED, &img_info);
-  draw_xpm(pixmap, img_info, x5, y);
-  pixmap = xpm_load(digit6, XPM_INDEXED, &img_info);
-  draw_xpm(pixmap, img_info, x6, y);
-  pixmap = xpm_load(digit7, XPM_INDEXED, &img_info);
-  draw_xpm(pixmap, img_info, x7, y);
-  pixmap = xpm_load(digit8, XPM_INDEXED, &img_info);
-  draw_xpm(pixmap, img_info, x8, y);
-  pixmap = xpm_load(digit9, XPM_INDEXED, &img_info);
-  draw_xpm(pixmap, img_info, x9, y);
+  uint8_t* pixmap = xpm_load(maze_105, XPM_INDEXED, &img_info);
+  draw_xpm(pixmap, img_info, 148, 20);
 
   sleep(5);
   if (vg_exit() != 0)
