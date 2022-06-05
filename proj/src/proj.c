@@ -23,6 +23,8 @@
 #include "../assets/ui-elements/ghost_orange_105.xpm"
 #include "../assets/ui-elements/ghost_pink_105.xpm"
 #include "../assets/ui-elements/ghost_blue_105.xpm"
+#include "../assets/ui-elements/small_coin_105.xpm"
+#include "../assets/ui-elements/big_coin_105.xpm"
 
 #include <stdio.h>
 
@@ -70,6 +72,15 @@ int (proj_main_loop)(int argc, char *argv[]) {
   draw_xpm(pixmap, img_info, 500, 500);
   pixmap = xpm_load(ghost_blue, XPM_INDEXED, &img_info);
   draw_xpm(pixmap, img_info, 500, 600);
+  pixmap = xpm_load(small_coin, XPM_INDEXED, &img_info);
+  draw_xpm(pixmap, img_info, 480, 100);
+  draw_xpm(pixmap, img_info, 490, 100);
+  draw_xpm(pixmap, img_info, 500, 100);
+  draw_xpm(pixmap, img_info, 510, 100);
+  draw_xpm(pixmap, img_info, 520, 100);
+  pixmap = xpm_load(big_coin, XPM_INDEXED, &img_info);
+  draw_xpm(pixmap, img_info, 530, 100);
+  draw_xpm(pixmap, img_info, 540, 100);
 
   sleep(5);
   if (vg_exit() != 0)
