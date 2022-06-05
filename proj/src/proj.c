@@ -18,7 +18,11 @@
 #include "../assets/digits/digit9.xpm"
 
 #include "../assets/ui-elements/maze_105.xpm"
-#include "../assets/ui-elements/pacman.xpm"
+#include "../assets/ui-elements/pacman_105.xpm"
+#include "../assets/ui-elements/ghost_red_105.xpm"
+#include "../assets/ui-elements/ghost_orange_105.xpm"
+#include "../assets/ui-elements/ghost_pink_105.xpm"
+#include "../assets/ui-elements/ghost_blue_105.xpm"
 
 #include <stdio.h>
 
@@ -57,7 +61,15 @@ int (proj_main_loop)(int argc, char *argv[]) {
   // uint8_t* pixmap = xpm_load(maze_105, XPM_INDEXED, &img_info);
   // draw_xpm(pixmap, img_info, 148, 20);
   uint8_t* pixmap = xpm_load(pacman, XPM_INDEXED, &img_info);
-  draw_xpm(pixmap, img_info, 500, 350);
+  draw_xpm(pixmap, img_info, 500, 200);
+  pixmap = xpm_load(ghost_red, XPM_INDEXED, &img_info);
+  draw_xpm(pixmap, img_info, 500, 300);
+  pixmap = xpm_load(ghost_orange, XPM_INDEXED, &img_info);
+  draw_xpm(pixmap, img_info, 500, 400);
+  pixmap = xpm_load(ghost_pink, XPM_INDEXED, &img_info);
+  draw_xpm(pixmap, img_info, 500, 500);
+  pixmap = xpm_load(ghost_blue, XPM_INDEXED, &img_info);
+  draw_xpm(pixmap, img_info, 500, 600);
 
   sleep(5);
   if (vg_exit() != 0)
