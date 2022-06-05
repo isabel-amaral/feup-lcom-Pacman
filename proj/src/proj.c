@@ -18,6 +18,7 @@
 #include "../assets/digits/digit9.xpm"
 
 #include "../assets/ui-elements/maze_105.xpm"
+#include "../assets/ui-elements/pacman.xpm"
 
 #include <stdio.h>
 
@@ -53,8 +54,10 @@ int (proj_main_loop)(int argc, char *argv[]) {
   }
 
   xpm_image_t img_info;
-  uint8_t* pixmap = xpm_load(maze_105, XPM_INDEXED, &img_info);
-  draw_xpm(pixmap, img_info, 148, 20);
+  // uint8_t* pixmap = xpm_load(maze_105, XPM_INDEXED, &img_info);
+  // draw_xpm(pixmap, img_info, 148, 20);
+  uint8_t* pixmap = xpm_load(pacman, XPM_INDEXED, &img_info);
+  draw_xpm(pixmap, img_info, 500, 350);
 
   sleep(5);
   if (vg_exit() != 0)
