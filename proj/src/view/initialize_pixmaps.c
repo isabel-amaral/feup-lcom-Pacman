@@ -14,11 +14,11 @@ uint8_t* small_coin_pixmap;
 uint8_t* big_coin_pixmap;
 
 uint8_t* cursor_pixmap;
-uint8_t* digit0_pixmap, digit1_pixmap, digit2_pixmap, digit3_pixmap, digit4_pixmap, 
-    digit5_pixmap, digit6_pixmap, digit7_pixmap, digit8_pixmap, digit9_pixmap;
+uint8_t* digit0_pixmap; uint8_t* digit1_pixmap; uint8_t* digit2_pixmap; uint8_t* digit3_pixmap; uint8_t* digit4_pixmap; 
+uint8_t* digit5_pixmap; uint8_t* digit6_pixmap; uint8_t* digit7_pixmap; uint8_t* digit8_pixmap; uint8_t* digit9_pixmap;
 uint8_t* time_divider_pixmap;
-uint8_t* pacman_text_pixmap, play_text_pixmap, rules_text_pixmap, exit_text_pixmap,
-    win_text_pixmap, score_text_pixmap, game_over_text_pixmap;
+uint8_t* pacman_text_pixmap; uint8_t* play_text_pixmap; uint8_t* rules_text_pixmap; uint8_t* exit_text_pixmap;
+uint8_t* win_text_pixmap; uint8_t* score_text_pixmap; uint8_t* game_over_text_pixmap;
 
 xpm_image_t maze_info;
 xpm_image_t pacman_info;
