@@ -1,5 +1,5 @@
 /* XPM */
-static xpm_row_t const maze_105[] = {
+static xpm_row_t const maze[] = {
 "728 728 2",
 ".	1",
 "+	0",
