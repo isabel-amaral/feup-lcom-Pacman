@@ -34,6 +34,10 @@
 #define SCAN_MSB 0xE0
 
 #define ESC_CODE 0x81
+#define ARROW_UP_CODE 0xC8
+#define ARROW_DOWN_CODE 0xD0
+#define ARROW_RIGHT_CODE 0xCD
+#define ARROW_LEFT_CODE 0xCB
 
 // get value of packet's byte 1 bits
 #define LB BIT(0)
