@@ -16,24 +16,26 @@
 #include "../assets/utils/digits/digit7.xpm"
 #include "../assets/utils/digits/digit8.xpm"
 #include "../assets/utils/digits/digit9.xpm"
-#include "../assets/utils/time-divider.xpm"
+#include "../assets/utils/time/time-divider.xpm"
 
-#include "../assets/utils/words/pacman_text_105.xpm"
-#include "../assets/utils/words/play_text_105.xpm"
-#include "../assets/utils/words/rules_text_105.xpm"
-#include "../assets/utils/words/exit_text_105.xpm"
-#include "../assets/utils/words/win_text_105.xpm"
-#include "../assets/utils/words/score_text_105.xpm"
-#include "../assets/utils/words/game_over_text_105.xpm"
+#include "../assets/utils/words/pacman_text.xpm"
+#include "../assets/utils/words/play_text.xpm"
+#include "../assets/utils/words/rules_text.xpm"
+#include "../assets/utils/words/exit_text.xpm"
+#include "../assets/utils/words/win_text.xpm"
+#include "../assets/utils/words/score_text.xpm"
+#include "../assets/utils/words/game_over_text.xpm"
 
-#include "../assets/ui-elements/maze_105.xpm"
-#include "../assets/ui-elements/pacman_105.xpm"
-#include "../assets/ui-elements/ghost_red_105.xpm"
-#include "../assets/ui-elements/ghost_orange_105.xpm"
-#include "../assets/ui-elements/ghost_pink_105.xpm"
-#include "../assets/ui-elements/ghost_blue_105.xpm"
-#include "../assets/ui-elements/small_coin_105.xpm"
-#include "../assets/ui-elements/big_coin_105.xpm"
+#include "../assets/utils/cursor/cursor.xpm"
+
+#include "../assets/ui-elements/maze.xpm"
+#include "../assets/ui-elements/pacman.xpm"
+#include "../assets/ui-elements/ghost_red.xpm"
+#include "../assets/ui-elements/ghost_orange.xpm"
+#include "../assets/ui-elements/ghost_pink.xpm"
+#include "../assets/ui-elements/ghost_blue.xpm"
+#include "../assets/ui-elements/small_coin.xpm"
+#include "../assets/ui-elements/big_coin.xpm"
 
 #include <stdio.h>
 
@@ -69,14 +71,14 @@ int (proj_main_loop)(int argc, char *argv[]) {
   }
 
   xpm_image_t img_info;
-  uint8_t* pixmap = xpm_load(pacman_text, XPM_INDEXED, &img_info);
-  draw_xpm(pixmap, img_info, 244, 100);
-  pixmap = xpm_load(play_text, XPM_INDEXED, &img_info);
-  draw_xpm(pixmap, img_info, 389, 250);
-  pixmap = xpm_load(rules_text, XPM_INDEXED, &img_info);
-  draw_xpm(pixmap, img_info, 366, 350);
-  pixmap = xpm_load(exit_text, XPM_INDEXED, &img_info);
-  draw_xpm(pixmap, img_info, 392, 450);
+  // uint8_t* pixmap = xpm_load(pacman_text, XPM_INDEXED, &img_info);
+  // draw_xpm(pixmap, img_info, 244, 100);
+  // pixmap = xpm_load(play_text, XPM_INDEXED, &img_info);
+  // draw_xpm(pixmap, img_info, 389, 250);
+  // pixmap = xpm_load(rules_text, XPM_INDEXED, &img_info);
+  // draw_xpm(pixmap, img_info, 366, 350);
+  // pixmap = xpm_load(exit_text, XPM_INDEXED, &img_info);
+  // draw_xpm(pixmap, img_info, 392, 450);
 
   // uint8_t* pixmap = xpm_load(win_text, XPM_INDEXED, &img_info);
   // draw_xpm(pixmap, img_info, 401, 150);
@@ -84,6 +86,9 @@ int (proj_main_loop)(int argc, char *argv[]) {
   // draw_xpm(pixmap, img_info, 339, 250);
   // pixmap = xpm_load(game_over_text, XPM_INDEXED, &img_info);
   // draw_xpm(pixmap, img_info, 191, 350);
+
+  uint8_t* pixmap = xpm_load(cursor, XPM_INDEXED, &img_info);
+  draw_xpm(pixmap, img_info, 500, 350);
 
   sleep(5);
   if (vg_exit() != 0)
