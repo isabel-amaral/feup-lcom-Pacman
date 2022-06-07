@@ -2,7 +2,7 @@
 PROG=proj
 
 # source code files to be compiled
-SRCS = proj.c utils/utils.c devices/timer/timer.c devices/kbc/keyboard/keyboard.c devices/kbc/mouse/mouse.c devices/graphics/graphics.c view/initialize_pixmaps.c view/maze_view/maze_view.c view/pacman_view/pacman_view.c view/ghosts_view/ghosts_view.c
+SRCS = proj.c utils/utils.c devices/timer/timer.c devices/kbc/keyboard/keyboard.c devices/kbc/mouse/mouse.c devices/graphics/graphics.c model/pacman.c model/ghost.c view/initialize_pixmaps.c view/maze_view/maze_view.c view/pacman_view/pacman_view.c view/ghosts_view/ghosts_view.c
 
 # additional compilation flags
 # "-Wall -Wextra -Werror -I . -std=c11 -Wno-unused-parameter" are already set
@@ -23,6 +23,11 @@ devices/graphics/graphics.o: devices/graphics/graphics.c devices/graphics/graphi
 
 utils/utils.o: utils/utils.c utils/utils.h
 	cc $(CFLAGS) -o utils/utils.o -c utils/utils.c
+
+model/pacman.o: model/pacman.c model/pacman.h
+	cc $(CFLAGS) -o model/pacman.o -c model/pacman.c
+model/ghost.o: model/ghost.c model/ghost.h
+	cc $(CFLAGS) -o model/ghost.o -c model/ghost.c
 
 view/initialize_pixmaps.o: view/initialize_pixmaps.c view/initialize_pixmaps.h
 	cc $(CFLAGS) -o view/initialize_pixmaps.o -c view/initialize_pixmaps.c
