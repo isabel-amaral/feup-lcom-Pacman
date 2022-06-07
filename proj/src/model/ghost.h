@@ -9,9 +9,14 @@ typedef struct {
     Position pos; 
 } Ghost;
 
-void setBluePosition(Ghost g);
-void setOrangePosition(Ghost g);
-void setPinkPosition(Ghost g);
-void setRedPosition(Ghost g);
+void setBluePosition();
+
+void setOrangePosition();
+
+void setPinkPosition();
+
+void setRedPosition();
+
+void setGhostsPositions();
 
 #endif

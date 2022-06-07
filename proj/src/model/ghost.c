@@ -1,6 +1,6 @@
 #include "ghost.h"
 
-extern Ghost ghosts[4];
+Ghost ghosts[4];
 // red - blue - pink - orange
 
 void setBluePosition() {
@@ -29,4 +29,11 @@ void setRedPosition() {
     ghosts[0].pos.right_x = 512;
     ghosts[0].pos.top_y = 302;
     ghosts[0].pos.bottom_y = 327;
+}
+
+void setGhostsPositions() {
+    setRedPosition();
+    setOrangePosition();
+    setPinkPosition();
+    setBluePosition();
 }

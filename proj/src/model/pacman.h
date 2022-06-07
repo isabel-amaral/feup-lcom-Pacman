@@ -9,6 +9,6 @@ typedef struct {
     Position pos;
 } Pacman;
 
-void setPosition(Pacman p);
+void setPacmanPosition();
 
 #endif

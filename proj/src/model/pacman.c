@@ -1,10 +1,10 @@
 #include "pacman.h"
 
-extern Pacman p;
+Pacman pacman;
 
-void setPosition(Pacman p) {
-    p.pos.left_x = 487;
-    p.pos.right_x = 512;
-    p.pos.top_y = 577;
-    p.pos.bottom_y = 552;
+void setPacmanPosition() {
+    pacman.pos.left_x = 487;
+    pacman.pos.right_x = 512;
+    pacman.pos.top_y = 577;
+    pacman.pos.bottom_y = 552;
 }
