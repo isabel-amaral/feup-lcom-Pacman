@@ -1,12 +1,12 @@
-#ifndef GHOST_H
-#define GHOST_H
+#ifndef COIN_MODEL_H
+#define COIN_MODEL_H
 
 #include <lcom/lcf.h>
 
 #include "position.h"
 
 typedef struct {
-    Position pos; 
-} Ghost;
+    Position pos;
+} Coin;
 
 #endif

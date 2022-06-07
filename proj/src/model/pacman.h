@@ -1,5 +1,5 @@
-#ifndef PACMAN_H
-#define PACMAN_H
+#ifndef PACMAN_MODEL_H
+#define PACMAN_MODEL_H
 
 #include <lcom/lcf.h>
 

@@ -1,5 +1,5 @@
-#ifndef MAZE_H
-#define MAZE_H
+#ifndef MAZE_MODEL_H
+#define MAZE_MODEL_H
 
 #include <lcom/lcf.h>
 
