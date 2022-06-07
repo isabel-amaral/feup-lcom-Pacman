@@ -1,5 +1,5 @@
-#ifndef COIN_H
-#define COIN_H
+#ifndef COIN_MODEL_H
+#define COIN_MODEL_H
 
 #include <lcom/lcf.h>
 
@@ -8,5 +8,9 @@
 typedef struct {
     Position pos;
 } Coin;
+
+typedef struct {
+    Position pos;
+} BigCoin;
 
 #endif
