@@ -9,4 +9,8 @@ typedef struct {
     Position pos;
 } Coin;
 
+typedef struct {
+    Position pos;
+} BigCoin;
+
 #endif
