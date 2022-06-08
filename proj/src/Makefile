@@ -2,7 +2,7 @@
 PROG=proj
 
 # source code files to be compiled
-SRCS = proj.c utils/utils.c devices/timer/timer.c devices/kbc/keyboard/keyboard.c devices/kbc/mouse/mouse.c devices/graphics/graphics.c model/pacman.c model/ghost.c controller/game_controller.c controller/timer_controller/timer_controller.c view/initialize_pixmaps.c view/maze_view/maze_view.c view/pacman_view/pacman_view.c view/ghosts_view/ghosts_view.c
+SRCS = proj.c utils/utils.c devices/timer/timer.c devices/kbc/keyboard/keyboard.c devices/kbc/mouse/mouse.c devices/graphics/graphics.c model/pacman.c model/ghost.c controller/game_controller.c controller/timer_controller/timer_controller.c view/initialize_pixmaps.c view/maze_view/maze_view.c view/pacman_view/pacman_view.c view/ghosts_view/ghosts_view.c view/timer_view/timer_view.c
 
 # additional compilation flags
 # "-Wall -Wextra -Werror -I . -std=c11 -Wno-unused-parameter" are already set
@@ -42,6 +42,9 @@ view/pacman_view/pacman_view.o: view/pacman_view/pacman_view.c view/pacman_view/
 	cc $(CFLAGS) -o view/pacman_view/pacman_view.o -c view/pacman_view/pacman_view.c
 view/ghosts_view/ghosts_view.o: view/ghosts_view/ghosts_view.c view/ghosts_view/ghosts_view.h
 	cc $(CFLAGS) -o view/ghosts_view/ghosts_view.o -c view/ghosts_view/ghosts_view.c
+
+view/timer_view/timer_view.o: view/timer_view/timer_view.c view/timer_view/timer_view.h
+	cc $(CFLAGS) -o view/timer_view/timer_view.o -c view/timer_view/timer_view.c
 
 # include LCOM's makefile that does all the "heavy lifting"
 .include <minix.lcom.mk>

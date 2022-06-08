@@ -17,6 +17,7 @@
 #include "view/maze_view/maze_view.h"
 #include "view/pacman_view/pacman_view.h"
 #include "view/ghosts_view/ghosts_view.h"
+#include "view/timer_view/timer_view.h"
 
 int main(int argc, char *argv[]) {
   // sets the language of LCF messages (can be either EN-US or PT-PT)
@@ -55,6 +56,7 @@ int (proj_main_loop)(int argc, char *argv[]) {
   draw_maze();
   draw_pacman();
   draw_ghosts();
+  draw_timer();
 
   sleep(5);
   if (vg_exit() != 0)
