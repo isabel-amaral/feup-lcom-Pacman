@@ -5,6 +5,8 @@
 
 #include "position.h"
 
+#define PACMAN_STEP 5
+
 void moveUp(Position pacman_pos);
 
 void moveDown(Position pacman_pos);
