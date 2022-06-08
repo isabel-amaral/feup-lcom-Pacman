@@ -39,6 +39,7 @@
 #define ARROW_DOWN_MCODE 0x50
 #define ARROW_RIGHT_MCODE 0x4D
 #define ARROW_LEFT_MCODE 0x4B
+#define SPACEBAR_MCODE 0x39
 
 // break codes
 #define ESC_BCODE 0x81
@@ -46,6 +47,7 @@
 #define ARROW_DOWN_BCODE 0xD0
 #define ARROW_RIGHT_BCODE 0xCD
 #define ARROW_LEFT_BCODE 0xCB
+#define SPACEBAR_BCODE 0xB9
 
 // get value of packet's byte 1 bits
 #define LB BIT(0)
