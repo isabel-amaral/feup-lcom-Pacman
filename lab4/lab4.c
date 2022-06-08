@@ -40,7 +40,7 @@ int main(int argc, char *argv[]) {
 }
 
 int (mouse_test_packet)(uint32_t cnt) {
-  if (mouse_enable_data_reporting() != 0)
+  if (enable_data_reporting() != 0)
     return 1;
   if (mouse_subscribe_int() != 0)
     return 1;

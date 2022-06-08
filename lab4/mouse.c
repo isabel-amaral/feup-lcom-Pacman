@@ -36,7 +36,7 @@ int (enable_data_reporting)() {
 
     if (sys_outb(KBC_CMD_REG, WRITE_MOUSE_BYTE) != 0)
       return 1;
-    if (sys_outb(KBC_CMD_REG, ENABLE_DATA) != 0)
+    if (sys_outb(OUT_BUF_REG, ENABLE_DATA) != 0)
       return 1;
 
     uint8_t* acknowledgement = (uint8_t*) malloc(sizeof(uint8_t));
@@ -62,7 +62,7 @@ int (disable_data_reporting)() {
 
     if (sys_outb(KBC_CMD_REG, WRITE_MOUSE_BYTE) != 0)
       return 1;
-    if (sys_outb(KBC_CMD_REG, DISABLE_DATA) != 0)
+    if (sys_outb(OUT_BUF_REG, DISABLE_DATA) != 0)
       return 1;
 
     uint8_t* acknowledgement = (uint8_t*) malloc(sizeof(uint8_t));
