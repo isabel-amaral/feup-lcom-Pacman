@@ -3,8 +3,8 @@
 Pacman pacman;
 
 void setPacmanPosition() {
-    pacman.pos.left_x = 487;
-    pacman.pos.right_x = 512;
-    pacman.pos.top_y = 577;
-    pacman.pos.bottom_y = 552;
+    pacman.pos.left_x = 500;
+    pacman.pos.right_x = 525;
+    pacman.pos.top_y = 564;
+    pacman.pos.bottom_y = 589;
 }
