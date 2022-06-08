@@ -1,4 +1,6 @@
 #include "coin.h"
 
-extern Coin coin[200];
+extern Coin small_coins[200];
 extern BigCoin big_coins[5];
+
+void set_small

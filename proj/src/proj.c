@@ -50,8 +50,8 @@ int (proj_main_loop)(int argc, char *argv[]) {
     return 1;
   }
 
-  setPacmanPosition();
-  setGhostsPositions();
+  set_pacman_position();
+  set_ghosts_positions();
   initialize_all_pixmaps();
   draw_maze();
   draw_pacman();

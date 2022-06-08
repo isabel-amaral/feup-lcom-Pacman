@@ -9,14 +9,14 @@ typedef struct {
     Position pos; 
 } Ghost;
 
-void setBluePosition();
+void set_blue_position();
 
-void setOrangePosition();
+void set_orange_position();
 
-void setPinkPosition();
+void set_pink_position();
 
-void setRedPosition();
+void set_red_position();
 
-void setGhostsPositions();
+void set_ghosts_positions();
 
 #endif
