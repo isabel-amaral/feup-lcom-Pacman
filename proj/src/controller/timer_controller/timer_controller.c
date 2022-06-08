@@ -1,32 +1,50 @@
-#include "timer_controller.h"
+#include <lcom/lcf.h>
 
 #include <stdint.h>
 
+#include "../../devices/timer/timer.h"
+#include "../game_controller.h"
+#include "timer_controller.h"
+
 unsigned int game_time;
-unsigned int timer_minutes;
-unsigned int timer_seconds;
+unsigned int timer_minutes = 1;
+unsigned int timer_seconds = 53;
 
 unsigned int time_before_pause;
 
 extern unsigned int int_counter;
 extern bool game_is_on;
 
+void update_timer_units() {
+    timer_minutes = game_time / 60;
+    timer_seconds = game_time % 60;
+}
 
 void initialize_game_time() {
     game_time = 120;
     update_timer_units();
 }
 
-void timer_interrupt_handler() {
-    timer_int_handler();
-    if (int_counter % 60 == 0)
-        decrease_game_time();
+void check_time_out() {
+    if (game_time == 0) 
+        game_is_on = false;
+}
+
+void increase_time() {
+    game_time += 30;
+    update_timer_units();
 }
 
 void decrease_game_time() {
     game_time--;
     update_timer_units();
     check_time_out();
+}
+
+void timer_interrupt_handler() {
+    timer_int_handler();
+    if (int_counter % 60 == 0)
+        decrease_game_time();
 }
 
 void pause_game() {
@@ -36,19 +54,4 @@ void pause_game() {
 void continue_game() {
     game_time = time_before_pause;
     update_timer_units();
-}
-
-void increase_time() {
-    game_time += 30;
-    update_timer_units();
-}
-
-void check_time_out() {
-    if (game_time == 0) 
-        game_is_on = false;
-}
-
-void update_timer_units() {
-    timer_minutes = game_time / 60;
-    timer_seconds = game_time % 60;
 }
