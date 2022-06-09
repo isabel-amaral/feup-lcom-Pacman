@@ -4,10 +4,10 @@
 #include <lcom/lcf.h>
 
 typedef struct {
-    double left_x;
-    double right_x;
-    double top_y;
-    double bottom_y;
+    int left_x;
+    int right_x;
+    int top_y;
+    int bottom_y;
 } Position;
 
 #endif
