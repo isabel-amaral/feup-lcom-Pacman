@@ -13,11 +13,18 @@
 #include "model/pacman.h"
 #include "model/ghost.h"
 
+#include "controller/game_controller.h"
+#include "controller/timer_controller/timer_controller.h"
+
 #include "view/initialize_pixmaps.h"
 #include "view/maze_view/maze_view.h"
 #include "view/pacman_view/pacman_view.h"
 #include "view/ghosts_view/ghosts_view.h"
 #include "view/timer_view/timer_view.h"
+
+extern bool game_is_on;
+
+extern uint8_t* timer_bit_no;
 
 int main(int argc, char *argv[]) {
   // sets the language of LCF messages (can be either EN-US or PT-PT)
@@ -43,22 +50,54 @@ int main(int argc, char *argv[]) {
   return 0;
 }
 
-int (proj_main_loop)(int argc, char *argv[]) {
-  uint16_t mode = 0x105;
-  if (graphics_init(mode) != 0) {
-    vg_exit();
-    return 1;
-  }
-
+void initialize_game_elements() {
   set_pacman_position();
   set_ghosts_positions();
+
+  initialize_game_time();
+
   initialize_all_pixmaps();
   draw_maze();
   draw_pacman();
   draw_ghosts();
   draw_timer();
 
-  sleep(5);
+}
+
+int (proj_main_loop)(int argc, char *argv[]) {
+  uint16_t mode = 0x105;
+  if (graphics_init(mode) != 0) {
+    vg_exit();
+    return 1;
+  }
+  initialize_game_elements();
+  if (subscribe_devices() != 0)
+    return 1;
+
+  message msg;
+  int ipc_status, r, timer_irq_set = BIT(*timer_bit_no);
+  while (game_is_on) {
+    if ((r = driver_receive(ANY, &msg, &ipc_status)) != 0 ) { 
+      printf("driver_receive failed with: %d", r);
+      continue;
+    }
+    if (is_ipc_notify(ipc_status)) {
+      switch (_ENDPOINT_P(msg.m_source)) {
+        case HARDWARE:				
+            if (msg.m_notify.interrupts & timer_irq_set) {
+              timer_interrupt_handler();
+              erase_timer();
+              draw_timer();
+            }
+            break;
+        default:
+            break;
+      }
+    }
+  }
+
+  if (unsubscribe_devices() != 0)
+    return 1;
   if (vg_exit() != 0)
     return 1;
   return 0;

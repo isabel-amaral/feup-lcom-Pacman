@@ -7,8 +7,8 @@
 #include "timer_controller.h"
 
 unsigned int game_time;
-unsigned int timer_minutes = 1;
-unsigned int timer_seconds = 53;
+unsigned int timer_minutes;
+unsigned int timer_seconds;
 
 unsigned int time_before_pause;
 
