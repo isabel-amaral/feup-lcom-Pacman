@@ -4,8 +4,8 @@
 
 #include "../../devices/graphics/vbe.h"
 #include "../../devices/graphics/graphics.h"
-#include "../../controller/timer_controller/timer_controller.h"
 #include "../initialize_pixmaps.h"
+#include "../../controller/timer_controller/timer_controller.h"
 #include "timer_view.h"
 
 extern unsigned int timer_minutes;

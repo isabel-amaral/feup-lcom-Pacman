@@ -10,13 +10,13 @@
 #include "../assets/utils/digits/digit9.xpm"
 #include "../assets/utils/time/time-divider.xpm"
 
-#include "../assets/utils/words/pacman_text.xpm"
-#include "../assets/utils/words/play_text.xpm"
-#include "../assets/utils/words/rules_text.xpm"
-#include "../assets/utils/words/exit_text.xpm"
-#include "../assets/utils/words/win_text.xpm"
-#include "../assets/utils/words/score_text.xpm"
-#include "../assets/utils/words/game_over_text.xpm"
+#include "../assets/utils/text_buttons/pacman_text.xpm"
+#include "../assets/utils/text_buttons/play_text.xpm"
+#include "../assets/utils/text_buttons/rules_text.xpm"
+#include "../assets/utils/text_buttons/exit_text.xpm"
+#include "../assets/utils/text_buttons/win_text.xpm"
+#include "../assets/utils/text_buttons/score_text.xpm"
+#include "../assets/utils/text_buttons/game_over_text.xpm"
 
 #include "../assets/utils/cursor/cursor.xpm"
 
