@@ -17,6 +17,7 @@
 #include "view/pacman_view/pacman_view.h"
 #include "view/ghosts_view/ghosts_view.h"
 #include "view/timer_view/timer_view.h"
+#include "view/cursor_view/cursor_view.h"
 
 extern bool game_is_on;
 
@@ -53,6 +54,7 @@ int (proj_main_loop)(int argc, char *argv[]) {
     return 1;
   }
   initialize_game_elements();
+  draw_cursor();
   if (subscribe_devices() != 0) {
     vg_exit();
     return 1;

@@ -2,7 +2,7 @@
 PROG=proj
 
 # source code files to be compiled
-SRCS = proj.c utils/utils.c devices/timer/timer.c devices/kbc/keyboard/keyboard.c devices/kbc/mouse/mouse.c devices/graphics/graphics.c model/pacman_model/pacman.c model/ghosts_model/ghost.c controller/game_controller.c controller/timer_controller/timer_controller.c view/initialize_pixmaps.c view/maze_view/maze_view.c view/pacman_view/pacman_view.c view/ghosts_view/ghosts_view.c view/timer_view/timer_view.c
+SRCS = proj.c utils/utils.c devices/timer/timer.c devices/kbc/keyboard/keyboard.c devices/kbc/mouse/mouse.c devices/graphics/graphics.c model/pacman_model/pacman.c model/ghosts_model/ghost.c controller/game_controller.c controller/timer_controller/timer_controller.c controller/mouse_controller/mouse_controller.c view/initialize_pixmaps.c view/maze_view/maze_view.c view/pacman_view/pacman_view.c view/ghosts_view/ghosts_view.c view/timer_view/timer_view.c view/cursor_view/cursor_view.c
 
 # additional compilation flags
 # "-Wall -Wextra -Werror -I . -std=c11 -Wno-unused-parameter" are already set
@@ -29,10 +29,12 @@ model/pacman_model/pacman.o: model/pacman_model/pacman.c model/pacman_model/pacm
 model/ghosts_model/ghost.o: model/ghosts_model/ghost.c model/ghosts_model/ghost.h
 	cc $(CFLAGS) -o model/ghosts_model/ghost.o -c model/ghosts_model/ghost.c
 
-controller/timer_controller/timer_controller.o: controller/timer_controller/timer_controller.c controller/timer_controller/timer_controller.h
-	cc $(CFLAGS) -o controller/timer_controller/timer_controller.o -c controller/timer_controller/timer_controller.c
 controller/game_controller.o: controller/game_controller.c controller/game_controller.h
 	cc $(CFLAGS) -o controller/game_controller.o -c controller/game_controller.c
+controller/timer_controller/timer_controller.o: controller/timer_controller/timer_controller.c controller/timer_controller/timer_controller.h
+	cc $(CFLAGS) -o controller/timer_controller/timer_controller.o -c controller/timer_controller/timer_controller.c
+controller/mouse_controller/mouse_controller.o: controller/mouse_controller/mouse_controller.c controller/mouse_controller/mouse_controller.h
+	cc $(CFLAGS) -o controller/mouse_controller/mouse_controller.o -c controller/mouse_controller/mouse_controller.c
 
 view/initialize_pixmaps.o: view/initialize_pixmaps.c view/initialize_pixmaps.h
 	cc $(CFLAGS) -o view/initialize_pixmaps.o -c view/initialize_pixmaps.c
@@ -45,6 +47,8 @@ view/ghosts_view/ghosts_view.o: view/ghosts_view/ghosts_view.c view/ghosts_view/
 
 view/timer_view/timer_view.o: view/timer_view/timer_view.c view/timer_view/timer_view.h
 	cc $(CFLAGS) -o view/timer_view/timer_view.o -c view/timer_view/timer_view.c
+view/cursor_view/cursor_view.o: view/cursor_view/cursor_view.c view/cursor_view/cursor_view.h
+	cc $(CFLAGS) -o view/cursor_view/cursor_view.o -c view/cursor_view/cursor_view.c
 
 # include LCOM's makefile that does all the "heavy lifting"
 .include <minix.lcom.mk>
