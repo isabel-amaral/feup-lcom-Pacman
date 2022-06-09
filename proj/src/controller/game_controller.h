@@ -5,4 +5,6 @@ int (subscribe_devices)();
 
 int (unsubscribe_devices)();
 
+void (initialize_game_elements)();
+
 #endif

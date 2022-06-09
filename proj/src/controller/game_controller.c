@@ -7,6 +7,15 @@
 #include "../devices/kbc/keyboard/keyboard.h"
 #include "../devices/kbc/mouse/mouse.h"
 
+#include "model/pacman.h"
+#include "model/ghost.h"
+#include "controller/timer_controller/timer_controller.h"
+#include "view/initialize_pixmaps.h"
+#include "view/maze_view/maze_view.h"
+#include "view/pacman_view/pacman_view.h"
+#include "view/ghosts_view/ghosts_view.h"
+#include "view/timer_view/timer_view.h"
+
 bool game_is_on = true;
 
 uint8_t* timer_bit_no;
@@ -24,4 +33,17 @@ int (unsubscribe_devices)() {
         return 1;
     //ADD OTEHR DEVICES
     return 0;
+}
+
+void (initialize_game_elements)() {
+    set_pacman_position();
+    set_ghosts_positions();
+
+    initialize_game_time();
+
+    initialize_all_pixmaps();
+    draw_maze();
+    draw_pacman();
+    draw_ghosts();
+    draw_timer();
 }

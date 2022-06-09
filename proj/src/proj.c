@@ -10,13 +10,9 @@
 #include "devices/graphics/graphics.h"
 #include "devices/kbc/i8042.h"
 
-#include "model/pacman.h"
-#include "model/ghost.h"
-
 #include "controller/game_controller.h"
 #include "controller/timer_controller/timer_controller.h"
 
-#include "view/initialize_pixmaps.h"
 #include "view/maze_view/maze_view.h"
 #include "view/pacman_view/pacman_view.h"
 #include "view/ghosts_view/ghosts_view.h"
@@ -50,20 +46,6 @@ int main(int argc, char *argv[]) {
   return 0;
 }
 
-void initialize_game_elements() {
-  set_pacman_position();
-  set_ghosts_positions();
-
-  initialize_game_time();
-
-  initialize_all_pixmaps();
-  draw_maze();
-  draw_pacman();
-  draw_ghosts();
-  draw_timer();
-
-}
-
 int (proj_main_loop)(int argc, char *argv[]) {
   uint16_t mode = 0x105;
   if (graphics_init(mode) != 0) {
@@ -71,11 +53,14 @@ int (proj_main_loop)(int argc, char *argv[]) {
     return 1;
   }
   initialize_game_elements();
-  if (subscribe_devices() != 0)
+  if (subscribe_devices() != 0) {
+    vg_exit();
     return 1;
+  }
 
   message msg;
-  int ipc_status, r, timer_irq_set = BIT(*timer_bit_no);
+  int ipc_status, r;
+  uint32_t timer_irq_set = BIT(*timer_bit_no);
   while (game_is_on) {
     if ((r = driver_receive(ANY, &msg, &ipc_status)) != 0 ) { 
       printf("driver_receive failed with: %d", r);
