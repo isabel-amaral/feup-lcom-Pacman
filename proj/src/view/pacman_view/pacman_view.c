@@ -4,7 +4,7 @@
 
 #include "../../devices/graphics/vbe.h"
 #include "../../devices/graphics/graphics.h"
-#include "../../model/pacman.h"
+#include "../../model/pacman_model/pacman.h"
 #include "../initialize_pixmaps.h"
 #include "pacman_view.h"
 

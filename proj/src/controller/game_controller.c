@@ -7,8 +7,8 @@
 #include "../devices/kbc/keyboard/keyboard.h"
 #include "../devices/kbc/mouse/mouse.h"
 
-#include "model/pacman.h"
-#include "model/ghost.h"
+#include "model/pacman_model/pacman.h"
+#include "model/ghosts_model/ghost.h"
 #include "controller/timer_controller/timer_controller.h"
 #include "view/initialize_pixmaps.h"
 #include "view/maze_view/maze_view.h"

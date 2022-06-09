@@ -3,7 +3,7 @@
 
 #include <lcom/lcf.h>
 
-#include "position.h"
+#include "../position.h"
 
 typedef struct {
     Position pos;

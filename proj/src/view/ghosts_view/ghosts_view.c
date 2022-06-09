@@ -4,7 +4,7 @@
 
 #include "../../devices/graphics/vbe.h"
 #include "../../devices/graphics/graphics.h"
-#include "../../model/ghost.h"
+#include "../../model/ghosts_model/ghost.h"
 #include "../initialize_pixmaps.h"
 #include "ghosts_view.h"
 
