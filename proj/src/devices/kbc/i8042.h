@@ -20,7 +20,7 @@
 // mouse commands
 #define ENABLE_DATA 0xF4
 #define DISABLE_DATA 0xF5
-#define ACK 0xF4
+#define ACK 0xFA
 #define NACK 0xFE
 #define ERROR 0xFC
 
