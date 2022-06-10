@@ -1,7 +1,7 @@
 #include "coin.h"
 
-extern Coin small_coins[200];
-extern BigCoin big_coins[5];
+Coin small_coins[200];
+BigCoin big_coins[5];
 
 void set_coins_position() {
     for(int c = 0; c < 15; c++) {
