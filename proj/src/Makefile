@@ -28,6 +28,8 @@ model/pacman_model/pacman.o: model/pacman_model/pacman.c model/pacman_model/pacm
 	cc $(CFLAGS) -o model/pacman_model/pacman.o -c model/pacman_model/pacman.c
 model/ghosts_model/ghost.o: model/ghosts_model/ghost.c model/ghosts_model/ghost.h
 	cc $(CFLAGS) -o model/ghosts_model/ghost.o -c model/ghosts_model/ghost.c
+model/coins_model/coin.o: model/coins_model/coin.c model/coins_model/coin.h
+	cc $(CFLAGS) -o model/coins_model/coin.o -c model/coins_model/coin.c
 
 controller/game_controller.o: controller/game_controller.c controller/game_controller.h
 	cc $(CFLAGS) -o controller/game_controller.o -c controller/game_controller.c
