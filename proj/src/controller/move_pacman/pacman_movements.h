@@ -3,7 +3,7 @@
 
 #include <lcom/lcf.h>
 
-#include "../../model/pacman.h"
+#include "../../model/pacman_model/pacman.h"
 #include "../collisions_controller/collisions-controller.h"
 
 #define PACMAN_STEP 10
