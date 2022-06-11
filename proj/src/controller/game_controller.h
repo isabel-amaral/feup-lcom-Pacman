@@ -7,4 +7,5 @@ int (unsubscribe_devices)();
 
 void (initialize_game_elements)();
 
+void (draw_game_elements)();
 #endif

@@ -3,7 +3,7 @@
 
 #include <lcom/lcf.h>
 
-#include "position.h"
+#include "../../model/position.h"
 
 bool pacman_ghost_collision(Position pacman_pos, Position ghost_pos);
 
