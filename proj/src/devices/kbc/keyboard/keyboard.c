@@ -6,23 +6,23 @@
 
 #include <stdint.h>
 
-int* hook_id;
+int* kb_hook_id;
 bool make_code;
 int num_bytes;
 uint8_t scan_bytes[2];
 bool full_scancode;
 
 int (keyboard_subscribe_int)(uint8_t *bit_no) {
-  hook_id = (int*) malloc(sizeof(int));
-  *hook_id = KEYBOARD_IRQ;
+  kb_hook_id = (int*) malloc(sizeof(int));
+  *kb_hook_id = KEYBOARD_IRQ;
   *bit_no = KEYBOARD_IRQ;
-  if (sys_irqsetpolicy(KEYBOARD_IRQ, IRQ_REENABLE | IRQ_EXCLUSIVE, hook_id) != 0)
+  if (sys_irqsetpolicy(KEYBOARD_IRQ, IRQ_REENABLE | IRQ_EXCLUSIVE, kb_hook_id) != 0)
     return 1;
   return 0;
 }
 
 int (keyboard_unsubscribe_int)() {
-  if (sys_irqrmpolicy(hook_id) != 0)
+  if (sys_irqrmpolicy(kb_hook_id) != 0)
     return 1;
   return 0;
 }
