@@ -19,10 +19,15 @@
 bool game_is_on = true;
 
 uint8_t* timer_bit_no;
+uint8_t* keyboard_bit_no;
 
 int (subscribe_devices)() {
     timer_bit_no = (uint8_t*) malloc(sizeof(uint8_t));
     if (timer_subscribe_int(timer_bit_no) != 0)
+        return 1;
+    
+    keyboard_bit_no = (uint8_t*) malloc(sizeof(uint8_t));
+    if (keyboard_subscribe_int(keyboard_bit_no) != 0)
         return 1;
     //ADD OTEHR DEVICES
     return 0;
@@ -30,6 +35,8 @@ int (subscribe_devices)() {
 
 int (unsubscribe_devices)() {
     if (timer_unsubscribe_int() != 0)
+        return 1;
+    if (keyboard_unsubscribe_int() != 0)
         return 1;
     //ADD OTEHR DEVICES
     return 0;

@@ -3,16 +3,17 @@
 
 #include <lcom/lcf.h>
 
-#include "position.h"
+#include "../../model/pacman.h"
+#include "../collisions_controller/collisions-controller.h"
 
-#define PACMAN_STEP 5
+#define PACMAN_STEP 10
 
-void moveUp(Position pacman_pos);
+void pacmanMoveUp();
 
-void moveDown(Position pacman_pos);
+void pacmanMoveDown();
 
-void moveLeft(Position pacman_pos);
+void pacmanMoveLeft();
 
-void moveRight(Position pacman_pos);
+void pacmanMoveRight();
 
 #endif

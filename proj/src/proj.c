@@ -12,6 +12,7 @@
 
 #include "controller/game_controller.h"
 #include "controller/timer_controller/timer_controller.h"
+#include "controller/keyboard_controller/keyboard_controller.h"
 
 #include "view/maze_view/maze_view.h"
 #include "view/pacman_view/pacman_view.h"
@@ -22,6 +23,7 @@
 extern bool game_is_on;
 
 extern uint8_t* timer_bit_no;
+extern uint8_t* keyboard_bit_no;
 
 int main(int argc, char *argv[]) {
   // sets the language of LCF messages (can be either EN-US or PT-PT)
@@ -62,7 +64,8 @@ int (proj_main_loop)(int argc, char *argv[]) {
 
   message msg;
   int ipc_status, r;
-  uint32_t timer_irq_set = BIT(*timer_bit_no);
+  int timer_irq_set = BIT(*timer_bit_no);
+  int keyboard_irq_set = BIT(*keyboard_bit_no);
   while (game_is_on) {
     if ((r = driver_receive(ANY, &msg, &ipc_status)) != 0 ) { 
       printf("driver_receive failed with: %d", r);
@@ -75,6 +78,12 @@ int (proj_main_loop)(int argc, char *argv[]) {
               timer_interrupt_handler();
               erase_timer();
               draw_timer();
+            }
+
+            if (msg.m_notify.interrupts & keyboard_irq_set){
+              keyboard_int_handler();
+              chooseKey();
+              draw_pacman();
             }
             break;
         default:
