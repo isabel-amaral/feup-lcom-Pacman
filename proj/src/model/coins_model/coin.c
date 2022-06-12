@@ -3,7 +3,7 @@
 SmallCoin small_coins[323];
 BigCoin big_coins[5];
 
-void set_small_coins_positions() {
+void (set_small_coins_positions)() {
     int i;
 
     // 1ª linha 1ª parte
@@ -552,7 +552,7 @@ void set_small_coins_positions() {
     }
 }
 
-void set_big_coins_position() {
+void (set_big_coins_position)() {
     big_coins[0].pos.left_x = 193;
     big_coins[0].pos.right_x = 217;
     big_coins[0].pos.top_y = 365;

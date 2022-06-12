@@ -11,8 +11,8 @@ typedef struct {
     Position pos;
 } BigCoin;
 
-void set_small_coins_positions();
+void (set_small_coins_positions)();
 
-void set_big_coins_position();
+void (set_big_coins_position)();
 
 #endif
