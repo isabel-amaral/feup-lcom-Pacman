@@ -87,11 +87,9 @@ int (proj_main_loop)(int argc, char *argv[]) {
               erase_timer();
               draw_timer();
             }
-
-            if (msg.m_notify.interrupts & keyboard_irq_set){
+            if (msg.m_notify.interrupts & keyboard_irq_set) {
               keyboard_int_handler();
-              chooseKey();
-              draw_pacman();
+              processKey();
             }
             break;
         default:

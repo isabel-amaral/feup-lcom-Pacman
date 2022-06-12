@@ -34,6 +34,7 @@ void (draw_rules_text)() {
 void (draw_play_text)() {
     draw_xpm(play_text_pixmap, play_text_info, PLAY_TEXT_X, PLAY_TEXT_Y);
 }
+
 void (draw_exit_option)() {
     draw_xpm(exit_text_pixmap, exit_text_info, EXIT_TEXT_X, EXIT_TEXT_Y);
 }

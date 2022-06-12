@@ -46,12 +46,12 @@ void (initialize_game_elements)() {
     set_pacman_position();
     set_ghosts_positions();
 
-    initialize_all_pixmaps();   
+    initialize_all_pixmaps();
+    
+    initialize_game_time(); 
 }
 
 void (draw_game_elements)() {
-    initialize_game_time();
-
     draw_maze();
     draw_pacman();
     draw_ghosts();

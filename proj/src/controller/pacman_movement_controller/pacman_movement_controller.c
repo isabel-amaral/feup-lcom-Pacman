@@ -1,24 +1,27 @@
-#include "pacman_movements.h"
+#include <lcom/lcf.h>
+
+#include "../../model/pacman_model/pacman.h"
+#include "../collisions_controller/collisions-controller.h"
+#include "pacman_movement_controller.h"
 
 extern Pacman pacman;
-extern Position maze_pos;
 
-void pacmanMoveLeft(){
+void (pacmanMoveLeft)() {
     pacman.pos.left_x -= PACMAN_STEP;
     pacman.pos.right_x -= PACMAN_STEP;
 }
 
-void pacmanMoveRight(){
+void (pacmanMoveRight)() {
     pacman.pos.left_x += PACMAN_STEP;
     pacman.pos.right_x += PACMAN_STEP;
 }
 
-void pacmanMoveUp(){
+void (pacmanMoveUp)() {
     pacman.pos.top_y -= PACMAN_STEP;
     pacman.pos.bottom_y -= PACMAN_STEP;
 }
 
-void pacmanMoveDown(){
+void (pacmanMoveDown)() {
     pacman.pos.top_y += PACMAN_STEP;
     pacman.pos.bottom_y += PACMAN_STEP;
 }
