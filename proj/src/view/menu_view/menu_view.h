@@ -1,6 +1,8 @@
 #ifndef MENU_VIEW_H
 #define MENU_VIEW_H
 
+#define MENU_WIDTH 1024
+#define MENU_HEIGHT 768
 
 #define PACMAN_TEXT_X 244
 #define PACMAN_TEXT_Y 100
