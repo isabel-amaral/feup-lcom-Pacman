@@ -36,7 +36,7 @@ void (draw_play_text)() {
     draw_xpm(play_text_pixmap, play_text_info, PLAY_TEXT_X, PLAY_TEXT_Y);
 }
 
-void (draw_exit_option)() {
+void (draw_exit_text)() {
     draw_xpm(exit_text_pixmap, exit_text_info, EXIT_TEXT_X, EXIT_TEXT_Y);
 }
 
@@ -57,7 +57,7 @@ void (draw_menu)() {
     draw_pacman_text();
     draw_rules_text();
     draw_play_text();
-    draw_exit_option();
+    draw_exit_text();
 }
 
 void (erase_menu)() {

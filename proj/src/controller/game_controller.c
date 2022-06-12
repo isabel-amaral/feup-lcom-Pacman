@@ -13,7 +13,8 @@
 #include "controller/timer_controller/timer_controller.h"
 #include "view/initialize_pixmaps.h"
 
-bool game_is_on = true;
+bool menu_is_on = true;
+bool game_is_on = false;
 
 uint8_t* timer_bit_no;
 uint8_t* keyboard_bit_no;

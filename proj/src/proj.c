@@ -23,6 +23,7 @@
 #include "view/cursor_view/cursor_view.h"
 #include "view/menu_view/menu_view.h"
 
+extern bool menu_is_on;
 extern bool game_is_on;
 
 extern uint8_t* timer_bit_no;
@@ -59,7 +60,7 @@ void (menu_loop)() {
   message msg;
   int ipc_status, r;
   int mouse_irq_set = BIT(*mouse_bit_no);
-  while (game_is_on) {
+  while (menu_is_on) {
     if ((r = driver_receive(ANY, &msg, &ipc_status)) != 0 ) { 
       printf("driver_receive failed with: %d", r);
       continue;
@@ -125,7 +126,7 @@ int (proj_main_loop)(int argc, char *argv[]) {
   }
 
   menu_loop();
-  //game_loop();
+  game_loop();
 
   if (unsubscribe_devices() != 0)
     return 1;
