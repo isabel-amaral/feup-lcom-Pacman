@@ -17,11 +17,16 @@ bool (pacman_ghost_collision)(Position pacman_pos, Position ghost_pos) {
 }
 
 bool (pacman_maze_collision)(Position pacman_pos) {
-    for(int i = 0; i < 728) {
+    pacman_pos.left_x -= 148;
+    pacman_pos.right_x -= 148;
+    pacman_pos.top_y -= 20;
+    pacman_pos.bottom_y -= 20;
+
+    for(int i = 0; i < 728; i++) {
         for(int j = 0; j < 728; j++) {
             if(maze_pixmap == 1) {
-                if(ghost_pos.top_y <= j && ghost_pos.bottom_y >= j) {
-                        if(pacman_pos.right_x <= i && pacman_pos.left_x >= i) {
+                if(pacman_pos.top_y <= i && pacman_pos.bottom_y >= i) {
+                        if(pacman_pos.right_x <= j && pacman_pos.left_x >= j) {
                             return true;
                         }
                 }
@@ -56,17 +61,22 @@ bool (ghosts_collision)(Position ghost1_pos, Position ghost2_pos) {
     if (ghost1_pos.right_x == ghost2_pos.left_x ||
     ghost1_pos.left_x == ghost2_pos.right_x ||
     ghost1_pos.bottom_y == ghost2_pos.top_y ||
-    ghost1_pos.pos.top_y == ghost2_pos.bottom_y) 
+    ghost1_pos.top_y == ghost2_pos.bottom_y) 
         return true;
     return false;
 }
 
 bool (ghost_maze_collision)(Position ghost_pos) {
-    for(int i = 0; i < 728) {
+    ghost_pos.left_x -= 148;
+    ghost_pos.right_x -= 148;
+    ghost_pos.top_y -= 20;
+    ghost_pos.bottom_y -= 20;
+
+    for(int i = 0; i < 728; i++) {
         for(int j = 0; j < 728; j++) {
             if(maze_pixmap == 1) {
-                if(ghost_pos.top_y <= j && ghost_pos.bottom_y >= j) {
-                    if(ghost_pos.right_x <= i && ghost_pos.left_x >= i) {
+                if(ghost_pos.top_y <= i && ghost_pos.bottom_y >= i) {
+                    if(ghost_pos.right_x <= j && ghost_pos.left_x >= j) {
                         return true;
                     }
                 }
@@ -83,17 +93,17 @@ bool (ghost_small_coin_collision)(Position ghost_pos) {
         if (ghost_pos.right_x == small_coins[j].pos.left_x ||
         ghost_pos.left_x == small_coins[j].pos.right_x ||
         ghost_pos.bottom_y == small_coins[j].pos.top_y ||
-        ghost_pos.pos.top_y == small_coins[j].pos.bottom_y) 
+        ghost_pos.top_y == small_coins[j].pos.bottom_y) 
             return true;
     return false;
 }
 
 bool (ghost_big_coin_collision)(Position ghost_pos) {
     for(int j = 0; j < 5; j++)
-        if (ghost_pos.pos.right_x == big_coins[j].pos.left_x ||
-        ghost_pos.pos.left_x == big_coins[j].pos.right_x ||
-        ghost_pos.pos.bottom_y == big_coins[j].pos.top_y ||
-        ghost_pos.pos.top_y == big_coins[j].pos.bottom_y) 
+        if (ghost_pos.right_x == big_coins[j].pos.left_x ||
+        ghost_pos.left_x == big_coins[j].pos.right_x ||
+        ghost_pos.bottom_y == big_coins[j].pos.top_y ||
+        ghost_pos.top_y == big_coins[j].pos.bottom_y) 
             return true;
     return false;
 }
