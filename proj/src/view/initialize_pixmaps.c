@@ -6,6 +6,7 @@
 #include "view/maze_view/maze_view.h"
 #include "view/pacman_view/pacman_view.h"
 #include "view/ghosts_view/ghosts_view.h"
+#include "view/coins_view/coins_view.h"
 #include "view/timer_view/timer_view.h"
 
 uint8_t* maze_pixmap;
@@ -111,4 +112,5 @@ void (draw_game_elements)() {
     draw_pacman();
     draw_ghosts();
     draw_timer();
+    draw_small_coins();
 }

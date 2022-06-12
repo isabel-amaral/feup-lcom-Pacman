@@ -126,8 +126,8 @@ int (proj_main_loop)(int argc, char *argv[]) {
     return 1;
   }
 
-  //menu_loop();
-  game_loop();
+  menu_loop();
+  //game_loop();
 
   if (unsubscribe_devices() != 0)
     return 1;

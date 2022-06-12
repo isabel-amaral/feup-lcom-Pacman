@@ -23,17 +23,17 @@ void (update_cursor)(struct packet pp) {
 
     if ((mouse_x + pp.delta_x) < 0)
         mouse_x = 0;
-    else if ((mouse_x + pp.delta_x) >= MENU_WIDTH)
+    else if ((mouse_x + cursor_info.width + pp.delta_x) >= MENU_WIDTH)
         mouse_x = MENU_WIDTH - cursor_info.width - 1;
     else
         mouse_x += pp.delta_x;
 
-    if ((mouse_y + pp.delta_y) < 0)
+    if ((mouse_y - pp.delta_y) < 0)
         mouse_y = 0;
-    else if ((mouse_y + pp.delta_y) >= MENU_HEIGHT)
+    else if ((mouse_y + cursor_info.height - pp.delta_y) >= MENU_HEIGHT)
         mouse_y = MENU_HEIGHT - cursor_info.height - 1;
     else
-        mouse_y += pp.delta_y;
+        mouse_y -= pp.delta_y;
 
     draw_cursor();
     // if (pp.lb)
