@@ -54,7 +54,9 @@ int main(int argc, char *argv[]) {
   return 0;
 }
 
-void (menu_loop)() {
+int (menu_loop)() {
+  if (subscribe_menu_devices() != 0)
+    return 1;
   draw_menu();
 
   message msg;
@@ -79,9 +81,14 @@ void (menu_loop)() {
   }
 
   erase_menu();
+  if (unsubscribe_menu_devices() != 0)
+    return 1;
+  return 0;
 }
 
-void (game_loop)() {
+int (game_loop)() {
+  if (subscribe_game_devices() != 0)
+    return 1;
   draw_game_elements();
 
   message msg;
@@ -111,6 +118,10 @@ void (game_loop)() {
       }
     }
   }
+
+  if (unsubscribe_game_devices() != 0)
+    return 1;
+  return 0;
 }
 
 int (proj_main_loop)(int argc, char *argv[]) {
@@ -120,16 +131,16 @@ int (proj_main_loop)(int argc, char *argv[]) {
     return 1;
   }
   initialize_game_elements();
-  if (subscribe_devices() != 0) {
+
+  if (menu_loop() != 0) {
+    vg_exit();
+    return 1;
+  }
+  if (game_loop() != 0) {
     vg_exit();
     return 1;
   }
 
-  menu_loop();
-  game_loop();
-
-  if (unsubscribe_devices() != 0)
-    return 1;
   if (vg_exit() != 0)
     return 1;
   return 0;

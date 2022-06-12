@@ -20,28 +20,34 @@ uint8_t* timer_bit_no;
 uint8_t* keyboard_bit_no;
 uint8_t* mouse_bit_no;
 
-int (subscribe_devices)() {
+int (subscribe_game_devices)() {
     timer_bit_no = (uint8_t*) malloc(sizeof(uint8_t));
     if (timer_subscribe_int(timer_bit_no) != 0)
         return 1;
-    
     keyboard_bit_no = (uint8_t*) malloc(sizeof(uint8_t));
     if (keyboard_subscribe_int(keyboard_bit_no) != 0)
         return 1;
+    return 0;
+}
 
+int (subscribe_menu_devices)() {
     if (enable_data_reporting() != 0)
         return 1;
     mouse_bit_no = (uint8_t*) malloc(sizeof(uint8_t));
     if (mouse_subscribe_int(mouse_bit_no) != 0)
         return 1;
-    return 0;
+    return 0;    
 }
 
-int (unsubscribe_devices)() {
+int (unsubscribe_game_devices)() {
     if (timer_unsubscribe_int() != 0)
         return 1;
     if (keyboard_unsubscribe_int() != 0)
         return 1;
+    return 0;
+}
+
+int (unsubscribe_menu_devices)() {
     if (mouse_unsubscribe_int() != 0)
         return 1;
     if (disable_data_reporting() != 0)
