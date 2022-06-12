@@ -24,7 +24,7 @@ bool (pacman_maze_collision)(Position pacman_pos) {
 
     for(int i = 0; i < 728; i++) {
         for(int j = 0; j < 728; j++) {
-            if(maze_pixmap == 1) {
+            if(*maze_pixmap == 1) {
                 if(pacman_pos.top_y <= i && pacman_pos.bottom_y >= i) {
                         if(pacman_pos.right_x <= j && pacman_pos.left_x >= j) {
                             return true;
@@ -74,7 +74,7 @@ bool (ghost_maze_collision)(Position ghost_pos) {
 
     for(int i = 0; i < 728; i++) {
         for(int j = 0; j < 728; j++) {
-            if(maze_pixmap == 1) {
+            if(*maze_pixmap == 1) {
                 if(ghost_pos.top_y <= i && ghost_pos.bottom_y >= i) {
                     if(ghost_pos.right_x <= j && ghost_pos.left_x >= j) {
                         return true;
