@@ -18,8 +18,16 @@ extern xpm_image_t pacman_right_info;
 extern xpm_image_t pacman_up_info;
 extern xpm_image_t pacman_down_info;
 
+uint8_t* pacman_pixmap;
+xpm_image_t pacman_info;
+extern unsigned int count;
+
 void (draw_pacman)() {
-    draw_xpm(pacman_right_pixmap, pacman_right_info, pacman.pos.left_x, pacman.pos.top_y);
+    if(count == 1){
+        pacman_pixmap = pacman_right_pixmap;
+        pacman_info = pacman_right_info;
+    }
+    draw_xpm(pacman_pixmap, pacman_info, pacman.pos.left_x, pacman.pos.top_y);
 }
 
 void (erase_pacman)() {
