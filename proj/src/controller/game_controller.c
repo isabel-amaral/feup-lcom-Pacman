@@ -9,6 +9,7 @@
 
 #include "model/pacman_model/pacman.h"
 #include "model/ghosts_model/ghost.h"
+#include "model/coins_model/coin.h"
 #include "controller/timer_controller/timer_controller.h"
 #include "view/initialize_pixmaps.h"
 
@@ -50,6 +51,7 @@ int (unsubscribe_devices)() {
 void (initialize_game_elements)() {
     set_pacman_position();
     set_ghosts_positions();
+    set_small_coins_positions();
 
     initialize_all_pixmaps();
     
