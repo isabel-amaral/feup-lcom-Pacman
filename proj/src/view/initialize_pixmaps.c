@@ -9,7 +9,10 @@
 #include "view/timer_view/timer_view.h"
 
 uint8_t* maze_pixmap;
-uint8_t* pacman_pixmap;
+uint8_t* pacman_left_pixmap;
+uint8_t* pacman_right_pixmap;
+uint8_t* pacman_up_pixmap;
+uint8_t* pacman_down_pixmap;
 uint8_t* ghost_red_pixmap;
 uint8_t* ghost_orange_pixmap;
 uint8_t* ghost_pink_pixmap;
@@ -25,7 +28,10 @@ uint8_t* pacman_text_pixmap; uint8_t* play_text_pixmap; uint8_t* rules_text_pixm
 uint8_t* win_text_pixmap; uint8_t* score_text_pixmap; uint8_t* game_over_text_pixmap;
 
 xpm_image_t maze_info;
-xpm_image_t pacman_info;
+xpm_image_t pacman_left_info;
+xpm_image_t pacman_right_info;
+xpm_image_t pacman_up_info;
+xpm_image_t pacman_down_info;
 xpm_image_t ghost_red_info;
 xpm_image_t ghost_orange_info;
 xpm_image_t ghost_pink_info;
@@ -45,7 +51,10 @@ void (initialize_maze_pixmap)() {
 }
 
 void (initialize_pacman_pixmap)() {
-    pacman_pixmap = xpm_load(pacman, XPM_INDEXED, &pacman_info);
+    pacman_left_pixmap = xpm_load(pacman_left, XPM_INDEXED, &pacman_left_info);
+    pacman_right_pixmap = xpm_load(pacman_right, XPM_INDEXED, &pacman_right_info);
+    pacman_up_pixmap = xpm_load(pacman_up, XPM_INDEXED, &pacman_up_info);
+    pacman_down_pixmap = xpm_load(pacman_down, XPM_INDEXED, &pacman_down_info);
 }
 
 void (initialize_ghost_pixmaps)() {

@@ -21,7 +21,10 @@
 #include "../assets/utils/cursor/cursor.xpm"
 
 #include "../assets/ui-elements/maze.xpm"
-#include "../assets/ui-elements/pacman.xpm"
+#include "../assets/ui-elements/pacman-right.xpm"
+#include "../assets/ui-elements/pacman-left.xpm"
+#include "../assets/ui-elements/pacman-up.xpm"
+#include "../assets/ui-elements/pacman-down.xpm"
 #include "../assets/ui-elements/ghost_red.xpm"
 #include "../assets/ui-elements/ghost_orange.xpm"
 #include "../assets/ui-elements/ghost_pink.xpm"
