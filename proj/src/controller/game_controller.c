@@ -11,10 +11,6 @@
 #include "model/ghosts_model/ghost.h"
 #include "controller/timer_controller/timer_controller.h"
 #include "view/initialize_pixmaps.h"
-#include "view/maze_view/maze_view.h"
-#include "view/pacman_view/pacman_view.h"
-#include "view/ghosts_view/ghosts_view.h"
-#include "view/timer_view/timer_view.h"
 
 bool game_is_on = true;
 
@@ -49,11 +45,4 @@ void (initialize_game_elements)() {
     initialize_all_pixmaps();
     
     initialize_game_time(); 
-}
-
-void (draw_game_elements)() {
-    draw_maze();
-    draw_pacman();
-    draw_ghosts();
-    draw_timer();
 }

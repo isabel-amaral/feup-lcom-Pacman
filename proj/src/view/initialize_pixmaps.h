@@ -15,4 +15,6 @@ void (initialize_util_pixmaps)();
 
 void (initialize_all_pixmaps)();
 
+void (draw_game_elements)();
+
 #endif

@@ -14,6 +14,7 @@
 #include "controller/timer_controller/timer_controller.h"
 #include "controller/keyboard_controller/keyboard_controller.h"
 
+#include "view/initialize_pixmaps.h"
 #include "view/maze_view/maze_view.h"
 #include "view/pacman_view/pacman_view.h"
 #include "view/ghosts_view/ghosts_view.h"
@@ -50,25 +51,14 @@ int main(int argc, char *argv[]) {
   return 0;
 }
 
-int (proj_main_loop)(int argc, char *argv[]) {
-  uint16_t mode = 0x105;
-  if (graphics_init(mode) != 0) {
-    vg_exit();
-    return 1;
-  }
-  initialize_game_elements();
-
+void (menu_loop)() {
   draw_menu();
   sleep(5);
   erase_menu();
+}
 
+void (game_loop)() {
   draw_game_elements();
-
-  draw_cursor();
-  if (subscribe_devices() != 0) {
-    vg_exit();
-    return 1;
-  }
 
   message msg;
   int ipc_status, r;
@@ -81,7 +71,7 @@ int (proj_main_loop)(int argc, char *argv[]) {
     }
     if (is_ipc_notify(ipc_status)) {
       switch (_ENDPOINT_P(msg.m_source)) {
-        case HARDWARE:				
+        case HARDWARE:        
             if (msg.m_notify.interrupts & timer_irq_set) {
               timer_interrupt_handler();
               erase_timer();
@@ -97,6 +87,22 @@ int (proj_main_loop)(int argc, char *argv[]) {
       }
     }
   }
+}
+
+int (proj_main_loop)(int argc, char *argv[]) {
+  uint16_t mode = 0x105;
+  if (graphics_init(mode) != 0) {
+    vg_exit();
+    return 1;
+  }
+  initialize_game_elements();
+  if (subscribe_devices() != 0) {
+    vg_exit();
+    return 1;
+  }
+
+  menu_loop();
+  game_loop();
 
   if (unsubscribe_devices() != 0)
     return 1;
@@ -104,3 +110,5 @@ int (proj_main_loop)(int argc, char *argv[]) {
     return 1;
   return 0;
 }
+
+

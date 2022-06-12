@@ -5,6 +5,7 @@
 #include "../../devices/graphics/vbe.h"
 #include "../../devices/graphics/graphics.h"
 #include "../initialize_pixmaps.h"
+#include "../cursor_view/cursor_view.h"
 #include "menu_view.h"
 
 extern uint8_t* pacman_text_pixmap;
@@ -52,6 +53,7 @@ void (draw_score_text)() {
 }
 
 void (draw_menu)() {
+    draw_cursor();
     draw_pacman_text();
     draw_rules_text();
     draw_play_text();
