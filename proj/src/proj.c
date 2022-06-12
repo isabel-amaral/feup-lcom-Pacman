@@ -25,6 +25,7 @@
 
 extern bool menu_is_on;
 extern bool game_is_on;
+extern bool pause_on;
 
 extern uint8_t* timer_bit_no;
 extern uint8_t* keyboard_bit_no;
@@ -90,7 +91,11 @@ int (menu_loop)() {
 int (game_loop)() {
   if (subscribe_game_devices() != 0)
     return 1;
-  draw_game_elements();
+
+  if(!pause_on){
+    draw_game_elements();
+  }  
+  
   count ++;
 
   message msg;
@@ -107,8 +112,10 @@ int (game_loop)() {
         case HARDWARE:        
             if (msg.m_notify.interrupts & timer_irq_set) {
               timer_interrupt_handler();
-              erase_timer();
-              draw_timer();
+              if(!pause_on){
+                erase_timer();
+                draw_timer();
+              }
             }
             if (msg.m_notify.interrupts & keyboard_irq_set) {
               keyboard_int_handler();

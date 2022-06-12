@@ -4,6 +4,7 @@
 
 #include "keyboard_controller.h"
 #include "../pacman_movement_controller/pacman_movement_controller.h"
+#include "../timer_controller/timer_controller.h"
 #include "../../devices/kbc/keyboard/keyboard.h"
 #include "../../devices/kbc/i8042.h"
 #include "../../view/pacman_view/pacman_view.h"
@@ -15,7 +16,7 @@ extern int num_bytes;
 extern uint8_t scan_bytes[2];
 extern bool full_scancode;
 extern bool game_is_on;
-unsigned int pause_on = 1;
+bool pause_on = false;
 
 void (processKey)() {
     
@@ -62,13 +63,17 @@ void (processKey)() {
 }
 
 void (pause_handler)(){
-    pause_on ++;
-    if(pause_on % 2 == 0){
+    pause_on = !pause_on;
+    if(pause_on){
         draw_pause_text();
+        pause_game();
+        //cancel_movements();
     }
 
     else{
+        continue_game();
         draw_game_elements();
+        //enable_movements();
     }
     
 }
