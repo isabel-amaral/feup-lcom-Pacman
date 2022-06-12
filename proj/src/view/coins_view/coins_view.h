@@ -5,4 +5,8 @@ void (draw_small_coins)();
 
 void (erase_small_coins)();
 
+void (draw_big_coins)();
+
+void (erase_big_coins)();
+
 #endif

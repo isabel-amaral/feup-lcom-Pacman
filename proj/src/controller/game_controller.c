@@ -52,6 +52,7 @@ void (initialize_game_elements)() {
     set_pacman_position();
     set_ghosts_positions();
     set_small_coins_positions();
+    set_big_coins_position();
 
     initialize_all_pixmaps();
     
