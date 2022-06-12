@@ -33,14 +33,27 @@
 #define SCORE_TEXT_X 339
 #define SCORE_TEXT_Y 344
 
+#define PAUSE_TEXT_X 355
+#define PAUSE_TEXT_Y 344
+
 void (draw_pacman_text)();
+
 void (draw_rules_text)();
+
 void (draw_play_text)();
+
 void (draw_exit_text)();
+
 void (draw_win_text)();
+
 void (draw_game_over_text)();
+
 void (draw_score_text)();
-void (erase_menu)();
+
+void (draw_pause_text)();
+
 void (draw_menu)();
+
+void (erase_menu)();
 
 #endif

@@ -26,7 +26,7 @@ uint8_t* digit0_pixmap; uint8_t* digit1_pixmap; uint8_t* digit2_pixmap; uint8_t*
 uint8_t* digit5_pixmap; uint8_t* digit6_pixmap; uint8_t* digit7_pixmap; uint8_t* digit8_pixmap; uint8_t* digit9_pixmap;
 uint8_t* time_divider_pixmap;
 uint8_t* pacman_text_pixmap; uint8_t* play_text_pixmap; uint8_t* rules_text_pixmap; uint8_t* exit_text_pixmap;
-uint8_t* win_text_pixmap; uint8_t* score_text_pixmap; uint8_t* game_over_text_pixmap;
+uint8_t* win_text_pixmap; uint8_t* score_text_pixmap; uint8_t* game_over_text_pixmap; uint8_t* pause_text_pixmap;
 
 xpm_image_t maze_info;
 xpm_image_t pacman_left_info;
@@ -45,7 +45,7 @@ xpm_image_t digit0_info, digit1_info, digit2_info, digit3_info, digit4_info,
     digit5_info, digit6_info, digit7_info, digit8_info, digit9_info;
 xpm_image_t time_divider_info;
 xpm_image_t pacman_text_info, play_text_info, rules_text_info, exit_text_info,
-    win_text_info, score_text_info, game_over_text_info;
+    win_text_info, score_text_info, game_over_text_info, pause_text_info;
 
 void (initialize_maze_pixmap)() {
     maze_pixmap = xpm_load(maze, XPM_INDEXED, &maze_info);
@@ -78,6 +78,7 @@ void (initialize_menu_button_pixmaps)() {
     win_text_pixmap = xpm_load(win_text, XPM_INDEXED, &win_text_info);
     score_text_pixmap = xpm_load(score_text, XPM_INDEXED, &score_text_info);
     game_over_text_pixmap = xpm_load(game_over_text, XPM_INDEXED, &game_over_text_info);
+    pause_text_pixmap = xpm_load(pause_text, XPM_INDEXED, &pause_text_info);
 }
 
 void (initialize_util_pixmaps)() {

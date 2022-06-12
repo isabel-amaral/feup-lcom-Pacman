@@ -15,6 +15,7 @@ extern uint8_t* exit_text_pixmap;
 extern uint8_t* win_text_pixmap; 
 extern uint8_t* score_text_pixmap; 
 extern uint8_t* game_over_text_pixmap;
+extern uint8_t* pause_text_pixmap;
 
 extern xpm_image_t pacman_text_info;
 extern xpm_image_t play_text_info;
@@ -23,6 +24,7 @@ extern xpm_image_t exit_text_info;
 extern xpm_image_t win_text_info;
 extern xpm_image_t score_text_info;
 extern xpm_image_t game_over_text_info;
+extern xpm_image_t pause_text_info;
 
 void (draw_pacman_text)() {
     draw_xpm(pacman_text_pixmap, pacman_text_info, PACMAN_TEXT_X, PACMAN_TEXT_Y);
@@ -50,6 +52,10 @@ void (draw_game_over_text)() {
 
 void (draw_score_text)() {
     draw_xpm(score_text_pixmap, score_text_info, SCORE_TEXT_X, SCORE_TEXT_Y);
+}
+
+void (draw_pause_text)() {
+    draw_xpm(pause_text_pixmap, pause_text_info, PAUSE_TEXT_X, PAUSE_TEXT_Y);
 }
 
 void (draw_menu)() {
