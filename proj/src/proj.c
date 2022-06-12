@@ -13,6 +13,7 @@
 #include "controller/game_controller.h"
 #include "controller/timer_controller/timer_controller.h"
 #include "controller/keyboard_controller/keyboard_controller.h"
+#include "controller/mouse_controller/mouse_controller.h"
 
 #include "view/initialize_pixmaps.h"
 #include "view/maze_view/maze_view.h"
@@ -26,6 +27,7 @@ extern bool game_is_on;
 
 extern uint8_t* timer_bit_no;
 extern uint8_t* keyboard_bit_no;
+extern uint8_t* mouse_bit_no;
 
 int main(int argc, char *argv[]) {
   // sets the language of LCF messages (can be either EN-US or PT-PT)
@@ -53,7 +55,28 @@ int main(int argc, char *argv[]) {
 
 void (menu_loop)() {
   draw_menu();
-  sleep(5);
+
+  message msg;
+  int ipc_status, r;
+  int mouse_irq_set = BIT(*mouse_bit_no);
+  while (game_is_on) {
+    if ((r = driver_receive(ANY, &msg, &ipc_status)) != 0 ) { 
+      printf("driver_receive failed with: %d", r);
+      continue;
+    }
+    if (is_ipc_notify(ipc_status)) {
+      switch (_ENDPOINT_P(msg.m_source)) {
+        case HARDWARE:        
+            if (msg.m_notify.interrupts & mouse_irq_set) {
+              mouse_interrupt_handler();
+            }
+            break;
+        default:
+            break;
+      }
+    }
+  }
+
   erase_menu();
 }
 

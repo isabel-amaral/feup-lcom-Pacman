@@ -16,6 +16,7 @@ bool game_is_on = true;
 
 uint8_t* timer_bit_no;
 uint8_t* keyboard_bit_no;
+uint8_t* mouse_bit_no;
 
 int (subscribe_devices)() {
     timer_bit_no = (uint8_t*) malloc(sizeof(uint8_t));
@@ -25,7 +26,12 @@ int (subscribe_devices)() {
     keyboard_bit_no = (uint8_t*) malloc(sizeof(uint8_t));
     if (keyboard_subscribe_int(keyboard_bit_no) != 0)
         return 1;
-    //ADD OTEHR DEVICES
+
+    if (enable_data_reporting() != 0)
+        return 1;
+    mouse_bit_no = (uint8_t*) malloc(sizeof(uint8_t));
+    if (mouse_subscribe_int(mouse_bit_no) != 0)
+        return 1;
     return 0;
 }
 
@@ -34,7 +40,10 @@ int (unsubscribe_devices)() {
         return 1;
     if (keyboard_unsubscribe_int() != 0)
         return 1;
-    //ADD OTEHR DEVICES
+    if (mouse_unsubscribe_int() != 0)
+        return 1;
+    if (disable_data_reporting() != 0)
+        return 1;
     return 0;
 }
 
