@@ -29,6 +29,7 @@ extern bool game_is_on;
 extern uint8_t* timer_bit_no;
 extern uint8_t* keyboard_bit_no;
 extern uint8_t* mouse_bit_no;
+unsigned int count = 1;
 
 int main(int argc, char *argv[]) {
   // sets the language of LCF messages (can be either EN-US or PT-PT)
@@ -90,6 +91,7 @@ int (game_loop)() {
   if (subscribe_game_devices() != 0)
     return 1;
   draw_game_elements();
+  count ++;
 
   message msg;
   int ipc_status, r;

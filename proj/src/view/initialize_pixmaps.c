@@ -113,4 +113,5 @@ void (draw_game_elements)() {
     draw_ghosts();
     draw_timer();
     draw_small_coins();
+    draw_big_coins();
 }

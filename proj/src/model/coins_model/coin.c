@@ -1,9 +1,9 @@
 #include "coin.h"
 
-SmallCoin small_coins[400];
+SmallCoin small_coins[323];
 BigCoin big_coins[5];
 
-void set_small_coins_positions() {
+void (set_small_coins_positions)() {
     int i;
 
     // 1ª linha 1ª parte
@@ -196,7 +196,7 @@ void set_small_coins_positions() {
         i += 19;
     }
 
-    // 10ª linha 1ª parte
+    // 10ª linha
     i = 235;
     for(int c = 170; c < 200; c++) {
         small_coins[c].pos.left_x = i;
@@ -550,4 +550,31 @@ void set_small_coins_positions() {
         small_coins[c].pos.bottom_y = i + 25;
         i += 19;
     }
+}
+
+void (set_big_coins_position)() {
+    big_coins[0].pos.left_x = 193;
+    big_coins[0].pos.right_x = 217;
+    big_coins[0].pos.top_y = 365;
+    big_coins[0].pos.bottom_y = 390;
+
+    big_coins[1].pos.left_x = 820;
+    big_coins[1].pos.right_x = 845;
+    big_coins[1].pos.top_y = 363;
+    big_coins[1].pos.bottom_y = 387;
+    
+    big_coins[2].pos.left_x = 195;
+    big_coins[2].pos.right_x = 220;
+    big_coins[2].pos.top_y = 65;
+    big_coins[2].pos.bottom_y = 90;
+
+    big_coins[3].pos.left_x = 820;
+    big_coins[3].pos.right_x = 855;
+    big_coins[3].pos.top_y = 65;
+    big_coins[3].pos.bottom_y = 90;
+
+    big_coins[4].pos.left_x = 510;
+    big_coins[4].pos.right_x = 535;
+    big_coins[4].pos.top_y = 700;
+    big_coins[4].pos.bottom_y = 725;
 }

@@ -1,16 +1,24 @@
 #ifndef COLLISIONS_CONTROLLER_H
 #define COLLISIONS_CONTROLLER_H
 
-bool (pacman_ghost_collision)(Position pacman_pos, Position ghost_pos);
+#include "../../model/pacman_model/pacman.h"
+#include "../../model/ghosts_model/ghost.h"
+#include "../../model/coins_model/coin.h"
 
-bool (pacman_maze_collision)(Position pacman_pos, Position maze_pos);
+bool (pacman_ghost_collision)(Pacman pacman, Ghost ghost[]);
 
-bool (pacman_coin_collision)(Position pacman_pos, Position coin_pos);
+bool (pacman_maze_collision)(Pacman pacman, uint8_t* maze_pixmap);
 
-bool (ghosts_collision)(Position ghost1_pos, Position ghost2_pos);
+bool (pacman_small_coin_collision)(Pacman pacman, SmallCoin small_coins[]);
 
-bool (ghost_maze_collision)(Position ghost_pos, Position maze_pos);
+bool (pacman_big_coin_collision)(Pacman pacman, BigCoin big_coins[]);
 
-bool (ghost_coin_collision)(Position ghost_pos, Position coin_pos);
+bool (ghosts_collision)(Ghost ghost[]);
+
+bool (ghost_maze_collision)(Ghost ghosts[], uint8_t* maze_pixmap);
+
+bool (ghost_small_coin_collision)(Ghost ghost[], SmallCoin small_coins[]);
+
+bool (ghost_big_coin_collision)(Ghost ghost[], BigCoin big_coins[]);
 
 #endif
