@@ -17,6 +17,7 @@
 #include "../assets/utils/text_buttons/win_text.xpm"
 #include "../assets/utils/text_buttons/score_text.xpm"
 #include "../assets/utils/text_buttons/game_over_text.xpm"
+#include "../assets/utils/text_buttons/pause_text.xpm"
 
 #include "../assets/utils/cursor/cursor.xpm"
 
