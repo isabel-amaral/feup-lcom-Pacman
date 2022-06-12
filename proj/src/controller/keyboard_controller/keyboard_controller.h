@@ -2,5 +2,6 @@
 #define KEYBOARD_CONTROLLER_H
 
 void (processKey)();
+void (pause_handler)();
 
 #endif
