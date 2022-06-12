@@ -8,7 +8,7 @@
 #include "../initialize_pixmaps.h"
 #include "coins_view.h"
 
-extern SmallCoin small_coins[323];
+extern SmallCoin small_coins[329];
 extern uint8_t* small_coin_pixmap;
 extern xpm_image_t small_coin_info;
 

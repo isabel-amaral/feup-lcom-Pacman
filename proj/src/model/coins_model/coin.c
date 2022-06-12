@@ -1,6 +1,6 @@
 #include "coin.h"
 
-SmallCoin small_coins[323];
+SmallCoin small_coins[329];
 BigCoin big_coins[5];
 
 void (set_small_coins_positions)() {
@@ -550,6 +550,15 @@ void (set_small_coins_positions)() {
         small_coins[c].pos.bottom_y = i + 25;
         i += 19;
     }
+
+    i = 530;
+    for(int c = 324; c < 329; c++) {
+        small_coins[c].pos.left_x = 560;
+        small_coins[c].pos.right_x = 585;
+        small_coins[c].pos.top_y = i;
+        small_coins[c].pos.bottom_y = i + 25;
+        i += 19;
+    }
 }
 
 void (set_big_coins_position)() {
@@ -573,8 +582,8 @@ void (set_big_coins_position)() {
     big_coins[3].pos.top_y = 65;
     big_coins[3].pos.bottom_y = 90;
 
-    big_coins[4].pos.left_x = 510;
-    big_coins[4].pos.right_x = 535;
-    big_coins[4].pos.top_y = 700;
-    big_coins[4].pos.bottom_y = 725;
+    big_coins[4].pos.left_x = 508;
+    big_coins[4].pos.right_x = 533;
+    big_coins[4].pos.top_y = 698;
+    big_coins[4].pos.bottom_y = 723;
 }
