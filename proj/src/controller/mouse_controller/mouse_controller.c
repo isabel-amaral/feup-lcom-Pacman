@@ -18,6 +18,7 @@ extern xpm_image_t cursor_info;
 extern bool menu_is_on;
 extern bool game_is_on;
 extern bool rules_is_on;
+extern bool exited;
 
 void (check_button)(bool clicked) {
     if (mouse_x >= PACMAN_TEXT_X && mouse_x < PACMAN_TEXT_X + PACMAN_TEXT_WIDTH &&
@@ -35,15 +36,6 @@ void (check_button)(bool clicked) {
             draw_rules_text();
     }
 
-    if (mouse_x >= BACK_TO_MENU_X && mouse_x < BACK_TO_MENU_X + BACK_TO_MENU_WIDTH &&
-        mouse_y >= BACK_TO_MENU_Y && mouse_y < BACK_TO_MENU_Y + BACK_TO_MENU_HEIGHT && rules_is_on) {
-        if (clicked) {
-            rules_is_on = false;
-            erase_menu();
-            draw_menu();
-        }
-    }
-
     if (mouse_x >= PLAY_TEXT_X && mouse_x < PLAY_TEXT_X + PALY_TEXT_WIDTH &&
         mouse_y >= PLAY_TEXT_Y && mouse_y < PLAY_TEXT_Y + PLAY_TEXT_HEIGHT && !rules_is_on) {
         if (clicked) {
@@ -57,12 +49,37 @@ void (check_button)(bool clicked) {
     if (mouse_x >= EXIT_TEXT_X && mouse_x < EXIT_TEXT_X + EXIT_TEXT_WIDTH &&
         mouse_y >= EXIT_TEXT_Y && mouse_y < EXIT_TEXT_Y + EXIT_TEXT_HEIGHT && !rules_is_on) {
         if (clicked) {
+            exited = true;
             menu_is_on = false;
-            game_is_on = false; 
+            game_is_on = false;
         }
         else
             draw_exit_text();
     }
+
+    if (mouse_x >= BACK_TO_MENU_X && mouse_x < BACK_TO_MENU_X + BACK_TO_MENU_WIDTH &&
+        mouse_y >= BACK_TO_MENU_Y && mouse_y < BACK_TO_MENU_Y + BACK_TO_MENU_HEIGHT && rules_is_on) {
+        if (clicked) {
+            rules_is_on = false;
+            erase_menu();
+            draw_menu();
+        }
+        else
+            draw_rules_description();
+    }
+    if (((mouse_x >= RULES_DESCRIPTION1_X && mouse_x < RULES_DESCRIPTION1_X + RULES_DESCRIPTION1_WIDTH &&
+        mouse_y >= RULES_DESCRIPTION1_Y && mouse_y < RULES_DESCRIPTION1_Y + RULES_DESCRIPTION1_HEIGHT) ||
+        (mouse_x >= RULES_DESCRIPTION2_X && mouse_x < RULES_DESCRIPTION2_X + RULES_DESCRIPTION2_WIDTH &&
+        mouse_y >= RULES_DESCRIPTION2_Y && mouse_y < RULES_DESCRIPTION2_Y + RULES_DESCRIPTION2_HEIGHT) ||
+        (mouse_x >= RULES_DESCRIPTION3_X && mouse_x < RULES_DESCRIPTION3_X + RULES_DESCRIPTION3_WIDTH &&
+        mouse_y >= RULES_DESCRIPTION3_Y && mouse_y < RULES_DESCRIPTION3_Y + RULES_DESCRIPTION3_HEIGHT) ||
+        (mouse_x >= RULES_DESCRIPTION4_X && mouse_x < RULES_DESCRIPTION4_X + RULES_DESCRIPTION4_WIDTH &&
+        mouse_y >= RULES_DESCRIPTION4_Y && mouse_y < RULES_DESCRIPTION4_Y + RULES_DESCRIPTION4_HEIGHT) ||
+        (mouse_x >= RULES_DESCRIPTION5_X && mouse_x < RULES_DESCRIPTION5_X + RULES_DESCRIPTION5_WIDTH &&
+        mouse_y >= RULES_DESCRIPTION5_Y && mouse_y < RULES_DESCRIPTION5_Y + RULES_DESCRIPTION5_HEIGHT) ||
+        (mouse_x >= RULES_DESCRIPTION6_X && mouse_x < RULES_DESCRIPTION6_X + RULES_DESCRIPTION6_WIDTH &&
+        mouse_y >= RULES_DESCRIPTION6_Y && mouse_y < RULES_DESCRIPTION6_Y + RULES_DESCRIPTION6_HEIGHT)) && rules_is_on)
+        draw_rules_description();
 }
 
 void (update_cursor)(struct packet pp) {

@@ -27,6 +27,7 @@
 extern bool menu_is_on;
 extern bool game_is_on;
 extern bool pause_is_on;
+extern bool exited;
 extern bool initializing;
 extern unsigned int score;
 extern unsigned int game_time;
@@ -149,12 +150,14 @@ int (proj_main_loop)(int argc, char *argv[]) {
     return 1;
   }
 
-  if (game_time == 0) {
-    draw_win_menu();
-    sleep(7);
-  } else {
-    draw_game_over_menu();
-    sleep(7);
+  if (!exited) {
+    if (game_time == 0) {
+      draw_win_menu();
+      sleep(5);
+    } else {
+      draw_game_over_menu();
+      sleep(5);
+    }
   }
 
   if (vg_exit() != 0)
