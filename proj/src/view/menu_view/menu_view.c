@@ -6,6 +6,7 @@
 #include "../../devices/graphics/graphics.h"
 #include "../initialize_pixmaps.h"
 #include "../cursor_view/cursor_view.h"
+#include "../score_view/score_view.h"
 #include "menu_view.h"
 
 extern uint8_t* pacman_text_pixmap;
@@ -68,4 +69,18 @@ void (draw_menu)() {
 
 void (erase_menu)() {
     draw_rectangle(0, 0, 1024, 768, BACKGROUND);
+}
+
+void (draw_win_menu)() {
+    erase_menu();
+    draw_win_text();
+    draw_score_text();
+    draw_score();
+}
+
+void (draw_game_over_menu)() {
+    erase_menu();
+    draw_game_over_menu();
+    draw_score_text();
+    draw_score();
 }

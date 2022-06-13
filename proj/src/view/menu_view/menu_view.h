@@ -56,4 +56,8 @@ void (draw_menu)();
 
 void (erase_menu)();
 
+void (draw_win_menu)();
+
+void (draw_game_over_menu)();
+
 #endif

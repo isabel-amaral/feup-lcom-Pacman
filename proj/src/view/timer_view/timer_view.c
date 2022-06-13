@@ -23,7 +23,7 @@ extern xpm_image_t time_divider_info;
 uint8_t* pixmap;
 xpm_image_t image_info;
 
-void (get_digit_pixmap)(int digit) {
+void (get_timer_digit_pixmap)(int digit) {
     switch (digit) {
         case 0: pixmap = digit0_pixmap; image_info = digit0_info;
             break;
@@ -51,15 +51,15 @@ void (get_digit_pixmap)(int digit) {
 }
 
 void (draw_timer)() {
-    get_digit_pixmap(timer_minutes);
+    get_timer_digit_pixmap(timer_minutes);
     draw_xpm(pixmap, image_info, MIN_X, TIMER_Y);
 
     draw_xpm(time_divider_pixmap, time_divider_info, TIME_DIV_X, TIMER_Y);
 
-    get_digit_pixmap(timer_seconds/10);
+    get_timer_digit_pixmap(timer_seconds/10);
     draw_xpm(pixmap, image_info, SEC_MSD_X, TIMER_Y);
 
-    get_digit_pixmap(timer_seconds%10);
+    get_timer_digit_pixmap(timer_seconds%10);
     draw_xpm(pixmap, image_info, SEC_LSD_X, TIMER_Y);
 }
 

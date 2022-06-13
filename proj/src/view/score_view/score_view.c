@@ -2,6 +2,10 @@
 
 #include <stdint.h>
 
+#include "../../devices/graphics/vbe.h"
+#include "../../devices/graphics/graphics.h"
+#include "../initialize_pixmaps.h"
+#include "../../view/score_view/score_view.h"
 #include "score_view.h"
 
 extern unsigned int score;
@@ -16,7 +20,7 @@ extern xpm_image_t digit0_info, digit1_info, digit2_info, digit3_info, digit4_in
 uint8_t* pixmap;
 xpm_image_t image_info;
 
-void (get_digit_pixmap)(int digit) {
+void (get_score_digit_pixmap)(int digit) {
     switch (digit) {
         case 0: pixmap = digit0_pixmap; image_info = digit0_info;
             break;
@@ -53,12 +57,12 @@ void (draw_score)() {
     
     score_aux = score;
     int width = num_digits * DIGIT_WIDTH;
-    int score_x = (1024 - width)/2
+    int score_x = (1024 - width)/2;
     for (int i = 0; i < num_digits; i++) {
         int digit = score%10;
         score_aux /= 10;
-        get_digit_pixmap(digit);
-        draw_xpm(pixmap, image_info, width, score_x, SCORE_Y);
+        get_score_digit_pixmap(digit);
+        draw_xpm(pixmap, image_info, score_x, SCORE_Y);
         score_x += DIGIT_WIDTH;
     }
 }
