@@ -24,6 +24,7 @@
 #include "../assets/utils/text_buttons/rules_description4.xpm"
 #include "../assets/utils/text_buttons/rules_description5.xpm"
 #include "../assets/utils/text_buttons/rules_description6.xpm"
+#include "../assets/utils/text_buttons/back_to_menu_text.xpm"
 
 #include "../assets/utils/cursor/cursor.xpm"
 

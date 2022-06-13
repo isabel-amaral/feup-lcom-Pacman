@@ -14,6 +14,7 @@
 #include "controller/timer_controller/timer_controller.h"
 #include "controller/keyboard_controller/keyboard_controller.h"
 #include "controller/mouse_controller/mouse_controller.h"
+#include "controller/game_controller.h"
 
 #include "view/initialize_pixmaps.h"
 #include "view/maze_view/maze_view.h"
@@ -25,12 +26,14 @@
 
 extern bool menu_is_on;
 extern bool game_is_on;
-extern bool pause_on;
+extern bool pause_is_on;
+extern bool initializing;
+extern unsigned int score;
+extern unsigned int game_time;
 
 extern uint8_t* timer_bit_no;
 extern uint8_t* keyboard_bit_no;
 extern uint8_t* mouse_bit_no;
-unsigned int count = 1;
 
 int main(int argc, char *argv[]) {
   // sets the language of LCF messages (can be either EN-US or PT-PT)
@@ -91,12 +94,9 @@ int (menu_loop)() {
 int (game_loop)() {
   if (subscribe_game_devices() != 0)
     return 1;
-
-  if(!pause_on){
-    draw_game_elements();
-  }  
-  
-  count ++;
+  if (!pause_is_on)
+    draw_game_elements(); 
+  initializing = false;
 
   message msg;
   int ipc_status, r;
@@ -112,14 +112,14 @@ int (game_loop)() {
         case HARDWARE:        
             if (msg.m_notify.interrupts & timer_irq_set) {
               timer_interrupt_handler();
-              if(!pause_on){
+              if (!pause_is_on) {
                 erase_timer();
                 draw_timer();
               }
             }
             if (msg.m_notify.interrupts & keyboard_irq_set) {
               keyboard_int_handler();
-              processKey();
+              process_key();
             }
             break;
         default:
@@ -127,7 +127,6 @@ int (game_loop)() {
       }
     }
   }
-
   if (unsubscribe_game_devices() != 0)
     return 1;
   return 0;
@@ -150,9 +149,15 @@ int (proj_main_loop)(int argc, char *argv[]) {
     return 1;
   }
 
+  if (game_time == 0) {
+    draw_win_menu();
+    sleep(7);
+  } else {
+    draw_game_over_menu();
+    sleep(7);
+  }
+
   if (vg_exit() != 0)
     return 1;
   return 0;
 }
-
-

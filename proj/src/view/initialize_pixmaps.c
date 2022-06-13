@@ -20,12 +20,6 @@ uint8_t* ghost_pink_pixmap;
 uint8_t* ghost_blue_pixmap;
 uint8_t* small_coin_pixmap;
 uint8_t* big_coin_pixmap;
-uint8_t* rules_description1_pixmap;
-uint8_t* rules_description2_pixmap;
-uint8_t* rules_description3_pixmap;
-uint8_t* rules_description4_pixmap;
-uint8_t* rules_description5_pixmap;
-uint8_t* rules_description6_pixmap;
 
 uint8_t* cursor_pixmap;
 uint8_t* digit0_pixmap; uint8_t* digit1_pixmap; uint8_t* digit2_pixmap; uint8_t* digit3_pixmap; uint8_t* digit4_pixmap; 
@@ -34,6 +28,14 @@ uint8_t* time_divider_pixmap;
 uint8_t* pacman_text_pixmap; uint8_t* play_text_pixmap; uint8_t* rules_text_pixmap; uint8_t* exit_text_pixmap;
 uint8_t* win_text_pixmap; uint8_t* score_text_pixmap; uint8_t* game_over_text_pixmap; uint8_t* pause_text_pixmap;
 uint8_t* rules_description_pixmap;
+uint8_t* back_to_menu_text_pixmap;
+uint8_t* rules_description1_pixmap;
+uint8_t* rules_description2_pixmap;
+uint8_t* rules_description3_pixmap;
+uint8_t* rules_description4_pixmap;
+uint8_t* rules_description5_pixmap;
+uint8_t* rules_description6_pixmap;
+
 
 xpm_image_t maze_info;
 xpm_image_t pacman_left_info;
@@ -53,13 +55,13 @@ xpm_image_t digit0_info, digit1_info, digit2_info, digit3_info, digit4_info,
 xpm_image_t time_divider_info;
 xpm_image_t pacman_text_info, play_text_info, rules_text_info, exit_text_info,
     win_text_info, score_text_info, game_over_text_info, pause_text_info;
-xpm_image_t rules_description_info;
 xpm_image_t rules_description1_info;
 xpm_image_t rules_description2_info;
 xpm_image_t rules_description3_info;
 xpm_image_t rules_description4_info;
 xpm_image_t rules_description5_info;
 xpm_image_t rules_description6_info;
+xpm_image_t back_to_menu_text_info;
 
 void (initialize_maze_pixmap)() {
     maze_pixmap = xpm_load(maze, XPM_INDEXED, &maze_info);
@@ -99,6 +101,7 @@ void (initialize_menu_button_pixmaps)() {
     rules_description4_pixmap = xpm_load(rules_description4, XPM_INDEXED, &rules_description4_info);
     rules_description5_pixmap = xpm_load(rules_description5, XPM_INDEXED, &rules_description5_info);
     rules_description6_pixmap = xpm_load(rules_description6, XPM_INDEXED, &rules_description6_info);
+    back_to_menu_text_pixmap = xpm_load(back_to_menu_text, XPM_INDEXED, &back_to_menu_text_info);
 }
 
 void (initialize_util_pixmaps)() {
