@@ -5,6 +5,7 @@
 #include "../../devices/graphics/vbe.h"
 #include "../../devices/graphics/graphics.h"
 #include "../../model/pacman_model/pacman.h"
+#include "../../controller/game_controller.h"
 #include "../initialize_pixmaps.h"
 #include "pacman_view.h"
 
@@ -20,10 +21,10 @@ extern xpm_image_t pacman_down_info;
 
 uint8_t* pacman_pixmap;
 xpm_image_t pacman_info;
-extern unsigned int count;
+extern bool initializing;
 
 void (draw_pacman)() {
-    if(count == 1){
+    if (initializing) {
         pacman_pixmap = pacman_right_pixmap;
         pacman_info = pacman_right_info;
     }

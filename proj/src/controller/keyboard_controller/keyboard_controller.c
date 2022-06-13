@@ -15,25 +15,34 @@ extern bool make_code;
 extern int num_bytes;
 extern uint8_t scan_bytes[2];
 extern bool full_scancode;
-extern bool game_is_on;
-bool pause_on = false;
 
-void (processKey)() {
-    
+extern bool game_is_on;
+extern bool pause_is_on;
+
+void (pause_handler)() {
+    pause_is_on = !pause_is_on;
+    if (pause_is_on) {
+        draw_pause_text();
+        pause_game();
+    } else {
+        continue_game();
+        draw_game_elements();
+    }   
+}
+
+void (process_key)() {
     if (num_bytes == 1) {
-        switch(scan_bytes[0]){
+        switch (scan_bytes[0]) {
             case ESC_MCODE:
-            game_is_on = false;
-            break;
+                game_is_on = false;
+                break;
             case SPACEBAR_MCODE:
-            pause_handler();
-            break;
+                pause_handler();
+                break;
         }
-        
-        return;
     }
 
-    if (num_bytes == 2 && scan_bytes[0] == SCAN_MSB && !pause_on){
+    else if (num_bytes == 2 && scan_bytes[0] == SCAN_MSB && !pause_is_on) {
         switch (scan_bytes[1]) {
             case ARROW_UP_MCODE: 
                 erase_pacman(); 
@@ -60,20 +69,4 @@ void (processKey)() {
 
     if (full_scancode)
         num_bytes = 0;
-}
-
-void (pause_handler)(){
-    pause_on = !pause_on;
-    if(pause_on){
-        draw_pause_text();
-        pause_game();
-        //cancel_movements();
-    }
-
-    else{
-        continue_game();
-        draw_game_elements();
-        //enable_movements();
-    }
-    
 }

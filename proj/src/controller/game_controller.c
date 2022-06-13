@@ -15,12 +15,13 @@
 
 bool menu_is_on = true;
 bool game_is_on = false;
+bool pause_is_on = false;
+bool initializing = true;
+unsigned int score = 0;
 
 uint8_t* timer_bit_no;
 uint8_t* keyboard_bit_no;
 uint8_t* mouse_bit_no;
-
-unsigned int score = 0;
 
 int (subscribe_game_devices)() {
     timer_bit_no = (uint8_t*) malloc(sizeof(uint8_t));

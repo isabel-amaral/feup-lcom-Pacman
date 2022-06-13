@@ -12,6 +12,6 @@ void (pacmanMoveLeft)();
 
 void (pacmanMoveRight)();
 
-void (pacmanHandlerCollisions)();
+void (pacmanCollisionHandler)();
 
 #endif
