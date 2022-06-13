@@ -67,10 +67,13 @@ bool (maze_collision)(Position position) {
 bool (pacman_small_coin_collision)() {
     for (int i = 0; i < 323; i++) {
         if (((small_coins[i].pos.top_y >= pacman.pos.top_y && small_coins[i].pos.top_y <= pacman.pos.bottom_y) || 
-            (small_coins[i].pos.bottom_y <= pacman.pos.right_x && small_coins[i].pos.left_x <= small_coins[i].pos.right_x)) &&
+            (small_coins[i].pos.bottom_y <= pacman.pos.bottom_y && small_coins[i].pos.bottom_y <= small_coins[i].pos.top_y)) &&
             ((small_coins[i].pos.left_x <= pacman.pos.left_x && small_coins[i].pos.right_x >= pacman.pos.left_x) || 
-            (small_coins[i].pos.right_x >= pacman.pos.right_x && small_coins[i].pos.left_x <= pacman.pos.right_x)))
-                return true;
+            (small_coins[i].pos.right_x >= pacman.pos.right_x && small_coins[i].pos.left_x <= pacman.pos.right_x)) &&
+            !small_coins[i].isCaptured) {
+            small_coins[i].isCaptured = true;
+            return true;
+            }
     }
     return false;
 }
@@ -78,10 +81,13 @@ bool (pacman_small_coin_collision)() {
 bool (pacman_big_coin_collision)(Position pacman_pos) {
     for (int i = 0; i < 5; i++) {
         if (((big_coins[i].pos.top_y >= pacman.pos.top_y && big_coins[i].pos.top_y <= pacman.pos.bottom_y) || 
-            (big_coins[i].pos.bottom_y <= pacman.pos.right_x && big_coins[i].pos.left_x <= big_coins[i].pos.right_x)) &&
+            (big_coins[i].pos.bottom_y <= pacman.pos.bottom_y && big_coins[i].pos.bottom_y <= big_coins[i].pos.top_y)) &&
             ((big_coins[i].pos.left_x <= pacman.pos.left_x && big_coins[i].pos.right_x >= pacman.pos.left_x) || 
-            (big_coins[i].pos.right_x >= pacman.pos.right_x && big_coins[i].pos.left_x <= pacman.pos.right_x)))
-                return true;
+            (big_coins[i].pos.right_x >= pacman.pos.right_x && big_coins[i].pos.left_x <= pacman.pos.right_x)) &&
+            !big_coins[i].isCaptured) {
+            big_coins[i].isCaptured = true;
+            return true;
+            }
     }
     return false;
 }

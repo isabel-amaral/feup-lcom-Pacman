@@ -60,14 +60,14 @@ void (pacmanMoveDown)() {
 }
 
 void (pacmanCollisionHandler)(Position aux) {
-    // if (pacman_maze_collision(pacman.pos))
-    //     pacman.pos = pacmanPosAux;
-    // else if (pacman_ghost_collision(pacman.pos)) {
-    //     pacman.pos = pacmanPosAux;
-    //     game_is_on = false;
-    // }
-    // else if (pacman_small_coin_collision(pacman.pos))
-    //     score += SCORE;
-    // else if (pacman_big_coin_collision(pacman.pos))
-    //     increase_time();
+    if (maze_collision(pacman.pos))
+        pacman.pos = aux;
+    else if (pacman_ghost_collision()) {
+        pacman.pos = aux;
+        game_is_on = false;
+    }
+    else if (pacman_small_coin_collision())
+        score += SCORE;
+    else if (pacman_big_coin_collision())
+        increase_time();
 }

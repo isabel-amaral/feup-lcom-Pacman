@@ -124,7 +124,6 @@ int (game_loop)() {
       }
     }
   }
-
   if (unsubscribe_game_devices() != 0)
     return 1;
   return 0;
