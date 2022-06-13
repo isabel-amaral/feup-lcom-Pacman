@@ -18,7 +18,8 @@ extern xpm_image_t big_coin_info;
 
 void (draw_small_coins)() {
     for (int i = 0; i < 323; i++)
-        draw_xpm(small_coin_pixmap, small_coin_info, small_coins[i].pos.left_x, small_coins[i].pos.top_y);
+        if (!small_coins[i].isCaptured)
+            draw_xpm(small_coin_pixmap, small_coin_info, small_coins[i].pos.left_x, small_coins[i].pos.top_y);
 }
 
 void (erase_small_coins)() {
@@ -28,7 +29,8 @@ void (erase_small_coins)() {
 
 void (draw_big_coins)() {
     for (int i = 0; i < 5; i++)
-        draw_xpm(big_coin_pixmap, big_coin_info, big_coins[i].pos.left_x, big_coins[i].pos.top_y);
+        if (!big_coins[i].isCaptured)
+            draw_xpm(big_coin_pixmap, big_coin_info, big_coins[i].pos.left_x, big_coins[i].pos.top_y);
 }
 
 void (erase_big_coins)() {
