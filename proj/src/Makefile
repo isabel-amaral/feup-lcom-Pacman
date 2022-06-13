@@ -2,7 +2,7 @@
 PROG=proj
 
 # source code files to be compiled
-SRCS = proj.c utils/utils.c devices/timer/timer.c devices/kbc/keyboard/keyboard.c devices/kbc/mouse/mouse.c devices/graphics/graphics.c model/pacman_model/pacman.c model/ghosts_model/ghost.c model/coins_model/coin.c controller/game_controller.c controller/timer_controller/timer_controller.c controller/keyboard_controller/keyboard_controller.c controller/mouse_controller/mouse_controller.c controller/pacman_movement_controller/pacman_movement_controller.c controller/collisions_controller/collisions_controller.c view/initialize_pixmaps.c view/maze_view/maze_view.c view/pacman_view/pacman_view.c view/ghosts_view/ghosts_view.c view/coins_view/coins_view.c view/timer_view/timer_view.c view/cursor_view/cursor_view.c view/menu_view/menu_view.c
+SRCS = proj.c utils/utils.c devices/timer/timer.c devices/kbc/keyboard/keyboard.c devices/kbc/mouse/mouse.c devices/graphics/graphics.c model/pacman_model/pacman.c model/ghosts_model/ghost.c model/coins_model/coin.c controller/game_controller.c controller/timer_controller/timer_controller.c controller/keyboard_controller/keyboard_controller.c controller/mouse_controller/mouse_controller.c controller/pacman_movement_controller/pacman_movement_controller.c controller/collisions_controller/collisions_controller.c controller/ghosts_movement_controller/ghosts_movement_controller.c view/initialize_pixmaps.c view/maze_view/maze_view.c view/pacman_view/pacman_view.c view/ghosts_view/ghosts_view.c view/coins_view/coins_view.c view/timer_view/timer_view.c view/cursor_view/cursor_view.c view/menu_view/menu_view.c
 # additional compilation flags
 # "-Wall -Wextra -Werror -I . -std=c11 -Wno-unused-parameter" are already set
 CFLAGS += -pedantic
@@ -42,6 +42,8 @@ controller/pacman_movement_controller/pacman_movement_controller.o: controller/p
 	cc $(CFLAGS) -o controller/pacman_movement_controller/pacman_movement_controller.o -c controller/pacman_movement_controller/pacman_movement_controller.c
 controller/collisions_controller/collisions_controller.o: controller/collisions_controller/collisions_controller.c controller/collisions_controller/collisions-controller.h
 	cc $(CFLAGS) -o controller/collisions_controller/collisions_controller.o -c controller/collisions_controller/collisions_controller.c
+controller/ghosts_movement_controller/ghosts_movement_controller.o: controller/ghosts_movement_controller/ghosts_movement_controller.c controller/ghosts_movement_controller/ghosts_movement_controller.h
+	cc $(CFLAGS) -o controller/ghosts_movement_controller/ghosts_movement_controller.o -c controller/ghosts_movement_controller/ghosts_movement_controller.c
 
 view/initialize_pixmaps.o: view/initialize_pixmaps.c view/initialize_pixmaps.h
 	cc $(CFLAGS) -o view/initialize_pixmaps.o -c view/initialize_pixmaps.c
