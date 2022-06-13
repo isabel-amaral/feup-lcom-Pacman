@@ -28,7 +28,8 @@ void (check_button)(bool clicked) {
         if (clicked) {
             menu_is_on = false;
             game_is_on = false;   
-            //CHAMAR FUNÇÂO QUE MOSTRA REGRAS: TODO         
+            erase_menu();
+            draw_rules_description();  
         }
         else
             draw_rules_text();

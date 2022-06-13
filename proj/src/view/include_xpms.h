@@ -18,6 +18,12 @@
 #include "../assets/utils/text_buttons/score_text.xpm"
 #include "../assets/utils/text_buttons/game_over_text.xpm"
 #include "../assets/utils/text_buttons/pause_text.xpm"
+#include "../assets/utils/text_buttons/rules_description1.xpm"
+#include "../assets/utils/text_buttons/rules_description2.xpm"
+#include "../assets/utils/text_buttons/rules_description3.xpm"
+#include "../assets/utils/text_buttons/rules_description4.xpm"
+#include "../assets/utils/text_buttons/rules_description5.xpm"
+#include "../assets/utils/text_buttons/rules_description6.xpm"
 
 #include "../assets/utils/cursor/cursor.xpm"
 

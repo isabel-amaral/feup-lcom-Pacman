@@ -16,6 +16,12 @@ extern uint8_t* win_text_pixmap;
 extern uint8_t* score_text_pixmap; 
 extern uint8_t* game_over_text_pixmap;
 extern uint8_t* pause_text_pixmap;
+extern uint8_t* rules_description1_pixmap;
+extern uint8_t* rules_description2_pixmap;
+extern uint8_t* rules_description3_pixmap;
+extern uint8_t* rules_description4_pixmap;
+extern uint8_t* rules_description5_pixmap;
+extern uint8_t* rules_description6_pixmap;
 
 extern xpm_image_t pacman_text_info;
 extern xpm_image_t play_text_info;
@@ -25,6 +31,12 @@ extern xpm_image_t win_text_info;
 extern xpm_image_t score_text_info;
 extern xpm_image_t game_over_text_info;
 extern xpm_image_t pause_text_info;
+extern xpm_image_t rules_description1_info;
+extern xpm_image_t rules_description2_info;
+extern xpm_image_t rules_description3_info;
+extern xpm_image_t rules_description4_info;
+extern xpm_image_t rules_description5_info;
+extern xpm_image_t rules_description6_info;
 
 void (draw_pacman_text)() {
     draw_xpm(pacman_text_pixmap, pacman_text_info, PACMAN_TEXT_X, PACMAN_TEXT_Y);
@@ -68,4 +80,8 @@ void (draw_menu)() {
 
 void (erase_menu)() {
     draw_rectangle(0, 0, 1024, 768, BACKGROUND);
+}
+
+void (draw_rules_description)() {
+    draw_xpm(rules_description1_pixmap, rules_description1_info, RULES_DESCRIPTION1_X, RULES_DESCRIPTION1_Y);
 }

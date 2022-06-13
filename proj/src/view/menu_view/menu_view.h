@@ -36,6 +36,20 @@
 #define PAUSE_TEXT_X 355
 #define PAUSE_TEXT_Y 344
 
+#define RULES_DESCRIPTION1_X 191
+#define RULES_DESCRIPTION1_Y 344
+#define RULES_DESCRIPTION2_X 191
+#define RULES_DESCRIPTION2_Y 374
+#define RULES_DESCRIPTION3_X 191
+#define RULES_DESCRIPTION3_Y 404
+#define RULES_DESCRIPTION4_X 191
+#define RULES_DESCRIPTION4_Y 434
+#define RULES_DESCRIPTION5_X 191
+#define RULES_DESCRIPTION5_Y 364
+#define RULES_DESCRIPTION6_X 191
+#define RULES_DESCRIPTION6_Y 394
+
+
 void (draw_pacman_text)();
 
 void (draw_rules_text)();
@@ -55,5 +69,7 @@ void (draw_pause_text)();
 void (draw_menu)();
 
 void (erase_menu)();
+
+void (draw_rules_description)();
 
 #endif
