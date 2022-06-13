@@ -57,12 +57,12 @@ void (draw_score)() {
     
     score_aux = score;
     int width = num_digits * DIGIT_WIDTH;
-    int score_x = (1024 - width)/2;
+    int score_x = ((1024 - width)/2) + width;
     for (int i = 0; i < num_digits; i++) {
-        int digit = score%10;
+        int digit = score_aux%10;
         score_aux /= 10;
         get_score_digit_pixmap(digit);
         draw_xpm(pixmap, image_info, score_x, SCORE_Y);
-        score_x += DIGIT_WIDTH;
+        score_x -= DIGIT_WIDTH;
     }
 }

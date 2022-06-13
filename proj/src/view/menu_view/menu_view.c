@@ -80,7 +80,7 @@ void (draw_win_menu)() {
 
 void (draw_game_over_menu)() {
     erase_menu();
-    draw_game_over_menu();
+    draw_game_over_text();
     draw_score_text();
     draw_score();
 }

@@ -25,13 +25,13 @@
 #define EXIT_TEXT_HEIGHT 80
 
 #define WIN_TEXT_X 401
-#define WIN_TEXT_Y 344
+#define WIN_TEXT_Y 100
 
 #define GAME_OVER_TEXT_X 191
-#define GAME_OVER_TEXT_Y 344
+#define GAME_OVER_TEXT_Y 100
 
 #define SCORE_TEXT_X 339
-#define SCORE_TEXT_Y 444
+#define SCORE_TEXT_Y 300
 
 #define PAUSE_TEXT_X 355
 #define PAUSE_TEXT_Y 344

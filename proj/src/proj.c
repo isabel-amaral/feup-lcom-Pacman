@@ -14,6 +14,7 @@
 #include "controller/timer_controller/timer_controller.h"
 #include "controller/keyboard_controller/keyboard_controller.h"
 #include "controller/mouse_controller/mouse_controller.h"
+#include "controller/game_controller.h"
 
 #include "view/initialize_pixmaps.h"
 #include "view/maze_view/maze_view.h"
@@ -27,6 +28,7 @@ extern bool menu_is_on;
 extern bool game_is_on;
 extern bool pause_is_on;
 extern bool initializing;
+extern unsigned int score;
 extern unsigned int game_time;
 
 extern uint8_t* timer_bit_no;
@@ -150,9 +152,7 @@ int (proj_main_loop)(int argc, char *argv[]) {
   if (game_time == 0) {
     draw_win_menu();
     sleep(7);
-  }
-
-  else {
+  } else {
     draw_game_over_menu();
     sleep(7);
   }
@@ -161,5 +161,3 @@ int (proj_main_loop)(int argc, char *argv[]) {
     return 1;
   return 0;
 }
-
-

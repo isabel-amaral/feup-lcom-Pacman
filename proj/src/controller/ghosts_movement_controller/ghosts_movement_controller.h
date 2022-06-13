@@ -3,13 +3,13 @@
 
 #define GHOST_STEP 5
 
-bool (moveUp) (int ghostIndex);
+void (moveUp)(int ghostIndex);
 
-bool (moveDown) (int ghostIndex);
+void (moveDown)(int ghostIndex);
 
-bool (moveLeft) (int ghostIndex);
+void (moveLeft)(int ghostIndex);
 
-bool (moveRight) (int ghostIndex);
+void (moveRight)(int ghostIndex);
 
 void (move_ghosts)();
 
