@@ -1,14 +1,14 @@
 #include <lcom/lcf.h>
 
-#include "collisions-controller.h"
 #include "../../model/pacman_model/pacman.h"
 #include "../../view/initialize_pixmaps.h"
+#include "collisions-controller.h"
 
+extern Pacman pacman;
 extern Ghost ghosts[4];
 extern BigCoin big_coins[5];
-extern SmallCoin small_coins[329];
+extern SmallCoin small_coins[323];
 extern uint8_t* maze_pixmap;
-extern Pacman pacman;
 
 bool (pacman_ghost_collision)(Position ghost_pos) {
     if((ghost_pos.top_y >= pacman.pos.top_y && ghost_pos.top_y <= pacman.pos.bottom_y) 
