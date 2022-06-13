@@ -6,9 +6,9 @@
 #include "../../model/ghosts_model/ghost.h"
 #include "../../model/pacman_model/pacman.h"
 
+bool (pacman_ghost_collision)();
 
-
-bool (pacman_ghost_collision)(Position ghost_pos);
+bool (ghost_pacman_collision)(Position ghost_pos);
 
 bool (maze_collision)(Position position);
 
