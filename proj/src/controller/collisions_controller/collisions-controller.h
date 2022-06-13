@@ -16,6 +16,6 @@ bool (pacman_small_coin_collision)();
 
 bool (pacman_big_coin_collision)();
 
-bool (ghosts_collision)();
+bool (ghosts_collision)(Position newPosition, int ghostIndex);
 
 #endif

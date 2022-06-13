@@ -92,18 +92,19 @@ bool (pacman_big_coin_collision)(Position pacman_pos) {
     return false;
 }
 
-bool (ghosts_collision)() {
-    for (int i = 0; i < 4; i++) {
-        for (int j = 0; j < 4; j++) {
-            if (j == i)
+bool (ghosts_collision)(Position newPosition, int ghostIndex) {
+    for (int i=0; i < 4; i++) {
+            if (i == ghostIndex)
                 continue;
             
-            if (((ghosts[i].pos.top_y >= ghosts[j].pos.top_y && ghosts[i].pos.top_y <= ghosts[j].pos.bottom_y) || 
-                (ghosts[i].pos.bottom_y <= ghosts[j].pos.right_x && ghosts[i].pos.left_x <= ghosts[j].pos.right_x)) &&
-                ((ghosts[i].pos.left_x <= ghosts[j].pos.left_x && ghosts[i].pos.right_x >= ghosts[j].pos.left_x) || 
-                (ghosts[i].pos.right_x >= ghosts[j].pos.right_x && ghosts[i].pos.left_x <= ghosts[j].pos.right_x)))
+            if ( (ghosts[i].pos.top_y >= newPosition.top_y && ghosts[i].pos.top_y <= newPosition.bottom_y) 
+            || (ghosts[i].pos.bottom_y <= newPosition.bottom_y && ghosts[i].pos.bottom_y <= newPosition.top_y) ) {
+
+                if((ghosts[i].pos.left_x <= newPosition.left_x && ghosts[i].pos.right_x >= newPosition.left_x)
+                    || (ghosts[i].pos.right_x >= newPosition.right_x && newPosition.left_x <= newPosition.right_x)){
                     return true;
-        }
+                }
+            }
     }
     return false;
 }
