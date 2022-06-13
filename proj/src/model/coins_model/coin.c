@@ -551,15 +551,6 @@ void (set_small_coins_positions)() {
         i += 19;
     }
 
-    // i = 530;
-    // for (int c = 324; c < 329; c++) {
-    //     small_coins[c].pos.left_x = 560;
-    //     small_coins[c].pos.right_x = 585;
-    //     small_coins[c].pos.top_y = i;
-    //     small_coins[c].pos.bottom_y = i + 25;
-    //     i += 19;
-    // }
-
     for (int c = 0; i < 323; i++)
         small_coins[c].isCaptured = false;
 }
