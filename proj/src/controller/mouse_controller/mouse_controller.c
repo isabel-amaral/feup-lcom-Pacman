@@ -26,18 +26,21 @@ void (check_button)(bool clicked) {
     if (mouse_x >= RULES_TEXT_X && mouse_x < RULES_TEXT_X + RULES_TEXT_WIDTH &&
         mouse_y >= RULES_TEXT_Y && mouse_y < RULES_TEXT_Y + RULES_TEXT_HEIGHT) {
         if (clicked) {
-            menu_is_on = true; 
             erase_menu();
             draw_rules_description();
-            if (mouse_x >= BACK_TO_MENU_X && mouse_x < BACK_TO_MENU_X + BACK_TO_MENU_WIDTH &&
-            mouse_y >= BACK_TO_MENU_Y && mouse_y < BACK_TO_MENU_Y + BACK_TO_MENU_HEIGHT) {
-                erase_menu();
-                draw_menu();
-                menu_is_on = true;
-            }
+            //menu_is_on = false;
         }
         else
             draw_rules_text();
+    }
+
+    if (mouse_x >= BACK_TO_MENU_X && mouse_x < BACK_TO_MENU_X + BACK_TO_MENU_WIDTH &&
+        mouse_y >= BACK_TO_MENU_Y && mouse_y < BACK_TO_MENU_Y + BACK_TO_MENU_HEIGHT) {
+        if(clicked) {
+            erase_menu();
+            draw_menu();
+            menu_is_on = true;
+        }
     }
 
     if (mouse_x >= PLAY_TEXT_X && mouse_x < PLAY_TEXT_X + PALY_TEXT_WIDTH &&
