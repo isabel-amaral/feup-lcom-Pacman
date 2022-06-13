@@ -67,30 +67,82 @@
 #define BACK_TO_MENU_WIDTH 180
 #define BACK_TO_MENU_HEIGHT 22
 
+/**
+ * @brief Draws "PACMAN" word in the initial game menu.
+ * 
+ */
 void (draw_pacman_text)();
 
+/**
+ * @brief Draws "RULES" option in the initial game menu.
+ * 
+ */
 void (draw_rules_text)();
 
+/**
+ * @brief Draws "PLAY" option in the initial game menu.
+ * 
+ */
 void (draw_play_text)();
 
+/**
+ * @brief Draws "EXIT" option in the initial game menu.
+ * 
+ */
 void (draw_exit_text)();
 
+/**
+ * @brief Draws "WIN" word when the game ends.
+ * 
+ */
 void (draw_win_text)();
 
+/**
+ * @brief Draws "GAME OVER" word when the game ends.
+ * 
+ */
 void (draw_game_over_text)();
 
+/**
+ * @brief Draws "SCORE" word when the game ends.
+ * 
+ */
 void (draw_score_text)();
 
+/**
+ * @brief Draws "PAUSE" word when the game is paused.
+ * 
+ */
 void (draw_pause_text)();
 
+/**
+ * @brief Draws the initial game menu.
+ * 
+ */
 void (draw_menu)();
 
+/**
+ * @brief Erases the game menu using a black rectangle.
+ * 
+ */
 void (erase_menu)();
 
+/**
+ * @brief Draws the game instructions.
+ * 
+ */
 void (draw_rules_description)();
 
+/**
+ * @brief Draws win menu ("Win", "score" and the points) when the the user win.
+ * 
+ */
 void (draw_win_menu)();
 
+/**
+ * @brief Draws win menu ("Game Over", "score" and the points) when the the user loses.
+ * 
+ */
 void (draw_game_over_menu)();
 
 #endif
