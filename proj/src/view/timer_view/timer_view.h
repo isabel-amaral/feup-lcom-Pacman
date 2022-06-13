@@ -11,7 +11,7 @@
 #define SEC_MSD_X 954
 #define SEC_LSD_X 976
 
-void (get_digit_pixmap)();
+void (get_digit_pixmap)(int digit);
 
 void (draw_timer)();
 
