@@ -16,6 +16,7 @@
 bool menu_is_on = true;
 bool game_is_on = false;
 bool pause_is_on = false;
+bool rules_is_on = false;
 bool initializing = true;
 unsigned int score = 0;
 
