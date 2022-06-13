@@ -33,7 +33,7 @@ void (processKey)() {
         return;
     }
 
-    if (num_bytes == 2 && scan_bytes[0] == SCAN_MSB){
+    if (num_bytes == 2 && scan_bytes[0] == SCAN_MSB && !pause_on){
         switch (scan_bytes[1]) {
             case ARROW_UP_MCODE: 
                 erase_pacman(); 
