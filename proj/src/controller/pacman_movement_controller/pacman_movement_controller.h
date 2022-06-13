@@ -2,6 +2,7 @@
 #define PACMAN_MOVEMENT_CONTROLLER_H
 
 #define PACMAN_STEP 10
+#define SCORE 10
 
 void (pacmanMoveUp)();
 

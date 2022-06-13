@@ -20,6 +20,8 @@ uint8_t* timer_bit_no;
 uint8_t* keyboard_bit_no;
 uint8_t* mouse_bit_no;
 
+unsigned int score = 0;
+
 int (subscribe_game_devices)() {
     timer_bit_no = (uint8_t*) malloc(sizeof(uint8_t));
     if (timer_subscribe_int(timer_bit_no) != 0)
