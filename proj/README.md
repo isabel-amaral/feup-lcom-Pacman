@@ -13,6 +13,38 @@ We decided to implement our version of the classic **Pacman** and used the follo
 
 ### Game Preview
 
+The following screenshots ilustrate the general look of our game.
+
+#### The Game
+
+<p align="center">
+  <img src="https://github.com/isabel-amaral/feup-lcom-Pacman/blob/main/proj/docs/images/game.png" />
+</p>
+
+#### Paused Game
+
+<p align="center">
+  <img src="https://github.com/isabel-amaral/feup-lcom-Pacman/blob/main/proj/docs/images/pause.png" />
+</p>
+
+#### Game Over
+
+<p align="center">
+  <img src="https://github.com/isabel-amaral/feup-lcom-Pacman/blob/main/proj/docs/images/game_over.png" />
+</p>
+
+#### Main Menu
+
+<p align="center">
+  <img src="https://github.com/isabel-amaral/feup-lcom-Pacman/blob/main/proj/docs/images/menu.png" />
+</p>
+
+#### Rules
+
+<p align="center">
+  <img src="https://github.com/isabel-amaral/feup-lcom-Pacman/blob/main/proj/docs/images/rules.png" />
+</p>
+
 ### Implemented Features
 
 - **Player control** - Pacman is moved with keyboard inputs that are recieved through the respective events
