@@ -17,10 +17,10 @@ This course was divided in two stages: the weekly labs, each focusing in the pro
 
 Each of the assignments is linked bellow:
 
-- ### [Lab 2 - Timer](./lab2/)
-- ### [Lab 3 - Keyboard](./lab3/)
-- ### [Lab 4 - Mouse](./lab4/)
-- ### [Lab 5 - Video Card in Graphics Mode](./lab5/)
-- ### [Project - Pacman](./proj/)
+- #### [Lab 2 - Timer](./lab2/)
+- #### [Lab 3 - Keyboard](./lab3/)
+- #### [Lab 4 - Mouse](./lab4/)
+- #### [Lab 5 - Video Card in Graphics Mode](./lab5/)
+- #### [Project - Pacman](./proj/)
 
 and each must be run in a virtual machine running **MINIX 3**.
