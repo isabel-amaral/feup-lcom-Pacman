@@ -1,8 +1,11 @@
-.vscode/
+**/.vscode/
+**/.clang-format
 **/.gdbinit
+
 **/*.o
 **/output.txt
 **/trace.txt
+
 lab2/lab2
 lab3/lab3
 lab4/lab4
